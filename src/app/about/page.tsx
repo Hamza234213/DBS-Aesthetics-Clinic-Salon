@@ -28,7 +28,7 @@ export default function AboutPage() {
               <Button href="/contact" variant="secondary">Visit Clinic</Button>
             </div>
           </div>
-          <div className="rounded-[2.25rem] border border-[#c9ac6a]/20 bg-[#1f1f1f] p-8">
+          <div className="rounded-[2.25rem] border border-[#c9ac6a]/20 bg-[#1f1f1f] p-8 transition-all duration-300 hover:scale-[1.02] hover:border-[#c9ac6a]/60 hover:shadow-[0_20px_60px_rgba(201,172,106,0.12)] active:scale-95">
             <h2 className="text-2xl font-semibold text-[#f7f2e9]">Our philosophy</h2>
             <p className="mt-4 text-lg leading-8 text-[#f7f2e9]/70">{clinicInfo.vision}</p>
             <p className="mt-6 text-lg leading-8 text-[#f7f2e9]/70">{clinicInfo.mission}</p>
@@ -39,7 +39,7 @@ export default function AboutPage() {
       <SectionShell eyebrow="Our values" title="Trusted, transparent and deeply personal care" description="We are committed to a calm and refined experience at every step.">
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {stats.map((stat) => (
-            <div key={stat.label} className="rounded-3xl border border-[#c9ac6a]/20 bg-[#202020] p-8 text-center">
+            <div key={stat.label} className="rounded-3xl border border-[#c9ac6a]/20 bg-[#202020] p-8 text-center transition-all duration-300 hover:scale-[1.05] hover:border-[#c9ac6a]/60 hover:bg-[#202020]/90 hover:shadow-[0_20px_60px_rgba(201,172,106,0.15)] active:scale-95">
               <p className="text-4xl font-semibold text-[#c9ac6a]">{stat.value}</p>
               <p className="mt-3 text-sm text-[#f7f2e9]/70">{stat.label}</p>
             </div>
@@ -50,7 +50,9 @@ export default function AboutPage() {
       <SectionShell eyebrow="Meet the team" title="The specialists shaping your experience" description="A blend of medical expertise, artistry and hospitality defines our team.">
         <div className="grid gap-8 md:grid-cols-3">
           {teamMembers.map((member) => (
-            <DoctorCard key={member.name} name={member.name} role={member.role} bio={member.bio} image={member.image} />
+            <div key={member.name} className="transition-all duration-300 hover:scale-[1.03] hover:z-10 active:scale-95">
+              <DoctorCard name={member.name} role={member.role} bio={member.bio} image={member.image} />
+            </div>
           ))}
         </div>
       </SectionShell>
@@ -58,7 +60,9 @@ export default function AboutPage() {
       <SectionShell eyebrow="Standards" title="Certified protocols and a premium standard" description="Every detail is designed to feel safe, modern and reassuring.">
         <div className="flex flex-wrap gap-3">
           {certifications.map((item) => (
-            <span key={item} className="rounded-full border border-[#c9ac6a]/30 px-4 py-2 text-sm text-[#c9ac6a]">{item}</span>
+            <span key={item} className="rounded-full border border-[#c9ac6a]/30 px-4 py-2 text-sm text-[#c9ac6a] transition-all duration-300 hover:scale-105 hover:border-[#c9ac6a]/60 hover:bg-[#c9ac6a]/10 hover:shadow-[0_10px_30px_rgba(201,172,106,0.1)] active:scale-95">
+              {item}
+            </span>
           ))}
         </div>
       </SectionShell>

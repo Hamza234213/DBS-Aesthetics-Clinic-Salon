@@ -46,14 +46,14 @@ export default function GalleryPage() {
           {galleryImages.map((image) => (
             <div
               key={image.src}
-              className="overflow-hidden rounded-4xl border border-[#c9ac6a]/20 bg-[#202020]"
+              className="overflow-hidden rounded-4xl border border-[#c9ac6a]/20 bg-[#202020] transition-all duration-300 hover:scale-[1.02] hover:border-[#c9ac6a]/60 hover:shadow-[0_20px_60px_rgba(201,172,106,0.15)] active:scale-95"
             >
-              <div className="relative h-80">
+              <div className="relative h-80 overflow-hidden">
                 <Image
                   src={image.src}
                   alt={image.alt}
                   fill
-                  className="object-cover transition duration-500 hover:scale-105"
+                  className="object-cover transition duration-500 group-hover:scale-105"
                 />
               </div>
 

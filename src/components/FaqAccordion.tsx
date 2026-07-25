@@ -38,7 +38,7 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
               </span>
 
               <motion.span
-                animate={{ rotate: isOpen ? 45 : 0 }}
+                animate={{ rotate: isOpen ? 90 : 0 }}
                 transition={{ duration: 0.3 }}
                 className="text-2xl text-[#c9ac6a] flex-shrink-0 ml-4"
               >

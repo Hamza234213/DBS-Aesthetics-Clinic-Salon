@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { servicePages } from "@/data/clinic";
+import { servicePages, servicesWithPrices } from "@/data/clinic";
 import { Button } from "@/components/Button";
 import { SectionShell } from "@/components/SectionShell";
 
@@ -19,6 +19,44 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
   };
 }
 
+// Helper function to get services for a category
+const getServicesForCategory = (slug: string) => {
+  const categoryMap: Record<string, string> = {
+    "facial-treatments": "hydraFacials",
+    "hair-treatments": "hairTreatments", // Added this line
+    "laser-treatments": "laserHairRemoval",
+    "skin-treatments": "skinWhiteningDrips",
+    "body-treatments": "hifuTreatments",
+    "salon-services": "eyebrowLipTints",
+  };
+
+  const key = categoryMap[slug];
+  if (!key) return null;
+  
+  const serviceData = servicesWithPrices[key as keyof typeof servicesWithPrices];
+  return serviceData || null;
+};
+
+// Type guard to check if treatment has packagePrice
+const hasPackagePrice = (treatment: any): treatment is { packagePrice: number } => {
+  return treatment && typeof treatment.packagePrice === 'number';
+};
+
+// Type guard to check if treatment has individualPrice
+const hasIndividualPrice = (treatment: any): treatment is { individualPrice: number } => {
+  return treatment && typeof treatment.individualPrice === 'number';
+};
+
+// Type guard to check if treatment has price
+const hasPrice = (treatment: any): treatment is { price: number } => {
+  return treatment && typeof treatment.price === 'number';
+};
+
+// Type guard to check if treatment has priceRange
+const hasPriceRange = (treatment: any): treatment is { priceRange: string } => {
+  return treatment && typeof treatment.priceRange === 'string';
+};
+
 export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const { slug } = await params;
   const service = servicePages.find((item) => item.slug === slug);
@@ -28,6 +66,13 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   }
 
   const heroImage = service.gallery?.[0] ?? "/image1.PNG";
+  const servicePricing = getServicesForCategory(slug);
+
+  // Check if any treatment has specific price types
+  const hasAnyPackagePrice = servicePricing?.treatments?.some(hasPackagePrice) ?? false;
+  const hasAnyIndividualPrice = servicePricing?.treatments?.some(hasIndividualPrice) ?? false;
+  const hasAnyPrice = servicePricing?.treatments?.some(hasPrice) ?? false;
+  const hasAnyPriceRange = servicePricing?.treatments?.some(hasPriceRange) ?? false;
 
   return (
     <div>
@@ -49,6 +94,65 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
           </div>
         </div>
       </section>
+
+      {/* PRICING SECTION - Only show if pricing data exists */}
+      {servicePricing && servicePricing.treatments && servicePricing.treatments.length > 0 && (
+        <SectionShell 
+          eyebrow="Pricing" 
+          title={`${servicePricing.category} Packages & Pricing`} 
+          description={servicePricing.description}
+        >
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="border-b border-[#c9ac6a]/20">
+                  <th className="px-4 py-3 text-left text-sm font-semibold text-[#c9ac6a]">Treatment</th>
+                  {hasAnyPackagePrice && (
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-[#c9ac6a]">Package Price</th>
+                  )}
+                  {hasAnyIndividualPrice && (
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-[#c9ac6a]">Individual Session</th>
+                  )}
+                  {hasAnyPrice && (
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-[#c9ac6a]">Price</th>
+                  )}
+                  {hasAnyPriceRange && (
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-[#c9ac6a]">Price Range</th>
+                  )}
+                </tr>
+              </thead>
+              <tbody>
+                {servicePricing.treatments.map((treatment: any, index: number) => (
+                  <tr key={index} className="border-b border-[#c9ac6a]/10 hover:bg-[#2a2a2a] transition-colors">
+                    <td className="px-4 py-4 text-[#f7f2e9] font-medium">{treatment.name}</td>
+                    {hasAnyPackagePrice && (
+                      <td className="px-4 py-4 text-[#f7f2e9]">
+                        {treatment.packagePrice ? `PKR ${treatment.packagePrice.toLocaleString()}` : '-'}
+                      </td>
+                    )}
+                    {hasAnyIndividualPrice && (
+                      <td className="px-4 py-4 text-[#f7f2e9]">
+                        {treatment.individualPrice ? `PKR ${treatment.individualPrice.toLocaleString()}` : '-'}
+                      </td>
+                    )}
+                    {hasAnyPrice && (
+                      <td className="px-4 py-4 text-[#f7f2e9]">
+                        {treatment.price ? `PKR ${treatment.price.toLocaleString()}` : '-'}
+                      </td>
+                    )}
+                    {hasAnyPriceRange && (
+                      <td className="px-4 py-4 text-[#f7f2e9]">
+                        {treatment.priceRange ? `PKR ${treatment.priceRange}` : '-'}
+                      </td>
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <p className="mt-4 text-sm text-[#f7f2e9]/60 italic">* Prices are in PKR. Packages valid for specified sessions.</p>
+          </div>
+        </SectionShell>
+      )}
 
       <SectionShell eyebrow="Treatment overview" title="Why clients choose this service" description={service.overview}>
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">

@@ -21,7 +21,9 @@ export const clinicInfo = {
     "A trusted destination for advanced aesthetics and luxury salon services in Karachi.",
   about:
     "DBS Aesthetic Clinic & Salon by Zaini is a trusted beauty and skincare destination in Karachi, offering a perfect blend of advanced aesthetic treatments and professional salon services under one roof. Our major services include laser hair removal, HydraFacial and skin rejuvenation treatments, along with expert hair styling and makeovers. Under the guidance of our Doctors, renowned for his artistry and dedication, we focus on delivering safe, personalized, and result-driven treatments. With certified experts, modern technology, strict hygiene standards, and honest consultations, we ensure every client feels confident and cared for. At DBS, your satisfaction and trust are our guarantee.",
-  vision:
+  homepageAbout: 
+  "Discover the pinnacle of beauty at our Aesthetic Skin Clinic and Salon. With advanced treatments and expert care, we unlock your radiant potential embark on a transfromative journey to rejuvenation and confidence with us.",
+    vision:
     "To be the most trusted luxury aesthetics and salon destination in Pakistan, setting new standards for personalized care, medical safety, and visible transformations.",
   mission:
     "To deliver thoughtful, result-driven treatments with medical precision, premium hospitality, and a client-first experience that builds lasting confidence.",
@@ -34,7 +36,7 @@ export const clinicInfo = {
 
 export const featuredTreatments = [
   {
-    title: "HydraFacial",
+    title: "Hydra Facial",
     description: "Deep cleansing and hydration for radiant, glowing skin.",
     duration: "60 mins",
     image: "/hydra.png"
@@ -50,6 +52,27 @@ export const featuredTreatments = [
     description: "Professional haircuts, styling, and color transformations.",
     duration: "60-90 mins",
     image: "/hairstyle.png"
+  },
+    {
+    slug: "skin-treatments",
+    title: "Skin Treatments",
+     duration: "60 mins",
+    description: "Rejuvenation and corrective skin treatments for visible radiance.",
+    image: "/image2.PNG",
+  },
+  {
+    slug: "body-treatments",
+    title: "Body Treatments",
+     duration: "60-75 mins",
+    description: "Body contouring and sculpting solutions with a luxurious finish.",
+    image: "/skintreatment.png",
+  },
+  {
+    slug: "salon-services",
+    title: "Salon Services",
+     duration: "45-90 mins",
+    description: "Hair styling, makeovers and grooming experiences in a private setting.",
+    image: "/image1.PNG",
   },
 ];
 
@@ -92,6 +115,133 @@ export const treatmentCategories = [
   },
 ];
 
+// ===== SERVICES WITH PRICES =====
+export const servicesWithPrices = {
+  laserHairRemoval: {
+    category: "Laser Hair Removal",
+    description: "Permanent reduction for smooth, hair-free skin.",
+    treatments: [
+      { name: "Full Body Laser (Unlimited Sessions)", packagePrice: 75000, individualPrice: 8000 },
+      { name: "Hand & Foot Laser (8 Sessions)", packagePrice: 35000, individualPrice: 8000 },
+      { name: "Face & Neck Laser (6 Sessions)", packagePrice: 20000, individualPrice: 4500 },
+      { name: "Underarm Laser (6 Sessions)", packagePrice: 25000, individualPrice: 5000 },
+      { name: "Bikini Laser (6 Sessions)", packagePrice: 25000, individualPrice: 5000 },
+    ]
+  },
+  hifuTreatments: {
+    category: "HIFU Treatments",
+    description: "Lift, tighten, and rejuvenate with high-intensity focused ultrasound.",
+    treatments: [
+      { name: "Body HIFU", price: 65000 },
+      { name: "Face, Chin & Neck", price: 40000 },
+      { name: "Face & Chin", price: 30000 },
+    ]
+  },
+  hydraFacials: {
+    category: "Hydra Facials",
+    description: "Deep-cleansing, hydrating, and glow-boosting facial treatments.",
+    treatments: [
+      { name: "Glow Hydra Facial", price: 10000 },
+      { name: "Hydra Signature Facial (Cocktail)", price: 6000 },
+      { name: "Hydra Facial Black Beauty", price: 11000 },
+      { name: "Vampire Hydra Facial", price: 12000 },
+      { name: "Standard Hydra Facial", price: 5000 },
+    ]
+  },
+  skinWhiteningDrips: {
+    category: "Skin Whitening Drips",
+    description: "Intravenous glutathione and vitamin infusions for bright, even-toned skin.",
+    treatments: [
+      { name: "Whitening Drips (per session)", priceRange: "12,000 – 50,000" },
+      { name: "Whitening Skin Black (All Sessions Package)", price: 80000 },
+    ]
+  },
+  eyebrowLipTints: {
+    category: "Eyebrow & Lip Tints",
+    description: "Semi-permanent color enhancement for brows and lips.",
+    treatments: [
+      { name: "Eyebrows Tint", price: 8000 },
+      { name: "Lip Tint", price: 8000 },
+    ]
+  },
+  hairTreatments: {
+    category: "Hair Treatments",
+    description: "Repair, restore and strengthen with premium scalp and hair therapies.",
+    treatments: [
+      { name: "Deep Conditioning", price: 1600 },
+      { name: "Oil Massage", price: 1000 },
+      { name: "Oil Massage with Shampoo", price: 2500 },
+      { name: "Protein Treatment", price: 3000 },
+      { name: "Pro Keratin", price: 4000 },
+      { name: "Glamour Conditioner", price: 2500 },
+    ]
+  }
+};
+
+// ===== FLAT SERVICE LIST FOR DISPLAY =====
+export const allServices = [
+  // Laser Hair Removal
+  ...servicesWithPrices.laserHairRemoval.treatments.map(t => ({
+    category: "Laser Hair Removal",
+    categoryDescription: "Permanent reduction for smooth, hair-free skin.",
+    name: t.name,
+    packagePrice: t.packagePrice ? `PKR ${t.packagePrice.toLocaleString()}` : null,
+    individualPrice: t.individualPrice ? `PKR ${t.individualPrice.toLocaleString()}` : null,
+    price: null,
+    priceRange: null,
+  })),
+  // HIFU Treatments
+  ...servicesWithPrices.hifuTreatments.treatments.map(t => ({
+    category: "HIFU Treatments",
+    categoryDescription: "Lift, tighten, and rejuvenate with high-intensity focused ultrasound.",
+    name: t.name,
+    packagePrice: null,
+    individualPrice: null,
+    price: `PKR ${t.price.toLocaleString()}`,
+    priceRange: null,
+  })),
+  // Hydra Facials
+  ...servicesWithPrices.hydraFacials.treatments.map(t => ({
+    category: "Hydra Facials",
+    categoryDescription: "Deep-cleansing, hydrating, and glow-boosting facial treatments.",
+    name: t.name,
+    packagePrice: null,
+    individualPrice: null,
+    price: `PKR ${t.price.toLocaleString()}`,
+    priceRange: null,
+  })),
+  // Skin Whitening Drips
+  ...servicesWithPrices.skinWhiteningDrips.treatments.map(t => ({
+    category: "Skin Whitening Drips",
+    categoryDescription: "Intravenous glutathione and vitamin infusions for bright, even-toned skin.",
+    name: t.name,
+    packagePrice: null,
+    individualPrice: null,
+    price: t.price ? `PKR ${t.price.toLocaleString()}` : null,
+    priceRange: t.priceRange || null,
+  })),
+  // Eyebrow & Lip Tints
+  ...servicesWithPrices.eyebrowLipTints.treatments.map(t => ({
+    category: "Eyebrow & Lip Tints",
+    categoryDescription: "Semi-permanent color enhancement for brows and lips.",
+    name: t.name,
+    packagePrice: null,
+    individualPrice: null,
+    price: `PKR ${t.price.toLocaleString()}`,
+    priceRange: null,
+  })),
+  // Hair Treatments
+  ...servicesWithPrices.hairTreatments.treatments.map(t => ({
+    category: "Hair Treatments",
+    categoryDescription: "Repair, restore and strengthen with premium scalp and hair therapies.",
+    name: t.name,
+    packagePrice: null,
+    individualPrice: null,
+    price: `PKR ${t.price.toLocaleString()}`,
+    priceRange: null,
+  })),
+];
+
 export const servicePages = [
  {
   slug: "facial-treatments",
@@ -107,7 +257,7 @@ export const servicePages = [
     { question: "Is the facial treatment painful?", answer: "Most treatments are soothing and comfortable with no significant discomfort." },
     { question: "How often should I book?", answer: "A monthly session is ideal for maintenance and long-term glow." },
   ],
-  gallery: ["/image2.PNG", "/skincare.png"], // Must be an array
+  gallery: ["/image2.PNG", "/skincare.png"],
 },
   {
     slug: "hair-treatments",
@@ -122,7 +272,7 @@ export const servicePages = [
     faqs: [
       { question: "Can I combine scalp care with styling?", answer: "Yes, many clients pair a treatment with a beauty finish or blowout." },
     ],
-    gallery: ["/patchyhair.png", "/hairstyle.png"], // Using your existing images
+    gallery: ["/patchyhair.png", "/hairstyle.png"],
   },
   {
     slug: "laser-treatments",
@@ -137,7 +287,7 @@ export const servicePages = [
     faqs: [
       { question: "Are laser treatments safe?", answer: "Yes, treatments are performed by qualified professionals under clinical standards." },
     ],
-    gallery: ["/laser.png", "/skintreatment.png"], // Using your existing images
+    gallery: ["/laser.png", "/skintreatment.png"],
   },
   {
     slug: "skin-treatments",
@@ -152,7 +302,7 @@ export const servicePages = [
     faqs: [
       { question: "Can I book a treatment if I am pregnant?", answer: "We recommend discussing your medical history during consultation before booking." },
     ],
-    gallery: ["/skincare.png", "/image2.PNG"], // Using your existing images
+    gallery: ["/skincare.png", "/image2.PNG"],
   },
   {
     slug: "body-treatments",
@@ -167,7 +317,7 @@ export const servicePages = [
     faqs: [
       { question: "Will there be downtime?", answer: "Most sessions have minimal downtime and allow a comfortable return to daily life." },
     ],
-    gallery: ["/skintreatment.png", "/image1.PNG"], // Using your existing images
+    gallery: ["/skintreatment.png", "/image1.PNG"],
   },
   {
     slug: "salon-services",
@@ -182,7 +332,7 @@ export const servicePages = [
     faqs: [
       { question: "Can I book a same-day appointment?", answer: "Yes, availability varies, so we recommend contacting the team directly for urgent scheduling." },
     ],
-    gallery: ["/image1.PNG", "/hairstyle.png"], // Using your existing images
+    gallery: ["/image1.PNG", "/hairstyle.png"],
   },
 ];
 

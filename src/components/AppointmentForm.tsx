@@ -17,10 +17,10 @@ export function AppointmentForm() {
     <motion.div 
       initial={{ opacity: 0, y: 18 }} 
       animate={{ opacity: 1, y: 0 }} 
-      className="rounded-[2.25rem] border border-[#c9ac6a]/20 bg-[#1f1f1f] p-8 shadow-[0_25px_80px_rgba(0,0,0,0.3)]"
+      className="rounded-[2.25rem] border hover:border-[#c9ac6a] transition-all duration-300 focus:border-[#c9ac6a] border-[#c9ac6a]/20 bg-[#1f1f1f] p-8 shadow-[0_25px_80px_rgba(0,0,0,0.3)]"
     >
       {submitted ? (
-        <div className="rounded-[1.75rem] border border-[#c9ac6a]/30 bg-[#232323] p-8 text-center">
+        <div className="rounded-[1.75rem] border  border-[#c9ac6a]/30 bg-[#232323] p-8 text-center">
           <p className="text-sm uppercase tracking-[0.35em] text-[#c9ac6a]">Booking request received</p>
           <h2 className="mt-4 text-3xl font-semibold text-[#f7f2e9]">Thank you for contacting DBS.</h2>
           <p className="mt-4 text-lg leading-8 text-[#f7f2e9]/70">Our team will confirm your preferred date and treatment shortly. For urgent assistance, please reach us on WhatsApp.</p>
