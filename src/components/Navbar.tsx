@@ -241,68 +241,7 @@ export function Navbar() {
                 })}
               </nav>
 
-              {/* Bottom Section - Book Button & Contact Info */}
-              <div className="mt-auto space-y-6 pb-4">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                >
-                  <a
-                    href="/book-appointment"
-                    onClick={() => setIsOpen(false)}
-                    className="block w-full text-center rounded-2xl bg-[#c9ac6a] px-8 py-4 text-base font-semibold text-[#232323] transition hover:bg-[#d4b87a] hover:scale-[1.02] active:scale-95"
-                  >
-                    Book Appointment
-                  </a>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.6 }}
-                  className="flex flex-col items-center gap-3 pt-4 border-t border-[#c9ac6a]/10"
-                >
-                  <div className="flex items-center gap-6">
-                    <a
-                      href={`tel:${clinicInfo.phone}`}
-                      className="flex items-center gap-2 text-sm text-[#f7f2e9]/60 hover:text-[#c9ac6a] transition-colors"
-                    >
-                      <FaPhone className="text-[#c9ac6a] text-xs" />
-                      {clinicInfo.phone}
-                    </a>
-                    <span className="text-[#f7f2e9]/20">|</span>
-                    <span className="text-sm text-[#f7f2e9]/60">{clinicInfo.hours}</span>
-                  </div>
-                  
-                  <div className="flex items-center gap-4 mt-2">
-                    <a
-                      href={clinicInfo.socials.whatsapp}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 flex items-center justify-center rounded-full bg-[#c9ac6a]/10 hover:bg-[#c9ac6a]/20 transition-colors"
-                    >
-                      <FaWhatsapp className="text-[#c9ac6a] text-lg" />
-                    </a>
-                    <a
-                      href={clinicInfo.socials.instagram}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 flex items-center justify-center rounded-full bg-[#c9ac6a]/10 hover:bg-[#c9ac6a]/20 transition-colors"
-                    >
-                      <FaInstagram className="text-[#c9ac6a] text-lg" />
-                    </a>
-                    <a
-                      href={clinicInfo.socials.facebook}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 flex items-center justify-center rounded-full bg-[#c9ac6a]/10 hover:bg-[#c9ac6a]/20 transition-colors"
-                    >
-                      <FaFacebook className="text-[#c9ac6a] text-lg" />
-                    </a>
-                  </div>
-                </motion.div>
-              </div>
+                
             </div>
           </motion.div>
         )}
