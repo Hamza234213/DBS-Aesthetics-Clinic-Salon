@@ -21,28 +21,50 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
         return (
           <div
             key={item.question}
-            className={`overflow-hidden rounded-3xl border transition-all duration-300 ${
+            className={`page-card overflow-hidden rounded-[1.75rem] transition-all duration-300 ${
               isOpen 
-                ? "border-[#c9ac6a] bg-[#1f1f1f] shadow-[0_0_30px_rgba(201,172,106,0.05)]" 
-                : "border-[#c9ac6a]/20 bg-[#1f1f1f] hover:border-[#c9ac6a]/40"
+                ? "border-[#c9ac6a]/60 shadow-[0_0_40px_rgba(201,172,106,0.08)]" 
+                : "border-[#c9ac6a]/20 hover:border-[#c9ac6a]/35 hover:shadow-[0_0_30px_rgba(201,172,106,0.05)]"
             }`}
           >
             <button
               onClick={() => setOpen(isOpen ? null : index)}
-              className="flex w-full items-center justify-between px-6 py-5 text-left  transition-colors duration-300"
+              className="flex w-full items-center justify-between px-6 py-5 text-left transition-colors duration-300 group"
             >
-              <span className={`text-lg font-medium transition-colors duration-300 ${
-                isOpen ? "text-[#c9ac6a]" : "text-[#f7f2e9]"
-              }`}>
-                {item.question}
-              </span>
+              <div className="flex items-center gap-4">
+                {/* Question number with gold styling */}
+                <span className={`hidden sm:flex items-center justify-center w-8 h-8 rounded-full border text-xs font-medium transition-all duration-300 ${
+                  isOpen 
+                    ? "border-[#c9ac6a] bg-[#c9ac6a]/10 text-[#c9ac6a]" 
+                    : "border-[#c9ac6a]/20 text-[#c9ac6a]/40 group-hover:border-[#c9ac6a]/40 group-hover:text-[#c9ac6a]/60"
+                }`}>
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                
+                <span className={`text-lg font-medium transition-colors duration-300 ${
+                  isOpen ? "text-[#c9ac6a]" : "text-[#f7f2e9] group-hover:text-[#f7f2e9]/90"
+                }`}>
+                  {item.question}
+                </span>
+              </div>
 
               <motion.span
-                animate={{ rotate: isOpen ? 90 : 0 }}
-                transition={{ duration: 0.3 }}
-                className="text-2xl text-[#c9ac6a] flex-shrink-0 ml-4"
+                animate={{ rotate: isOpen ? 45 : 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className={`relative flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border transition-all duration-300 ml-4 ${
+                  isOpen 
+                    ? "border-[#c9ac6a] bg-[#c9ac6a]/10 text-[#c9ac6a]" 
+                    : "border-[#c9ac6a]/20 text-[#c9ac6a]/40 group-hover:border-[#c9ac6a]/40 group-hover:text-[#c9ac6a]/60"
+                }`}
               >
-                {isOpen ? "×" : "+"}
+                <svg 
+                  className="h-4 w-4 transition-transform duration-300" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                </svg>
               </motion.span>
             </button>
 
@@ -54,9 +76,19 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.4, ease: "easeInOut" }}
                 >
-                  <p className="px-6 pb-6 text-sm leading-7 text-[#f7f2e9]/70">
-                    {item.answer}
-                  </p>
+                  <div className="relative">
+                    {/* Gold accent line */}
+                    <div className="mx-6 h-px bg-gradient-to-r from-[#c9ac6a]/40 via-[#c9ac6a]/20 to-transparent" />
+                    
+                    <div className="px-6 pb-6 pt-4">
+                      <div className="flex gap-4">
+                       
+                        <p className="text-sm leading-7 text-[#f7f2e9]/80">
+                          {item.answer}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>

@@ -14,7 +14,7 @@ export const metadata: Metadata = siteMetadata;
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
-      <body className="min-h-screen bg-[#232323] text-[#f7f2e9] antialiased">
+      <body className="min-h-screen bg-[#050505] text-[#f7f2e9] antialiased">
         <div className="flex min-h-screen flex-col">
           <Navbar />
           <main className="flex-1">{children}</main>

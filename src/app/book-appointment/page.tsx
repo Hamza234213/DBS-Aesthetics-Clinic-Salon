@@ -10,10 +10,7 @@ export const metadata: Metadata = {
 
 export default function BookAppointmentPage() {
   return (
-    <div>
-      {/* Background Gradient */}
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(201,172,106,0.18),transparent_50%)]" />
-      
+    <div className="page-metallic-shell relative overflow-hidden min-h-screen">
       <section className="mx-auto max-w-7xl px-4 pt-[120px] pb-24 sm:px-6 md:pt-[140px] lg:px-8 lg:pt-[160px]">
         <AnimatedHero>
           <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
@@ -22,7 +19,7 @@ export default function BookAppointmentPage() {
               <h1 className="mt-4 text-4xl font-semibold font-semibold font-serif text-[#f7f2e9] sm:text-5xl">Reserve a private consultation with the DBS team.</h1>
               <p className="mt-6 text-lg leading-8 text-[#f7f2e9]/75">Share your preferred treatment, schedule and details so we can prepare a thoughtful, personalized experience.</p>
               
-              <div className="mt-8 rounded-4xl border border-[#c9ac6a]/20 bg-[#1f1f1f] p-8 text-sm leading-8 text-[#f7f2e9]/75 transition-all duration-300 hover:scale-[1.02] hover:border-[#c9ac6a]/60 hover:shadow-[0_20px_60px_rgba(201,172,106,0.12)] active:scale-95">
+              <div className="page-card mt-8 rounded-[2rem] p-8 text-sm leading-8 text-[#f7f2e9]/75 transition-all duration-300 hover:scale-[1.02] active:scale-95">
                 <p><span className="text-[#c9ac6a]">Phone:</span> {clinicInfo.phone}</p>
                 <p><span className="text-[#c9ac6a]">WhatsApp:</span> {clinicInfo.whatsapp}</p>
                 <p><span className="text-[#c9ac6a]">Hours:</span> {clinicInfo.hours}</p>

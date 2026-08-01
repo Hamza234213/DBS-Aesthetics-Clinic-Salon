@@ -12,9 +12,7 @@ export const metadata: Metadata = {
 
 export default function FaqsPage() {
   return (
-    <div>  
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(201,172,106,0.18),transparent_50%)]" />
-      
+    <div className="page-metallic-shell relative overflow-hidden min-h-screen">  
       <section className="mx-auto max-w-7xl px-4 pt-[120px] pb-24 sm:px-6 md:pt-[140px] lg:px-8 lg:pt-[160px]">
         <AnimatedHero>
           <div className="max-w-3xl">

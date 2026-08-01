@@ -18,7 +18,7 @@ export function DoctorCard({
 }: DoctorCardProps) {
   return (
     <div className="max-w-3xl mx-auto px-4">
-      <div className="rounded-4xl border border-[#c9ac6a]/20 bg-gradient-to-br from-[#1f1f1f] to-[#2a2a2a] p-8 md:p-12 shadow-[0_30px_80px_rgba(0,0,0,0.3)] text-center">
+      <div className="page-card rounded-[2rem] p-8 md:p-12 text-center">
         
         {/* Image */}
         <div className="relative mx-auto h-38 w-38 md:h-46 md:w-46">
@@ -60,14 +60,35 @@ export function DoctorCard({
         </div>
 
         {/* CTA */}
-        <div className="mt-8">
-          <a 
-            href="/book-appointment"
-            className="inline-block bg-[#c9ac6a] cursor-pointer text-[#232323] px-8 py-3.5 rounded-full text-sm font-medium uppercase tracking-wider hover:bg-[#d8ba7b] transition-all duration-300 shadow-lg shadow-[#c9ac6a]/20 hover:shadow-[#c9ac6a]/40"
-          >
-            Book a Consultation
-          </a>
-        </div>
+     <div className="mt-8">
+  <a
+    href="/book-appointment"
+    className="
+      inline-block
+      cursor-pointer
+      rounded-full
+      px-8
+      py-3.5
+      text-sm
+      font-medium
+      uppercase
+      tracking-wider
+      text-[#232323]
+
+      bg-[linear-gradient(135deg,#8f6b2e_0%,#c9a55c_20%,#f4d98a_40%,#b8893f_60%,#e0c16c_80%,#8f6b2e_100%)]
+
+      shadow-[inset_0_1px_1px_rgba(255,255,255,0.5),0_4px_15px_rgba(201,172,106,0.25)]
+
+      transition-all
+      duration-300
+
+      hover:brightness-110
+      hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.6),0_6px_20px_rgba(201,172,106,0.4)]
+    "
+  >
+    Book a Consultation
+  </a>
+</div>
       </div>
     </div>
   );

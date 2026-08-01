@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import { servicePages, servicesWithPrices } from "@/data/clinic";
 import { Button } from "@/components/Button";
 import { SectionShell } from "@/components/SectionShell";
+import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
 
 interface ServicePageProps {
   params: Promise<{ slug: string }>;
@@ -23,7 +24,7 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
 const getServicesForCategory = (slug: string) => {
   const categoryMap: Record<string, string> = {
     "facial-treatments": "hydraFacials",
-    "hair-treatments": "hairTreatments", // Added this line
+    "hair-treatments": "hairTreatments",
     "laser-treatments": "laserHairRemoval",
     "skin-treatments": "skinWhiteningDrips",
     "body-treatments": "hifuTreatments",
@@ -57,6 +58,22 @@ const hasPriceRange = (treatment: any): treatment is { priceRange: string } => {
   return treatment && typeof treatment.priceRange === 'string';
 };
 
+const TAX_RATE = 0.10;
+const formatCurrency = (amount: number) => `PKR ${amount.toLocaleString()}`;
+
+const renderPriceWithTax = (amount: number) => {
+  const taxAmount = Math.round(amount * TAX_RATE);
+  const totalAmount = amount + taxAmount;
+
+  return (
+    <div className="space-y-1">
+      <div className="text-sm text-[#f7f2e9]">Service price: <span className="font-semibold">{formatCurrency(amount)}</span></div>
+      <div className="text-sm text-[#f7f2e9]/70">Tax ({TAX_RATE * 100}%): <span className="font-semibold">{formatCurrency(taxAmount)}</span></div>
+      <div className="text-sm text-[#c9ac6a]">Total: <span className="font-semibold">{formatCurrency(totalAmount)}</span></div>
+    </div>
+  );
+};
+
 export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const { slug } = await params;
   const service = servicePages.find((item) => item.slug === slug);
@@ -73,9 +90,24 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const hasAnyIndividualPrice = servicePricing?.treatments?.some(hasIndividualPrice) ?? false;
   const hasAnyPrice = servicePricing?.treatments?.some(hasPrice) ?? false;
   const hasAnyPriceRange = servicePricing?.treatments?.some(hasPriceRange) ?? false;
+  const showTaxColumn = hasAnyPackagePrice || hasAnyIndividualPrice || hasAnyPrice;
+
+  // Prepare before/after pairs from gallery
+  const beforeAfterPairs = [];
+  for (let i = 0; i < service.gallery.length; i += 2) {
+    if (i + 1 < service.gallery.length) {
+      beforeAfterPairs.push({
+        before: service.gallery[i],
+        after: service.gallery[i + 1]
+      });
+    }
+  }
+
+  // If we have an odd number of images, use the last one as a standalone
+  const hasStandaloneImage = service.gallery.length % 2 !== 0;
 
   return (
-    <div>
+    <div className="page-metallic-shell relative overflow-hidden min-h-screen">
       <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div>
@@ -87,8 +119,8 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
               <Button href="https://wa.me/923333378862" variant="secondary">WhatsApp</Button>
             </div>
           </div>
-          <div className="overflow-hidden rounded-4xl border border-[#c9ac6a]/20 bg-[#1f1f1f]">
-            <div className="relative h-80">
+          <div className="page-card rounded-[1.75rem] overflow-hidden p-0">
+            <div className="relative h-80 rounded-[1.75rem] overflow-hidden">
               <Image src={heroImage} alt={service.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" priority />
             </div>
           </div>
@@ -102,54 +134,85 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
           title={`${servicePricing.category} Packages & Pricing`} 
           description={servicePricing.description}
         >
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse">
-              <thead>
-                <tr className="border-b border-[#c9ac6a]/20">
-                  <th className="px-4 py-3 text-left text-sm font-semibold text-[#c9ac6a]">Treatment</th>
-                  {hasAnyPackagePrice && (
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-[#c9ac6a]">Package Price</th>
-                  )}
-                  {hasAnyIndividualPrice && (
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-[#c9ac6a]">Individual Session</th>
-                  )}
-                  {hasAnyPrice && (
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-[#c9ac6a]">Price</th>
-                  )}
-                  {hasAnyPriceRange && (
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-[#c9ac6a]">Price Range</th>
-                  )}
-                </tr>
-              </thead>
-              <tbody>
-                {servicePricing.treatments.map((treatment: any, index: number) => (
-                  <tr key={index} className="border-b border-[#c9ac6a]/10 hover:bg-[#2a2a2a] transition-colors">
-                    <td className="px-4 py-4 text-[#f7f2e9] font-medium">{treatment.name}</td>
+          <div className="page-card overflow-hidden rounded-[2rem] border border-[#c9ac6a]/10 bg-[#111111]/90 p-6">
+            <div className="mb-6 rounded-[1.5rem] border border-[#c9ac6a]/15 bg-transparent p-6">
+              <p className="text-xs uppercase tracking-[0.35em] text-[#c9ac6a]">Tax option</p>
+              <p className="mt-2 text-sm leading-7 text-[#f7f2e9]/70">
+                The pricing table below includes a standard tax calculation of {TAX_RATE * 100}% on each service price. Every service row shows the base service price, the tax amount and the total charge.
+              </p>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse">
+                <thead>
+                  <tr className="border-b border-[#c9ac6a]/20">
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-[#c9ac6a]">Treatment</th>
                     {hasAnyPackagePrice && (
-                      <td className="px-4 py-4 text-[#f7f2e9]">
-                        {treatment.packagePrice ? `PKR ${treatment.packagePrice.toLocaleString()}` : '-'}
-                      </td>
+                      <th className="px-4 py-3 text-left text-sm font-semibold text-[#c9ac6a]">Package Price</th>
                     )}
                     {hasAnyIndividualPrice && (
-                      <td className="px-4 py-4 text-[#f7f2e9]">
-                        {treatment.individualPrice ? `PKR ${treatment.individualPrice.toLocaleString()}` : '-'}
-                      </td>
+                      <th className="px-4 py-3 text-left text-sm font-semibold text-[#c9ac6a]">Individual Session</th>
                     )}
                     {hasAnyPrice && (
-                      <td className="px-4 py-4 text-[#f7f2e9]">
-                        {treatment.price ? `PKR ${treatment.price.toLocaleString()}` : '-'}
-                      </td>
+                      <th className="px-4 py-3 text-left text-sm font-semibold text-[#c9ac6a]">Price</th>
                     )}
                     {hasAnyPriceRange && (
-                      <td className="px-4 py-4 text-[#f7f2e9]">
-                        {treatment.priceRange ? `PKR ${treatment.priceRange}` : '-'}
-                      </td>
+                      <th className="px-4 py-3 text-left text-sm font-semibold text-[#c9ac6a]">Price Range</th>
                     )}
+                    {showTaxColumn && (
+                      <th className="px-4 py-3 text-left text-sm font-semibold text-[#c9ac6a]">Tax & Total</th>
+                    )}
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-[#c9ac6a]">Book Now</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-            <p className="mt-4 text-sm text-[#f7f2e9]/60 italic">* Prices are in PKR. Packages valid for specified sessions.</p>
+                </thead>
+                <tbody>
+                  {servicePricing.treatments.map((treatment: any, index: number) => (
+                    <tr key={index} className="border-b border-[#c9ac6a]/10 hover:bg-[#c9ac6a]/10 transition-colors">
+                      <td className="px-4 py-4 text-[#f7f2e9] font-medium">{treatment.name}</td>
+                      {hasAnyPackagePrice && (
+                        <td className="px-4 py-4 text-[#f7f2e9]">
+                          {treatment.packagePrice ? formatCurrency(treatment.packagePrice) : '-'}
+                        </td>
+                      )}
+                      {hasAnyIndividualPrice && (
+                        <td className="px-4 py-4 text-[#f7f2e9]">
+                          {treatment.individualPrice ? formatCurrency(treatment.individualPrice) : '-'}
+                        </td>
+                      )}
+                      {hasAnyPrice && (
+                        <td className="px-4 py-4 text-[#f7f2e9]">
+                          {treatment.price ? formatCurrency(treatment.price) : '-'}
+                        </td>
+                      )}
+                      {hasAnyPriceRange && (
+                        <td className="px-4 py-4 text-[#f7f2e9]">
+                          {treatment.priceRange ? `PKR ${treatment.priceRange}` : '-'}
+                        </td>
+                      )}
+                      {showTaxColumn && (
+                        <td className="px-4 py-4 text-[#f7f2e9]">
+                          <div className="space-y-4">
+                            {treatment.packagePrice && renderPriceWithTax(treatment.packagePrice)}
+                            {treatment.individualPrice && renderPriceWithTax(treatment.individualPrice)}
+                            {treatment.price && renderPriceWithTax(treatment.price)}
+                            {!treatment.packagePrice && !treatment.individualPrice && !treatment.price && (
+                              <span className="text-[#f7f2e9]/60">Tax breakdown not available for range-based pricing.</span>
+                            )}
+                          </div>
+                        </td>
+                      )}
+                      <td className="px-4 py-4">
+                        <Button href={`/book-appointment?treatment=${encodeURIComponent(treatment.name)}`} className="inline-block">Book</Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <p className="mt-4 text-sm text-[#f7f2e9]/60 italic">
+              * Tax totals are calculated at {TAX_RATE * 100}% for display. Final billing may vary slightly depending on applicable service fees and location.
+            </p>
           </div>
         </SectionShell>
       )}
@@ -157,7 +220,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
       <SectionShell eyebrow="Treatment overview" title="Why clients choose this service" description={service.overview}>
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {service.benefits.map((item) => (
-            <div key={item} className="rounded-3xl border border-[#c9ac6a]/20 bg-[#202020] p-6">
+            <div key={item} className="page-card rounded-[1.25rem] p-6">
               <p className="text-lg font-semibold text-[#f7f2e9]">{item}</p>
             </div>
           ))}
@@ -167,7 +230,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
       <SectionShell eyebrow="How it works" title="A simple, premium treatment flow" description="Every session is guided by care, planning and professional support.">
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {service.process.map((step) => (
-            <div key={step} className="rounded-3xl border border-[#c9ac6a]/20 bg-[#202020] p-6">
+            <div key={step} className="page-card rounded-[1.25rem] p-6">
               <p className="text-lg font-semibold text-[#f7f2e9]">{step}</p>
             </div>
           ))}
@@ -176,15 +239,15 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
 
       <SectionShell eyebrow="Details" title="Practical information before your visit" description="A transparent overview of what to expect.">
         <div className="grid gap-6 lg:grid-cols-3">
-          <div className="rounded-[1.5rem] border border-[#c9ac6a]/20 bg-[#202020] p-6">
+          <div className="page-card rounded-[1.5rem] p-6">
             <p className="text-sm uppercase tracking-[0.25em] text-[#c9ac6a]">Duration</p>
             <p className="mt-4 text-lg text-[#f7f2e9]">{service.duration}</p>
           </div>
-          <div className="rounded-[1.5rem] border border-[#c9ac6a]/20 bg-[#202020] p-6">
+          <div className="page-card rounded-[1.5rem] p-6">
             <p className="text-sm uppercase tracking-[0.25em] text-[#c9ac6a]">Recovery</p>
             <p className="mt-4 text-lg text-[#f7f2e9]">{service.recovery}</p>
           </div>
-          <div className="rounded-[1.5rem] border border-[#c9ac6a]/20 bg-[#202020] p-6">
+          <div className="page-card rounded-[1.5rem] p-6">
             <p className="text-sm uppercase tracking-[0.25em] text-[#c9ac6a]">Suitable for</p>
             <p className="mt-4 text-lg text-[#f7f2e9]">{service.suitableFor.join(", ")}</p>
           </div>
@@ -192,9 +255,9 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
       </SectionShell>
 
       <SectionShell eyebrow="FAQs" title="Questions about this treatment" description="Common guidance for clients preparing for their experience.">
-        <div className="space-y-4">
+        <div className="space-y-4 ">
           {service.faqs.map((item) => (
-            <div key={item.question} className="rounded-3xl border border-[#c9ac6a]/20 bg-[#202020] p-6">
+            <div key={item.question} className="page-card rounded-4xl p-6">
               <p className="text-lg font-semibold text-[#f7f2e9]">{item.question}</p>
               <p className="mt-3 text-sm leading-7 text-[#f7f2e9]/70">{item.answer}</p>
             </div>
@@ -202,20 +265,56 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
         </div>
       </SectionShell>
 
-      <SectionShell eyebrow="Before & after" title="Gallery preview for this treatment category" description="A visual summary of the premium care and aesthetic finish clients can expect.">
-        <div className="grid gap-6 md:grid-cols-2">
-          {service.gallery.map((item) => (
-            <div key={item} className="overflow-hidden rounded-4xl border border-[#c9ac6a]/20 bg-[#202020]">
+      {/* BEFORE & AFTER SECTION WITH SLIDER */}
+      <SectionShell 
+        eyebrow="Before & after" 
+        title="Gallery preview for this treatment category" 
+        description="A visual summary of the premium care and aesthetic finish clients can expect."
+      >
+        {beforeAfterPairs.length > 0 ? (
+          <div className="grid gap-6 md:grid-cols-2">
+            {beforeAfterPairs.map((pair, index) => (
+              <BeforeAfterSlider 
+                key={index}
+                beforeImage={pair.before}
+                afterImage={pair.after}
+                alt={`${service.title} - Before & After ${index + 1}`}
+              />
+            ))}
+          </div>
+        ) : (
+          // Fallback to regular gallery if no pairs
+          <div className="grid gap-6 md:grid-cols-2">
+            {service.gallery.map((item) => (
+              <div key={item} className="page-card overflow-hidden rounded-[1.25rem]">
+                <div className="relative h-72">
+                  <Image src={item} alt={service.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Show standalone image if odd number */}
+        {hasStandaloneImage && beforeAfterPairs.length > 0 && (
+          <div className="mt-6 grid gap-6 md:grid-cols-2">
+            <div className="page-card overflow-hidden rounded-[1.25rem] md:col-span-2">
               <div className="relative h-72">
-                <Image src={item} alt={service.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
+                <Image 
+                  src={service.gallery[service.gallery.length - 1]} 
+                  alt={service.title} 
+                  fill 
+                  className="object-cover" 
+                  sizes="(max-width: 768px) 100vw, 50vw" 
+                />
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        )}
       </SectionShell>
 
       <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
-        <div className="rounded-4xl border border-[#c9ac6a]/20 bg-[#202020] p-8 text-center">
+        <div className="page-card p-8 text-center rounded-[1.25rem]">
           <h2 className="text-3xl font-semibold text-[#f7f2e9]">Ready to begin?</h2>
           <p className="mt-4 text-lg leading-8 text-[#f7f2e9]/70">Book your appointment or speak with our team for a tailored recommendation.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">

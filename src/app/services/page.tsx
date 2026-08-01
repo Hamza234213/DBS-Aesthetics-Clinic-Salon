@@ -5,10 +5,7 @@ import { AnimatedHero } from "@/components/AnimatedHero";
 
 export default function ServicesPage() {
   return (
-    <div className="relative overflow-hidden">
-      {/* Background Gradient */}
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(201,172,106,0.18),transparent_50%)]" />
-
+    <div className="page-metallic-shell relative overflow-hidden min-h-screen">
       {/* Hero Section */}
       <section className="mx-auto max-w-7xl px-4 pt-[120px] pb-24 sm:px-6 md:pt-[140px] lg:px-8 lg:pt-[160px]">
         <AnimatedHero>
@@ -40,7 +37,7 @@ export default function ServicesPage() {
             <Link
               key={category.slug}
               href={`/services/${category.slug}`}
-              className="rounded-4xl border border-[#c9ac6a]/20 bg-[#202020] p-8 transition duration-300 hover:-translate-y-1 hover:border-[#c9ac6a]/40"
+              className="page-card rounded-[1.75rem] p-8 transition duration-300 hover:-translate-y-1"
             >
               <p className="text-sm uppercase tracking-[0.25em] text-[#c9ac6a]">
                 {category.title}

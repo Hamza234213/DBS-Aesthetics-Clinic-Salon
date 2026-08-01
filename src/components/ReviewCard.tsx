@@ -26,8 +26,8 @@ export function ReviewCard({
     <motion.div
       className={`relative rounded-2xl border-2 p-8 transition-all duration-300 cursor-pointer
         ${isHovered || isTapped 
-          ? 'border-[#c9ac6a] shadow-[0_20px_60px_rgba(201,172,106,0.15)]' 
-          : 'border-[#c9ac6a]/20  shadow-[0_20px_60px_rgba(0,0,0,0.25)]'
+          ? 'border-[#c9ac6a] bg-[#0a0a0a]/60 shadow-[0_20px_60px_rgba(201,172,106,0.15)]' 
+          : 'border-[#c9ac6a]/20  bg-[#0a0a0a]/60 shadow-[0_20px_60px_rgba(0,0,0,0.25)]'
         }`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

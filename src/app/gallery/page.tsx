@@ -12,10 +12,7 @@ export const metadata: Metadata = {
 
 export default function GalleryPage() {
   return (
-    <div className="relative overflow-hidden">
-      {/* Background Gradient */}
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(201,172,106,0.18),transparent_50%)]" />
-
+    <div className="page-metallic-shell relative overflow-hidden min-h-screen">
       {/* Hero Section */}
       <section className="mx-auto max-w-7xl px-4 pt-[120px] pb-24 sm:px-6 md:pt-[140px] lg:px-8 lg:pt-[160px]">
         <AnimatedHero>
@@ -46,7 +43,7 @@ export default function GalleryPage() {
           {galleryImages.map((image) => (
             <div
               key={image.src}
-              className="overflow-hidden rounded-4xl border border-[#c9ac6a]/20 bg-[#202020] transition-all duration-300 hover:scale-[1.02] hover:border-[#c9ac6a]/60 hover:shadow-[0_20px_60px_rgba(201,172,106,0.15)] active:scale-95"
+              className="page-card overflow-hidden rounded-[1.75rem] transition-all duration-300 hover:scale-[1.02] active:scale-95"
             >
               <div className="relative h-80 overflow-hidden">
                 <Image

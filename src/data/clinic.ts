@@ -9,6 +9,7 @@ export const clinicInfo = {
   address: "13-C Khayaban-e-Saadi, phase 7, opposite to TM roots pharmacy, Phase 7 Ext Karachi, 75500, Pakistan",
   googleMapsUrl: "https://maps.google.com/?q=13-C+Khayaban-e-Saadi+Phase+7+Karachi",
   hours: "11:00 AM – 8:00 PM",
+contactvision: "We believe great aesthetics begin with honest advice and personalized care. Every treatment is carefully selected to suit your features, goals, and individual needs. From advanced treatments to detailed consultations, we focus on comfort, safety, and natural-looking results. Our dedicated aftercare ensures you feel supported and confident throughout your entire journey",
 
   theme: {
     primary: "#c9ac6a",
