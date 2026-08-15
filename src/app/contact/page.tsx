@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="page-metallic-shell relative overflow-hidden min-h-screen">
-      <section className="mx-auto max-w-7xl px-4 pt-[120px] pb-24 sm:px-6 md:pt-[140px] lg:px-8 lg:pt-[160px]">
+      <section className="mx-auto max-w-7xl px-4 pt-[120px] pb-24 sm:px-6 md:pt-[140px] lg:mt-20 lg:px-8 lg:pt-[160px]">
         <AnimatedHero>
           <div className="grid gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-center">
             <div>
@@ -30,7 +30,8 @@ export default function ContactPage() {
                 <li><span className="text-[#c9ac6a]">Phone:</span> {clinicInfo.phone}</li>
                 <li><span className="text-[#c9ac6a]">Landline:</span> {clinicInfo.landline}</li>
                 <li><span className="text-[#c9ac6a]">WhatsApp:</span> {clinicInfo.whatsapp}</li>
-                <li><span className="text-[#c9ac6a]">Address:</span> {clinicInfo.address}</li>
+                <li><span className="text-[#c9ac6a]">Address 1:</span> {clinicInfo.address1}</li>
+                <li><span className="text-[#c9ac6a]">Address 2:</span> {clinicInfo.address2}</li>
                 <li><span className="text-[#c9ac6a]">Hours:</span> {clinicInfo.hours}</li>
               </ul>
             </div>

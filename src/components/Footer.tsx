@@ -55,7 +55,7 @@ export function Footer() {
 
             {/* Instagram */}
             <a
-              href={clinicInfo.socials.instagram}
+              href={"https://www.instagram.com/dbsbyzaini?igsh=MXQ3MWhhcWp1aTh0Zw=="}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
@@ -68,7 +68,7 @@ export function Footer() {
 
             {/* Facebook */}
             <a
-              href={clinicInfo.socials.facebook}
+              href={"https://www.facebook.com/share/17t1XyNng3/"}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
@@ -133,14 +133,23 @@ export function Footer() {
     </a>
   </li>
 
-  {/* Address */}
+  {/* First Address */}
   <li className="flex items-start gap-3">
     <FaMapMarkerAlt className="mt-1 shrink-0 text-[#c9ac6a]/70" />
 
     <span className="transition-colors duration-300 hover:text-[#f7f2e9]/90">
-      {clinicInfo.address}
+      {clinicInfo.address1}
     </span>
   </li>
+  
+    {/* Second Address */}
+  <li className="flex items-start gap-3">
+    <FaMapMarkerAlt className="mt-1 shrink-0 text-[#c9ac6a]/70" />
+
+    <span className="transition-colors duration-300 hover:text-[#f7f2e9]/90">
+      {clinicInfo.address2}
+    </span>
+  </li> 
 
   {/* Hours */}
   <li className="flex items-start gap-3">

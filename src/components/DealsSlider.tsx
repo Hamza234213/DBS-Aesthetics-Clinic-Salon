@@ -54,7 +54,7 @@ export function DealsSlider() {
 
     let animationId: number;
     let scrollPosition = 0;
-    const speed = 0.6;
+    const speed = 1.5;
 
     const animate = () => {
       if (!slider) return;

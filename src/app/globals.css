@@ -113,3 +113,25 @@ body {
   animation: shimmer 3s ease-in-out infinite;
   background-size: 200% auto;
 }
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+/* =========================================================
+   DBS HERO DECORATIVE LOGO
+   Hide before it can collide with the hero content
+========================================================= */
+
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .hero-decorative-logo {
+    display: none;
+  }
+}

@@ -7,9 +7,10 @@ interface BeforeAfterSliderProps {
   beforeImage: string;
   afterImage: string;
   alt: string;
+  className?: string;
 }
 
-export function BeforeAfterSlider({ beforeImage, afterImage, alt }: BeforeAfterSliderProps) {
+export function BeforeAfterSlider({ beforeImage, afterImage, alt, className = "" }: BeforeAfterSliderProps) {
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -63,7 +64,7 @@ export function BeforeAfterSlider({ beforeImage, afterImage, alt }: BeforeAfterS
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-72 md:h-96 lg:h-[500px] overflow-hidden rounded-[1.25rem] select-none cursor-ew-resize"
+      className={`relative w-full h-72 md:h-96 lg:h-[500px] overflow-hidden rounded-[1.25rem] select-none cursor-ew-resize ${className}`}
       onMouseDown={handleMouseDown}
       onTouchStart={handleMouseDown}
     >

@@ -9,11 +9,18 @@ export function WhatsAppButton() {
       href={clinicInfo.socials.whatsapp}
       target="_blank"
       rel="noreferrer"
+      aria-label="WhatsApp"
       className="
+        group
         fixed bottom-5 right-5 z-50
-        inline-flex items-center gap-3
+
+        flex items-center justify-center
+        h-14 w-14
+        hover:w-[155px]
+
+        overflow-hidden
         rounded-full
-        px-5 py-3
+
         text-sm font-semibold
         text-[#232323]
 
@@ -23,14 +30,43 @@ export function WhatsAppButton() {
 
         transition-all
         duration-300
+        ease-in-out
+
         hover:scale-105
         hover:brightness-110
 
         hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.6),0_8px_25px_rgba(201,172,106,0.45)]
       "
     >
-      <FaWhatsapp size={20} />
-      WhatsApp Now
+      {/* WhatsApp Icon */}
+      <FaWhatsapp
+        size={24}
+        className="
+          shrink-0
+          transition-all
+          duration-300
+          group-hover:mr-1
+        "
+      />
+
+      {/* Text - hidden until hover */}
+      <span
+        className="
+          max-w-0
+          overflow-hidden
+          whitespace-nowrap
+          opacity-0
+
+          transition-all
+          duration-300
+          ease-in-out
+
+          group-hover:max-w-[100px]
+          group-hover:opacity-100
+        "
+      >
+        WhatsApp
+      </span>
     </a>
   );
 }
