@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function BookAppointmentPage() {
   return (
     <div className="page-metallic-shell relative overflow-hidden min-h-screen">
-      <section className="mx-auto max-w-7xl px-4 pt-[120px] pb-24 sm:px-6 md:pt-[140px] lg:px-8 lg:pt-[160px]">
+      <section className="mx-auto max-w-7xl px-4 pt-[120px] pb-12 sm:px-6 md:pt-[140px] md:pb-16 lg:px-8 lg:pt-[150px]">
         <AnimatedHero>
           <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
             <div>

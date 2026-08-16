@@ -7,7 +7,7 @@ export default function ServicesPage() {
   return (
     <div className="page-metallic-shell relative overflow-hidden min-h-screen">
       {/* Hero Section */}
-      <section className="mx-auto max-w-7xl px-4 pt-[120px] pb-24 sm:px-6 md:pt-[140px] lg:px-8 lg:pt-[160px]">
+      <section className="mx-auto max-w-7xl px-4 pt-[120px] pb-6 sm:px-6 md:pt-[140px] md:pb-8 lg:px-8 lg:pt-[160px]">
         <AnimatedHero>
           <div className="max-w-3xl">
             <p className="text-sm uppercase tracking-[0.35em] font-semibold font-serif text-[#c9ac6a]">
@@ -37,11 +37,14 @@ export default function ServicesPage() {
             <Link
               key={category.slug}
               href={`/services/${category.slug}`}
-              className="page-card rounded-[1.75rem] p-8 transition duration-300 hover:-translate-y-1"
+              className="page-card group rounded-[1.75rem] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[#c9ac6a]/40"
             >
-              <p className="text-sm uppercase tracking-[0.25em] text-[#c9ac6a]">
-                {category.title}
-              </p>
+              <div className="flex items-center justify-between">
+                <p className="text-sm uppercase tracking-[0.25em] text-[#c9ac6a] font-serif font-semibold">
+                  {category.title}
+                </p>
+                <span className="text-[#c9ac6a] transition-transform duration-300 group-hover:translate-x-1">→</span>
+              </div>
 
               <p className="mt-4 text-lg leading-8 text-[#f7f2e9]/70">
                 {category.description}

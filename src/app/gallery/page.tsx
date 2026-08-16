@@ -14,7 +14,7 @@ export default function GalleryPage() {
   return (
     <div className="page-metallic-shell relative overflow-hidden min-h-screen">
       {/* Hero Section */}
-      <section className="mx-auto max-w-7xl px-4 pt-[120px] pb-24 sm:px-6 md:pt-[140px] lg:px-8 lg:pt-[160px]">
+      <section className="mx-auto max-w-7xl px-4 pt-[120px] pb-6 sm:px-6 md:pt-[140px] md:pb-8 lg:px-8 lg:pt-[150px]">
         <AnimatedHero>
           <div className="max-w-3xl">
             <p className="text-sm font-serif font-semibold uppercase tracking-[0.35em] text-[#c9ac6a]">

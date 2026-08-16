@@ -259,7 +259,7 @@ export const servicePages = [
     { question: "Is the facial treatment painful?", answer: "Most treatments are soothing and comfortable with no significant discomfort." },
     { question: "How often should I book?", answer: "A monthly session is ideal for maintenance and long-term glow." },
   ],
-  gallery: ["/image2.PNG", "/skincare.png"],
+  gallery: ["/prp.PNG", "/prp2.PNG"],
 },
   {
     slug: "hair-treatments",
@@ -274,7 +274,7 @@ export const servicePages = [
     faqs: [
       { question: "Can I combine scalp care with styling?", answer: "Yes, many clients pair a treatment with a beauty finish or blowout." },
     ],
-    gallery: ["/patchyhair.png", "/hairstyle.png"],
+    gallery: ["/prgf.png", "/prgf2.png"],
   },
   {
     slug: "laser-treatments",

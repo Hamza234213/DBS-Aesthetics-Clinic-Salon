@@ -1,183 +1,219 @@
-// components/DealsSlider.tsx
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { FaArrowRight } from "react-icons/fa";
+import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+import { 
+  FaArrowRight, 
+  FaGift,
+  FaGem,
+  FaMagic,
+  FaBolt
+} from "react-icons/fa";
 
 const deals = [
   {
     id: 1,
-    title: "LASER HAIR REMOVAL",
-    icon: "✦",
+    title: "Laser Hair Removal Suite",
+    icon: <FaGem />,
     tag: "20% OFF",
+    originalPrice: "PKR 25,000",
+    discountedPrice: "PKR 20,000",
+    description: "Full body smooth skin care with FDA-approved laser technology.",
+    sessionType: "Full Package",
   },
   {
     id: 2,
-    title: "SKIN REJUVENATION",
-    icon: "✦",
+    title: "Skin Rejuvenation Therapy",
+    icon: <FaGem />,
     tag: "15% OFF",
+    originalPrice: "PKR 35,000",
+    discountedPrice: "PKR 29,750",
+    description: "Youthful radiance with collagen boosting dermal therapy.",
+    sessionType: "Full Package",
   },
   {
     id: 3,
-    title: "PRP THERAPY",
-    icon: "✦",
+    title: "PRP Hair Restoration",
+    icon: <FaGem />,
     tag: "25% OFF",
+    originalPrice: "PKR 45,000",
+    discountedPrice: "PKR 33,750",
+    description: "Natural plasma growth factor treatment for hair volume.",
+    sessionType: "Full Package",
   },
   {
     id: 4,
-    title: "BRIDAL ARTISTRY",
-    icon: "✦",
+    title: "Bridal Artistry & Glow",
+    icon: <FaGem />,
     tag: "10% OFF",
+    originalPrice: "PKR 55,000",
+    discountedPrice: "PKR 49,500",
+    description: "Comprehensive wedding prep makeover & skin therapy.",
+    sessionType: "Full Package",
   },
   {
     id: 5,
-    title: "HYDRAFACIAL",
-    icon: "✦",
+    title: "Vampire Hydra Facial",
+    icon: <FaGem />,
     tag: "30% OFF",
+    originalPrice: "PKR 30,000",
+    discountedPrice: "PKR 21,000",
+    description: "Deep exfoliation, medical extraction and serum infusion.",
+    sessionType: "Single Session",
   },
   {
     id: 6,
-    title: "BODY CONTOURING",
-    icon: "✦",
+    title: "Body Sculpting & Contour",
+    icon: <FaGem />,
     tag: "20% OFF",
+    originalPrice: "PKR 40,000",
+    discountedPrice: "PKR 32,000",
+    description: "Targeted body tightening and sculpting solutions.",
+    sessionType: "Full Package",
   },
 ];
 
+// Quadruplicate for seamless edge-to-edge looping marquee
+const infiniteDeals = [...deals, ...deals, ...deals, ...deals];
+
 export function DealsSlider() {
-  const sliderRef = useRef<HTMLDivElement>(null);
-
+  const [isPaused, setIsPaused] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  
+  // Get the total width of one set of deals
+  const [cardWidth, setCardWidth] = useState(0);
+  
   useEffect(() => {
-    const slider = sliderRef.current;
-    if (!slider) return;
-
-    let animationId: number;
-    let scrollPosition = 0;
-    const speed = 1.5;
-
-    const animate = () => {
-      if (!slider) return;
-      
-      scrollPosition += speed;
-      
-      // Reset when we've scrolled past the width of one set
-      if (scrollPosition >= slider.scrollWidth / 2) {
-        scrollPosition = 0;
-        slider.scrollLeft = 0;
-      } else {
-        slider.scrollLeft = scrollPosition;
-      }
-      
-      animationId = requestAnimationFrame(animate);
-    };
-
-    // Start animation
-    animationId = requestAnimationFrame(animate);
-
-    return () => {
-      cancelAnimationFrame(animationId);
-    };
+    if (containerRef.current) {
+      // Calculate the width of one complete set
+      const containerWidth = containerRef.current.scrollWidth / 4; // Since we have 4 copies
+      setCardWidth(containerWidth);
+    }
   }, []);
 
-  // Duplicate deals for seamless looping
-  const allDeals = [...deals, ...deals, ...deals, ...deals, ...deals, ...deals];
+  // Continuous animation that doesn't restart
+  useEffect(() => {
+    if (cardWidth > 0 && !isPaused) {
+      const controls = animate(x, -cardWidth, {
+        duration: 40,
+        ease: "linear",
+        repeat: Infinity,
+        repeatType: "loop",
+      });
+      
+      return controls.stop;
+    }
+  }, [x, cardWidth, isPaused]);
+
+  // Reset position when it reaches the end of one full cycle
+  useEffect(() => {
+    if (cardWidth > 0) {
+      const unsubscribe = x.onChange((latest) => {
+        if (latest <= -cardWidth) {
+          x.set(0);
+        }
+      });
+      return unsubscribe;
+    }
+  }, [x, cardWidth]);
 
   return (
-    <section className="relative py-12 overflow-hidden border-y border-[#c9ac6a]/20">
-      {/* Jet Black Background */}
-      <div className="absolute inset-0 bg-[#0a0a0a]" />
-      
-      {/* Metallic Gold Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#c9ac6a]/5 via-transparent to-[#c9ac6a]/5" />
-      
-      {/* Decorative gold gradient lines */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#c9ac6a]/40 to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#c9ac6a]/40 to-transparent" />
-      
-      {/* Gold glow spots */}
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-64 h-64 rounded-full bg-[#c9ac6a]/5 blur-3xl" />
-      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-64 h-64 rounded-full bg-[#c9ac6a]/5 blur-3xl" />
-      
-      <div className="relative z-10 max-w-full mx-auto px-0">
-        {/* Section Header with gold accents */}
-       <div className="text-center mb-8 px-4 sm:px-6 lg:px-8">
-  <div className="flex items-center justify-center gap-4 mb-3">
-    <span className="h-px w-16 bg-gradient-to-r from-transparent via-[#c9ac6a]/40 to-[#c9ac6a]/20" />
-    <p className="text-xs uppercase tracking-[0.4em] font-[Oswald] text-[#c9ac6a] font-medium">
-      Exclusive Offers
-    </p>
-    <span className="h-px w-16 bg-gradient-to-l from-transparent via-[#c9ac6a]/40 to-[#c9ac6a]/20" />
-  </div>
-  
-  <h2 className="mt-3 text-3xl md:text-4xl font-semibold font-[Patrick]">
-    <span className="text-[#f7f2e9]">Limited Time</span>
-    <span className="relative ml-3 text-transparent bg-clip-text bg-gradient-to-r from-[#c9ac6a] via-[#f4d98a] to-[#c9ac6a] animate-shimmer">
-      Deals
-    </span>
-    <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-[#c9ac6a]/50 to-transparent" />
-  </h2>
-  
-  <p className="mt-4 text-sm text-[#f7f2e9]/50 tracking-wide font-light">
-    <span className="text-[#c9ac6a]">✦</span> Book now and save on premium treatments <span className="text-[#c9ac6a]">✦</span>
-  </p>
-</div>
+    <section className="relative w-full overflow-hidden border-y border-[#c9ac6a]/20 bg-[#0a0a0a] py-12 sm:py-14 lg:py-16">
+      {/* Background Glow */}
+      <div className="pointer-events-none absolute -left-20 top-0 h-64 w-64 rounded-full bg-[#c9ac6a]/5 blur-3xl sm:h-80 sm:w-80" />
+      <div className="pointer-events-none absolute -right-20 bottom-0 h-72 w-72 rounded-full bg-[#c9ac6a]/5 blur-3xl sm:h-96 sm:w-96" />
 
-        {/* Slider - Continuous Auto Moving Right to Left */}
-        <div
-          ref={sliderRef}
-          className="flex gap-4 overflow-x-hidden py-4 px-4 sm:px-6 lg:px-8"
-          style={{ 
-            maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
-            WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)'
-          }}
-        >
-          {allDeals.map((deal, index) => (
-            <motion.div
-              key={`${deal.id}-${index}`}
-              className="flex-shrink-0"
-              whileHover={{ 
-                scale: 1.05, 
-                transition: { duration: 1.3 } 
-              }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Link href="/book-appointment">
-                <div className="group relative flex items-center gap-4 px-7 py-4 rounded-full border border-[#c9ac6a]/20 bg-[#0a0a0a]/80 backdrop-blur-sm transition-all duration-300 hover:border-[#c9ac6a]/60 hover:bg-[#0a0a0a]/90 ">
-                  
-                  {/* Gold glow on hover */}
-                  <div className="absolute inset-0 rounded-full opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-gradient-to-r from-[#c9ac6a]/5 via-[#c9ac6a]/10 to-[#c9ac6a]/5" />
-                  
-                 
-                 
-                  {/* Icon with gold shimmer */}
-                  <span className="text-[#c9ac6a] text-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-12">
-                    {deal.icon}
-                  </span>
-                  
-                  {/* Title */}
-                  <span className="text-sm font-semibold text-[#f7f2e9] tracking-wider whitespace-nowrap font-[Oswald]">
-                    {deal.title}
-                  </span>
-                  
-                  {/* Tag/Badge with gold gradient */}
-                  <span className="px-3 py-1 text-xs font-medium text-[#0a0a0a] bg-gradient-to-r from-[#c9ac6a] to-[#f4d98a] rounded-full">
-                    {deal.tag}
-                  </span>
-                  
-                  {/* Arrow icon on hover */}
-                  <motion.span 
-                    className="text-[#c9ac6a]/40 text-sm transition-all duration-300 group-hover:text-[#c9ac6a] group-hover:translate-x-1"
-                    animate={{ x: 0 }}
-                    whileHover={{ x: 4 }}
-                  >
-                    <FaArrowRight />
-                  </motion.span>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
+      {/* Header Container (Padded) */}
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 mb-8 sm:mb-10">
+        <div className="min-w-0">
+          {/* Badge */}
+          <div className="mb-3 inline-flex max-w-full items-center gap-2 rounded-full border border-[#c9ac6a]/30 bg-[#c9ac6a]/10 px-3 py-1.5 backdrop-blur-sm sm:px-4">
+            <FaGift className="shrink-0 text-[10px] text-[#c9ac6a] sm:text-xs" />
+            <span className="truncate text-[9px] font-semibold uppercase tracking-[0.18em] text-[#c9ac6a] sm:text-xs sm:tracking-[0.25em]">
+              Exclusive Packages
+            </span>
+          </div>
+
+          {/* Heading */}
+          <h2 className="max-w-3xl text-2xl font-semibold font-serif leading-tight text-[#f7f2e9] sm:text-3xl md:text-4xl lg:text-5xl">
+            Limited-Time Aesthetic Deals
+          </h2>
+
+          {/* Description */}
+          <p className="mt-2 max-w-xl text-xs leading-relaxed text-[#f7f2e9]/65 sm:text-sm md:text-base">
+            Elevate your beauty routine with medical-grade treatments at special pricing.
+          </p>
         </div>
+      </div>
+
+      {/* Full-Width Screen Marquee Slider */}
+      <div
+        ref={containerRef}
+        className="relative z-10 w-full overflow-hidden py-2"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+        onTouchStart={() => setIsPaused(true)}
+        onTouchEnd={() => setIsPaused(false)}
+      >
+        <motion.div
+          className="flex gap-5 sm:gap-6 w-max"
+          style={{ x }}
+        >
+          {infiniteDeals.map((deal, index) => (
+            <div
+              key={`${deal.id}-${index}`}
+              className="w-[280px] sm:w-[310px] md:w-[330px] lg:w-[350px] shrink-0"
+            >
+              {/* Deal Card */}
+              <div className="group flex h-full min-h-[300px] flex-col justify-between rounded-[1.5rem] border border-[#c9ac6a]/20 bg-[#121212]/95 p-5 transition-all duration-300 hover:border-[#c9ac6a]/60 hover:shadow-[0_20px_50px_rgba(201,172,106,0.15)]">
+                <div>
+                  {/* Top Icon & Tag */}
+                  <div className="mb-4 flex items-center justify-between gap-3">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#c9ac6a]/30 bg-[#c9ac6a]/15 text-sm text-[#c9ac6a] transition-transform duration-300 group-hover:scale-110">
+                      {deal.icon}
+                    </div>
+                    <span className="shrink-0 rounded-full bg-[#c9ac6a] px-3 py-1 text-[10px] font-bold text-[#0a0a0a] shadow-md shadow-[#c9ac6a]/15">
+                      {deal.tag}
+                    </span>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-lg sm:text-xl font-serif font-semibold text-[#f7f2e9] transition-colors duration-300 group-hover:text-[#c9ac6a]">
+                    {deal.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="mt-2 text-xs sm:text-sm text-[#f7f2e9]/65 leading-relaxed min-h-[42px]">
+                    {deal.description}
+                  </p>
+
+                  {/* Pricing */}
+                  <div className="mt-4 flex flex-wrap items-baseline gap-3 border-t border-[#c9ac6a]/15 pt-4">
+                    <span className="text-2xl font-serif font-bold text-[#c9ac6a]">
+                      {deal.discountedPrice}
+                    </span>
+                    <span className="text-xs text-[#f7f2e9]/40 line-through">
+                      {deal.originalPrice}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Claim Offer Button */}
+                <div className="mt-5">
+                  <Link
+                    href={`/book-appointment?treatment=${encodeURIComponent(deal.title)}&session=${encodeURIComponent(deal.sessionType)}`}
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#c9ac6a]/40 bg-[#c9ac6a]/10 px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-[#c9ac6a] transition-all duration-300 group-hover:bg-[#c9ac6a] group-hover:text-[#0a0a0a]"
+                  >
+                    <span>Claim Offer</span>
+                    <FaArrowRight className="text-xs transition-transform duration-300 group-hover:translate-x-1" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

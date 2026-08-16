@@ -185,94 +185,110 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
             description={servicePricing.description}
           >
 
-              <div className="overflow-x-auto">
-                <table className="w-full border-collapse">
-                  <thead>
-                    <tr className="border-b border-[#c9ac6a]/20">
-                      <th className="px-4 py-3 text-left text-sm font-semibold text-[#c9ac6a]">
-                        Treatment
-                      </th>
-                      {hasAnyPackagePrice && (
-                        <th className="px-4 py-3 text-left text-sm font-semibold text-[#c9ac6a]">
-                          Package Price
-                        </th>
-                      )}
-                      {hasAnyIndividualPrice && (
-                        <th className="px-4 py-3 text-left text-sm font-semibold text-[#c9ac6a]">
-                          Individual Session
-                        </th>
-                      )}
-                      {hasAnyPrice && (
-                        <th className="px-4 py-3 text-left text-sm font-semibold text-[#c9ac6a]">
-                          Price
-                        </th>
-                      )}
-                      {hasAnyPriceRange && (
-                        <th className="px-4 py-3 text-left text-sm font-semibold text-[#c9ac6a]">
-                          Price Range
-                        </th>
-                      )}
-                      <th className="px-4 py-3 text-left text-sm font-semibold text-[#c9ac6a]">
-                        Book Now
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {servicePricing.treatments.map(
-                      (treatment: any, index: number) => (
-                        <tr
-                          key={index}
-                          className="border-b border-[#c9ac6a]/10 hover:bg-[#c9ac6a]/10 transition-colors"
-                        >
-                          <td className="px-4 py-4 text-[#f7f2e9] font-medium">
+              {/* Responsive Luxury Treatment Cards Grid (Replaces outdated HTML table) */}
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {servicePricing.treatments.map((treatment: any, index: number) => {
+                  const isMultiSession = treatment.packagePrice && treatment.individualPrice;
+
+                  return (
+                    <div
+                      key={index}
+                      className="page-card group flex flex-col justify-between rounded-[1.75rem] border border-[#c9ac6a]/20 p-6 transition-all duration-300 hover:border-[#c9ac6a]/40 hover:shadow-[0_15px_40px_rgba(201,172,106,0.1)]"
+                    >
+                      <div>
+                        {/* Card Header & Badge */}
+                        <div className="flex items-start justify-between gap-3 mb-3">
+                          <h3 className="text-xl font-serif font-semibold text-[#f7f2e9] group-hover:text-[#c9ac6a] transition-colors">
                             {treatment.name}
-                          </td>
-                          {hasAnyPackagePrice && (
-                            <td className="px-4 py-4 text-[#f7f2e9]">
-                              {treatment.packagePrice
-                                ? formatCurrency(treatment.packagePrice)
-                                : "-"}
-                            </td>
+                          </h3>
+                          {isMultiSession && (
+                            <span className="rounded-full bg-[#c9ac6a]/15 border border-[#c9ac6a]/30 px-3 py-1 text-[11px] font-semibold text-[#c9ac6a] whitespace-nowrap">
+                              Multi-Session Available
+                            </span>
                           )}
-                          {hasAnyIndividualPrice && (
-                            <td className="px-4 py-4 text-[#f7f2e9]">
-                              {treatment.individualPrice
-                                ? formatCurrency(treatment.individualPrice)
-                                : "-"}
-                            </td>
+                        </div>
+
+                        {/* Pricing details */}
+                        <div className="mt-4 space-y-3">
+                          {treatment.packagePrice && (
+                            <div className="flex items-center justify-between rounded-xl bg-[#0a0a0a]/70 p-3.5 border border-[#c9ac6a]/15">
+                              <div>
+                                <span className="text-xs font-serif font-semibold text-[#c9ac6a] uppercase tracking-wider">Full Package</span>
+                                <p className="text-xs text-[#f7f2e9]/60">Complete Treatment Series</p>
+                              </div>
+                              <span className="text-lg font-bold font-serif text-[#f7f2e9]">
+                                {formatCurrency(treatment.packagePrice)}
+                              </span>
+                            </div>
                           )}
-                          {hasAnyPrice && (
-                            <td className="px-4 py-4 text-[#f7f2e9]">
-                              {treatment.price
-                                ? formatCurrency(treatment.price)
-                                : "-"}
-                            </td>
+
+                          {treatment.individualPrice && (
+                            <div className="flex items-center justify-between rounded-xl bg-[#0a0a0a]/40 p-3.5 border border-white/5">
+                              <div>
+                                <span className="text-xs font-serif font-medium text-[#f7f2e9]/80 uppercase tracking-wider">Per Session</span>
+                                <p className="text-xs text-[#f7f2e9]/50">Single Visit Option</p>
+                              </div>
+                              <span className="text-base font-semibold text-[#f7f2e9]/90">
+                                {formatCurrency(treatment.individualPrice)}
+                              </span>
+                            </div>
                           )}
-                          {hasAnyPriceRange && (
-                            <td className="px-4 py-4 text-[#f7f2e9]">
-                              {treatment.priceRange
-                                ? `PKR ${treatment.priceRange}`
-                                : "-"}
-                            </td>
+
+                          {treatment.price && !isMultiSession && (
+                            <div className="flex items-center justify-between rounded-xl bg-[#0a0a0a]/60 p-3.5 border border-[#c9ac6a]/15">
+                              <span className="text-xs font-serif font-semibold text-[#c9ac6a] uppercase tracking-wider">Standard Rate</span>
+                              <span className="text-lg font-bold font-serif text-[#f7f2e9]">
+                                {formatCurrency(treatment.price)}
+                              </span>
+                            </div>
                           )}
-                          <td className="px-4 py-4">
+
+                          {treatment.priceRange && (
+                            <div className="flex items-center justify-between rounded-xl bg-[#0a0a0a]/60 p-3.5 border border-[#c9ac6a]/15">
+                              <span className="text-xs font-serif font-semibold text-[#c9ac6a] uppercase tracking-wider">Price Range</span>
+                              <span className="text-base font-semibold text-[#f7f2e9]">
+                                PKR {treatment.priceRange}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Action buttons */}
+                      <div className="mt-6 pt-4 border-t border-[#c9ac6a]/15 flex flex-wrap gap-2">
+                        {isMultiSession ? (
+                          <>
                             <Button
-                              href={`/book-appointment?treatment=${encodeURIComponent(treatment.name)}`}
-                              className="inline-block"
+                              href={`/book-appointment?treatment=${encodeURIComponent(treatment.name)}&session=Full%20Package`}
+                              className="flex-1 text-center justify-center text-xs py-2.5"
                             >
-                              Book
+                              Book Package
                             </Button>
-                          </td>
-                        </tr>
-                      ),
-                    )}
-                  </tbody>
-                </table>
+                            <Button
+                              href={`/book-appointment?treatment=${encodeURIComponent(treatment.name)}&session=Single%20Session`}
+                              variant="secondary"
+                              className="flex-1 text-center justify-center text-xs py-2.5"
+                            >
+                              Single Session
+                            </Button>
+                          </>
+                        ) : (
+                          <Button
+                            href={`/book-appointment?treatment=${encodeURIComponent(treatment.name)}`}
+                            className="w-full text-center justify-center py-2.5"
+                          >
+                            Book Treatment
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
 
-              <p className="mt-4 text-sm text-[#f7f2e9]/60 italic">
-  * All listed prices are exclusive of tax. An additional {TAX_RATE * 100}% tax
-  will be applied at the time of billing.
+              <p className="mt-6 text-sm text-[#f7f2e9]/60 italic text-center sm:text-left">
+                * All listed prices are exclusive of tax. An additional {TAX_RATE * 100}% tax
+                will be applied at the time of billing.
               </p>
           </SectionShell>
         )}

@@ -210,233 +210,110 @@ min-[1649px]:flex
           </AnimatedHero>
 
           {/* =====================================================
-              RIGHT SIDE - FEATURED TREATMENTS CARD
+              RIGHT SIDE: LUXURY FEATURED SHOWCASE
           ====================================================== */}
-          <AnimatedCard>
-            <div
-              className="
-                relative
-                hidden
-                w-full
-                min-h-0
-                sm:block
-              "
-            >
-              {/* Outer border */}
-              <div className="pointer-events-none absolute inset-0 rounded-[2.5rem] border border-[#c9ac6a]/30" />
+        <AnimatedHero>
+  <div className="relative mx-auto w-full max-w-md lg:max-w-[440px] pt-8 lg:pt-10">
 
-              {/* Main card */}
-              <div
-                className="
-                  relative
-                  max-h-[calc(100svh-120px)]
-                  overflow-hidden
-                  rounded-[2.5rem]
-                  border
-                  border-[#c9ac6a]/50
-                  bg-[#0a0a0a]/80
-                  p-4
-                  shadow-[0_30px_90px_rgba(0,0,0,0.5)]
-                  backdrop-blur
-                  transition-all
-                  duration-300
-                  hover:shadow-[0_40px_120px_rgba(201,172,106,0.15)]
-                  hover:scale-[1.01]
-                  lg:p-5
-                "
-              >
-                {/* =================================================
-                    MAIN IMAGE
-                ================================================== */}
-                <div
-                  className="
-                    relative
-                    mb-3
-                    h-48
-                    w-full
-                    overflow-hidden
-                    rounded-2xl
-                    sm:h-52
-                    lg:h-56
-                    xl:h-60
-                  "
-                >
-                  <Image
-                    src="/homapage.png"
-                    alt="DBS Aesthetics Clinic & Salon - Luxury Treatment Room"
-                    fill
-                    className="object-cover"
-                    priority
-                    sizes="(min-width: 1024px) 45vw, 100vw"
-                  />
+    {/* Decorative Gold Glow Backdrop */}
+    <div className="absolute -inset-1 rounded-[2rem] bg-gradient-to-r from-[#c9ac6a]/30 via-[#f4d98a]/15 to-[#c9ac6a]/30 opacity-60 blur-xl" />
 
-                  {/* Image overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 to-transparent" />
+    {/* Main Luxury Glassmorphic Card */}
+    <div className="relative overflow-hidden rounded-[2rem] border border-[#c9ac6a]/30 bg-[#0a0a0a]/85 p-4 sm:p-6 lg:p-5 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.75)]">
 
-                  {/* Premium Care Badge */}
-                  <div className="absolute bottom-3 left-4 right-4 lg:bottom-4">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#c9ac6a] sm:text-xs">
-                      Premium Care
-                    </p>
+      {/* Header Tag */}
+      <div className="flex items-center justify-between border-b border-[#c9ac6a]/20 pb-3">
 
-                    <p className="text-xs text-[#f7f2e9]/80 sm:text-sm">
-                      Advanced aesthetics • Expert salon services
-                    </p>
-                  </div>
-                </div>
+        <div className="flex items-center gap-2">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#c9ac6a] animate-ping" />
 
-                {/* =================================================
-                    TREATMENT GRID
-                ================================================== */}
-                <div className="grid grid-cols-2 gap-2.5 lg:gap-3">
-                  {featuredTreatments.map((treatment, index) => (
-                    <div
-                      key={treatment.title}
-                      className="
-                        group
-                        relative
-                        min-h-0
-                        rounded-2xl
-                        border
-                        border-[#c9ac6a]/15
-                        bg-[#0a0a0a]/90
-                        p-3.5
-                        backdrop-blur-sm
-                        transition-all
-                        duration-300
-                        hover:border-[#c9ac6a]/40
-                        hover:bg-[#0a0a0a]
-                        hover:shadow-[0_10px_40px_rgba(201,172,106,0.06)]
-                        lg:p-4
-                      "
-                    >
-                      {/* Premium gold gradient border on hover */}
-                      <div
-                        className="
-                          pointer-events-none
-                          absolute
-                          inset-0
-                          rounded-2xl
-                          bg-gradient-to-br
-                          from-[#c9ac6a]/10
-                          via-transparent
-                          to-transparent
-                          opacity-0
-                          transition-opacity
-                          duration-500
-                          group-hover:opacity-100
-                        "
-                      />
+          <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-serif font-bold text-[#c9ac6a]">
+            Featured Suite
+          </span>
+        </div>
 
-                      {/* Gold accent line */}
-                      <div
-                        className="
-                          pointer-events-none
-                          absolute
-                          top-0
-                          left-4
-                          right-4
-                          h-px
-                          bg-gradient-to-r
-                          from-transparent
-                          via-[#c9ac6a]/30
-                          to-transparent
-                          opacity-0
-                          transition-opacity
-                          duration-500
-                          group-hover:opacity-100
-                        "
-                      />
+        <span className="rounded-full border border-[#c9ac6a]/30 bg-[#c9ac6a]/10 px-2.5 py-1 text-[9px] sm:text-[10px] font-semibold text-[#f4d98a]">
+          ★ 4.9 / 5
+        </span>
 
-                      <div className="relative z-10">
-                        {/* Treatment title row */}
-                        <div className="flex items-start justify-between gap-2">
-                          <div className="flex min-w-0 items-start gap-2">
-                            {/* Number badge */}
-                            <span
-                              className="
-                                flex
-                                h-5
-                                w-5
-                                shrink-0
-                                items-center
-                                justify-center
-                                rounded-full
-                                border
-                                border-[#c9ac6a]/20
-                                text-[8px]
-                                font-medium
-                                text-[#c9ac6a]/40
-                                transition-all
-                                duration-300
-                                group-hover:border-[#c9ac6a]/40
-                                group-hover:text-[#c9ac6a]/60
-                              "
-                            >
-                              {String(index + 1).padStart(2, "0")}
-                            </span>
+      </div>
 
-                            <p
-                              className="
-                                min-w-0
-                                text-[10px]
-                                font-semibold
-                                uppercase
-                                leading-tight
-                                tracking-[0.18em]
-                                text-[#c9ac6a]
-                                font-[Oswald]
-                                transition-colors
-                                duration-300
-                                group-hover:text-[#c9ac6a]/80
-                                sm:text-[11px]
-                              "
-                            >
-                              {treatment.title}
-                            </p>
-                          </div>
+      {/* Main Visual Image */}
+      <div className="relative mt-3 h-44 sm:h-52 lg:h-48 w-full overflow-hidden rounded-xl border border-[#c9ac6a]/20">
 
-                          <span
-                            className="
-                              shrink-0
-                              text-[9px]
-                              font-light
-                              leading-tight
-                              tracking-wider
-                              text-[#f7f2e9]/30
-                              transition-colors
-                              duration-300
-                              group-hover:text-[#f7f2e9]/50
-                            "
-                          >
-                            {treatment.duration}
-                          </span>
-                        </div>
+        <Image
+          src="/hydra.png"
+          alt="Vampire Hydra Facial Treatment Suite"
+          fill
+          className="object-cover transition-transform duration-700 hover:scale-105"
+        />
 
-                        {/* Description */}
-                        <p
-                          className="
-                            mt-2
-                            pl-7
-                            text-[10px]
-                            leading-5
-                            text-[#f7f2e9]/50
-                            transition-colors
-                            duration-300
-                            group-hover:text-[#f7f2e9]/60
-                            sm:text-[11px]
-                            lg:leading-[1.35rem]
-                          "
-                        >
-                          {treatment.description}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </AnimatedCard>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-90" />
+
+        <div className="absolute bottom-3 left-3 right-3">
+
+          <span className="inline-block rounded-md bg-[#c9ac6a] px-2 py-1 text-[9px] uppercase font-bold tracking-widest text-[#0a0a0a]">
+            Top Requested
+          </span>
+
+          <h3 className="mt-1 text-lg sm:text-xl lg:text-lg font-serif font-semibold text-[#f7f2e9]">
+            Vampire Hydra Facial
+          </h3>
+
+        </div>
+      </div>
+
+      {/* Card Details */}
+      <div className="mt-3 grid grid-cols-2 gap-2.5 text-xs">
+
+        <div className="rounded-lg border border-[#c9ac6a]/15 bg-[#121212]/90 p-3">
+          <p className="text-[10px] text-[#c9ac6a] font-medium">
+            Session Duration
+          </p>
+
+          <p className="mt-0.5 text-xs sm:text-sm font-semibold text-[#f7f2e9]">
+            60 Minutes
+          </p>
+        </div>
+
+        <div className="rounded-lg border border-[#c9ac6a]/15 bg-[#121212]/90 p-3">
+          <p className="text-[10px] text-[#c9ac6a] font-medium">
+            Expected Result
+          </p>
+
+          <p className="mt-0.5 text-xs sm:text-sm font-semibold text-[#f7f2e9]">
+            Instant Deep Glow
+          </p>
+        </div>
+
+      </div>
+
+      {/* CTA */}
+      <div className="mt-3 pt-3 border-t border-[#c9ac6a]/15 flex items-center justify-between">
+
+        <div>
+          <span className="text-[10px] text-[#f7f2e9]/60">
+            Starting from
+          </span>
+
+          <p className="text-base sm:text-lg font-bold font-serif text-[#c9ac6a]">
+            PKR 15,000
+          </p>
+        </div>
+
+        <Button href="/book-appointment?treatment=Hydra%20Facial">
+          Book Suite
+        </Button>
+
+      </div>
+
+    </div>
+
+   
+ 
+
+  </div>
+</AnimatedHero>
         </div>
       </section>
 
