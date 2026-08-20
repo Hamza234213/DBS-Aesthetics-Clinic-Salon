@@ -110,8 +110,9 @@ export function Navbar() {
                   to-[#8f6b2e]
                   bg-clip-text
                   text-transparent
-                  text-xs
-                  sm:text-sm
+                  text-lg
+                  animate-shimmer
+                  sm:text-lg
                   font-[Patrick]
                   tracking-[0.15em]
                   normal-case
@@ -119,11 +120,11 @@ export function Navbar() {
                   whitespace-nowrap
                 "
               >
-                Aesthetics Clinic
+             DBS   Aesthetics 
               </p>
 
               <p className="text-[10px] sm:text-xs font-[Patrick] tracking-[0.15em] normal-case text-white font-medium whitespace-nowrap">
-                & Salon
+               Clinic & Salon
               </p>
             </div>
           </Link>
@@ -195,7 +196,7 @@ export function Navbar() {
       px-6 py-2.5
       text-sm font-semibold
       text-[#2a2112]
-
+ hover:animate-shimmer
       bg-[linear-gradient(120deg,#c99c4e_0%,#e4c56f_20%,#fff0ad_40%,#d9b45b_58%,#f3d57d_78%,#c99c4e_100%)]
 
       border border-[#f8e5a5]/70
@@ -226,6 +227,7 @@ export function Navbar() {
   w-11
   h-11
   flex
+ 
   items-center
   justify-center
   rounded-full

@@ -66,7 +66,7 @@ export default function ContactPage() {
 
             <div className="mt-5 overflow-hidden rounded-2xl border border-[#c9ac6a]/15">
               <iframe
-                src="https://www.google.com/maps?q=13-C%20Khayaban-e-Saadi%20Phase%207%20Karachi&output=embed"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d226.31036501321367!2d67.07478076045612!3d24.830841785921727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33d0042457625%3A0xf47981895bd9772d!2sDBS%20Aesthetic%20Clinic%20%26%20Salon!5e0!3m2!1sen!2s!4v1787181323329!5m2!1sen!2s"
                 title="DBS Khayaban-e-Saadi Location"
                 className="h-72 w-full border-0"
                 loading="lazy"
@@ -76,7 +76,7 @@ export default function ContactPage() {
             <div className="mt-4 pt-3 flex items-center justify-between border-t border-[#c9ac6a]/15">
               <span className="text-xs text-[#f7f2e9]/60">Opposite TM Roots Pharmacy</span>
               <a
-                href="https://maps.google.com/?q=13-C+Khayaban-e-Saadi+Phase+7+Karachi"
+                href="https://maps.app.goo.gl/cfej6kVhqPzX5y9C9"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#c9ac6a] hover:text-[#f4d98a] transition-colors"

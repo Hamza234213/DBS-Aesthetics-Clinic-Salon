@@ -79,7 +79,9 @@ const infiniteDeals = [...deals, ...deals, ...deals, ...deals];
 
 export function DealsSlider() {
   const [isPaused, setIsPaused] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const resumeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const x = useMotionValue(0);
   
   // Get the total width of one set of deals
@@ -93,9 +95,16 @@ export function DealsSlider() {
     }
   }, []);
 
+  // Clean up any pending resume timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+    };
+  }, []);
+
   // Continuous animation that doesn't restart
   useEffect(() => {
-    if (cardWidth > 0 && !isPaused) {
+    if (cardWidth > 0 && !isPaused && !isDragging) {
       const controls = animate(x, -cardWidth, {
         duration: 40,
         ease: "linear",
@@ -105,14 +114,19 @@ export function DealsSlider() {
       
       return controls.stop;
     }
-  }, [x, cardWidth, isPaused]);
+  }, [x, cardWidth, isPaused, isDragging]);
 
   // Reset position when it reaches the end of one full cycle
+  // Handles both the auto-scroll (always moves left) and manual
+  // finger-dragging (which can move either direction), so the
+  // marquee always wraps seamlessly instead of jumping.
   useEffect(() => {
     if (cardWidth > 0) {
       const unsubscribe = x.onChange((latest) => {
         if (latest <= -cardWidth) {
-          x.set(0);
+          x.set(latest + cardWidth);
+        } else if (latest > 0) {
+          x.set(latest - cardWidth);
         }
       });
       return unsubscribe;
@@ -158,8 +172,23 @@ export function DealsSlider() {
         onTouchEnd={() => setIsPaused(false)}
       >
         <motion.div
-          className="flex gap-5 sm:gap-6 w-max"
+          className="flex gap-5 sm:gap-6 w-max cursor-grab active:cursor-grabbing touch-pan-y"
           style={{ x }}
+          drag="x"
+          dragConstraints={false}
+          dragElastic={0.05}
+          dragMomentum={true}
+          onDragStart={() => {
+            if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+            setIsDragging(true);
+          }}
+          onDragEnd={() => {
+            // Give inertia a moment to settle before the auto-scroll
+            // takes back over, so it doesn't snap mid-flick.
+            resumeTimeoutRef.current = setTimeout(() => {
+              setIsDragging(false);
+            }, 600);
+          }}
         >
           {infiniteDeals.map((deal, index) => (
             <div
@@ -218,3 +247,8 @@ export function DealsSlider() {
     </section>
   );
 }
+
+
+
+
+

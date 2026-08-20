@@ -289,7 +289,7 @@ export const servicePages = [
     faqs: [
       { question: "Are laser treatments safe?", answer: "Yes, treatments are performed by qualified professionals under clinical standards." },
     ],
-    gallery: ["/laser.png", "/skintreatment.png"],
+    gallery: ["/laser1.png", "/laser2.png"],
   },
   {
     slug: "skin-treatments",
@@ -304,7 +304,7 @@ export const servicePages = [
     faqs: [
       { question: "Can I book a treatment if I am pregnant?", answer: "We recommend discussing your medical history during consultation before booking." },
     ],
-    gallery: ["/skincare.png", "/image2.PNG"],
+    gallery: ["/skin1.png", "/skin2.PNG"],
   },
   {
     slug: "body-treatments",
@@ -319,7 +319,7 @@ export const servicePages = [
     faqs: [
       { question: "Will there be downtime?", answer: "Most sessions have minimal downtime and allow a comfortable return to daily life." },
     ],
-    gallery: ["/skintreatment.png", "/image1.PNG"],
+    gallery: ["/chest.png", "/chest2.PNG"],
   },
   {
     slug: "salon-services",
@@ -334,7 +334,7 @@ export const servicePages = [
     faqs: [
       { question: "Can I book a same-day appointment?", answer: "Yes, availability varies, so we recommend contacting the team directly for urgent scheduling." },
     ],
-    gallery: ["/image1.PNG", "/hairstyle.png"],
+    gallery: ["/tint1.PNG", "/tint2.png"],
   },
 ];
 

@@ -72,11 +72,13 @@ export default function Home() {
     max-w-7xl
     grid-cols-1
     items-center
-    gap-8
+    gap-10
     px-4
-    pt-[80px]
-    pb-6
+    pt-32
+    pb-10
     sm:px-6
+    sm:pt-36
+    sm:pb-10
     lg:grid-cols-[1.05fr_0.95fr]
     lg:gap-10
     lg:px-8
@@ -88,54 +90,24 @@ export default function Home() {
   {/* =========================================================
       DECORATIVE DBS LOGO
   ========================================================= */}
-  <div
-    aria-hidden="true"
-    className="
-      pointer-events-none
-      absolute
-      z-[15]
-
-hidden
-min-[1649px]:flex
-
-      items-center
-      justify-center
-
-      top-[15%]
-
-      h-[clamp(140px,14vw,256px)]
-      w-[clamp(140px,14vw,256px)]
-    "
-    style={{
-      right: "calc(100% - 32px)",
-    }}
-  >
-    <div className="absolute inset-[12%] rounded-full bg-[#d9b65f]/20 blur-3xl" />
-
-    <Image
-      src="/dbslogo.png"
-      alt=""
-      fill
-      sizes="(min-width: 1280px) 256px, 14vw"
-      className="object-contain opacity-80"
-    />
-  </div>
+  
 
 
           {/* =====================================================
     LEFT SIDE
 ====================================================== */}
           <AnimatedHero>
-            <div className="w-full mb-10">
+            <div className="w-full mb-6 sm:mb-8 lg:mb-10">
               <p
                 className="
-        mb-5
+        mb-4
         text-xs
         font-semibold
         uppercase
         tracking-[0.35em]
         text-[#c9ac6a]
         font-serif
+        sm:mb-5
         sm:text-sm
         lg:mb-5
       "
@@ -146,8 +118,8 @@ min-[1649px]:flex
               <h1
                 className="
         max-w-2xl
-        text-4xl
-        leading-[1.05]
+        text-3xl
+        leading-[1.1]
         font-semibold
         text-[#f7f2e9]
         font-serif
@@ -163,11 +135,14 @@ min-[1649px]:flex
 
               <p
                 className="
-        mt-7
+        mt-5
         max-w-xl
-        text-base
-        leading-7
+        text-sm
+        leading-6
         text-[#f7f2e9]/80
+        sm:mt-7
+        sm:text-base
+        sm:leading-7
         lg:mt-6
         lg:text-lg
         lg:leading-8
@@ -177,7 +152,7 @@ min-[1649px]:flex
               </p>
 
               {/* Buttons */}
-              <div className="mt-6 flex flex-wrap gap-3 lg:mt-8 lg:gap-4">
+              <div className="mt-5 flex flex-wrap gap-3 sm:mt-6 lg:mt-8 lg:gap-4">
                 <Button href="/book-appointment">Book Your Consultation</Button>
 
                 <Button href={clinicInfo.socials.whatsapp} variant="secondary">
@@ -188,13 +163,14 @@ min-[1649px]:flex
               {/* Contact information */}
               <div
                 className="
-                  mt-6
+                  mt-5
                   flex
                   flex-wrap
                   gap-x-5
                   gap-y-2
                   text-xs
                   text-[#f7f2e9]/70
+                  sm:mt-6
                   sm:text-sm
                   lg:mt-7
                   lg:gap-6
@@ -213,13 +189,34 @@ min-[1649px]:flex
               RIGHT SIDE: LUXURY FEATURED SHOWCASE
           ====================================================== */}
         <AnimatedHero>
-  <div className="relative mx-auto w-full max-w-md lg:max-w-[440px] pt-8 lg:pt-10">
+  <div className="group relative mx-auto w-full max-w-md lg:max-w-[440px]">
 
     {/* Decorative Gold Glow Backdrop */}
-    <div className="absolute -inset-1 rounded-[2rem] bg-gradient-to-r from-[#c9ac6a]/30 via-[#f4d98a]/15 to-[#c9ac6a]/30 opacity-60 blur-xl" />
+    <div className="absolute -inset-1 rounded-[2rem] bg-gradient-to-r from-[#c9ac6a]/30 via-[#f4d98a]/15 to-[#c9ac6a]/30 opacity-60 blur-xl transition-opacity duration-500 group-hover:opacity-90" />
 
     {/* Main Luxury Glassmorphic Card */}
-    <div className="relative overflow-hidden rounded-[2rem] border border-[#c9ac6a]/30 bg-[#0a0a0a]/85 p-4 sm:p-6 lg:p-5 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.75)]">
+    <div
+      className="
+        relative
+        overflow-hidden
+        rounded-[2rem]
+        border
+        border-[#c9ac6a]/30
+        bg-[#0a0a0a]/85
+        p-4
+        shadow-[0_20px_50px_rgba(0,0,0,0.75)]
+        backdrop-blur-xl
+        transition-all
+        duration-500
+        ease-out
+        sm:p-6
+        lg:p-5
+        group-hover:-translate-y-1.5
+        group-hover:scale-[1.015]
+        group-hover:border-[#c9ac6a]/60
+        group-hover:shadow-[0_28px_65px_rgba(0,0,0,0.85)]
+      "
+    >
 
       {/* Header Tag */}
       <div className="flex items-center justify-between border-b border-[#c9ac6a]/20 pb-3">
@@ -245,7 +242,7 @@ min-[1649px]:flex
           src="/hydra.png"
           alt="Vampire Hydra Facial Treatment Suite"
           fill
-          className="object-cover transition-transform duration-700 hover:scale-105"
+          className="object-cover"
         />
 
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-90" />
@@ -308,9 +305,6 @@ min-[1649px]:flex
       </div>
 
     </div>
-
-   
- 
 
   </div>
 </AnimatedHero>
@@ -916,3 +910,13 @@ min-[1649px]:flex
     </div>
   );
 }
+ 
+
+
+
+
+ 
+
+
+
+
