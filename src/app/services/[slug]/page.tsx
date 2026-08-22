@@ -76,7 +76,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
     notFound();
   }
 
-  const heroImage = service.gallery?.[0] ?? "/image1.PNG";
+  const heroImage = service.gallery?.[0] ?? "/image1.png";
   const servicePricing = getServicesForCategory(slug);
 
   // Check if any treatment has specific price types

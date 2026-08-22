@@ -60,7 +60,7 @@ export const featuredTreatments = [
     title: "Skin Treatments",
      duration: "60 mins",
     description: "Rejuvenation and corrective skin treatments for visible radiance.",
-    image: "/image2.PNG",
+    image: "/image2.png",
   },
   {
     slug: "body-treatments",
@@ -74,7 +74,7 @@ export const featuredTreatments = [
     title: "Salon Services",
      duration: "45-90 mins",
     description: "Hair styling, makeovers and grooming experiences in a private setting.",
-    image: "/image1.PNG",
+    image: "/image1.png",
   },
 ];
 
@@ -101,7 +101,7 @@ export const treatmentCategories = [
     slug: "skin-treatments",
     title: "Skin Treatments",
     description: "Rejuvenation and corrective skin treatments for visible radiance.",
-    image: "/image2.PNG",
+    image: "/image2.png",
   },
   {
     slug: "body-treatments",
@@ -113,7 +113,7 @@ export const treatmentCategories = [
     slug: "salon-services",
     title: "Salon Services",
     description: "Hair styling, makeovers and grooming experiences in a private setting.",
-    image: "/image1.PNG",
+    image: "/image1.png",
   },
 ];
 
@@ -259,7 +259,7 @@ export const servicePages = [
     { question: "Is the facial treatment painful?", answer: "Most treatments are soothing and comfortable with no significant discomfort." },
     { question: "How often should I book?", answer: "A monthly session is ideal for maintenance and long-term glow." },
   ],
-  gallery: ["/prp.PNG", "/prp2.PNG"],
+  gallery: ["/prp.png", "/prp2.png"],
 },
   {
     slug: "hair-treatments",
@@ -304,7 +304,7 @@ export const servicePages = [
     faqs: [
       { question: "Can I book a treatment if I am pregnant?", answer: "We recommend discussing your medical history during consultation before booking." },
     ],
-    gallery: ["/skin1.png", "/skin2.PNG"],
+    gallery: ["/skin1.png", "/skin2.png"],
   },
   {
     slug: "body-treatments",
@@ -319,7 +319,7 @@ export const servicePages = [
     faqs: [
       { question: "Will there be downtime?", answer: "Most sessions have minimal downtime and allow a comfortable return to daily life." },
     ],
-    gallery: ["/chest.png", "/chest2.PNG"],
+    gallery: ["/chest.png", "/chest2.png"],
   },
   {
     slug: "salon-services",
@@ -334,7 +334,7 @@ export const servicePages = [
     faqs: [
       { question: "Can I book a same-day appointment?", answer: "Yes, availability varies, so we recommend contacting the team directly for urgent scheduling." },
     ],
-    gallery: ["/tint1.PNG", "/tint2.png"],
+    gallery: ["/tint1.png", "/tint2.png"],
   },
 ];
 
@@ -368,7 +368,7 @@ export const teamMembers = [
   {
     name: "Dr. Zaini",
     role: "Founder & Medical Aesthetic Specialist",
-    image: "/image3.PNG",
+    image: "/image3.png",
     bio: "Known for a refined, artistic approach to skin and facial aesthetics.",
   },
 
@@ -389,8 +389,8 @@ export const certifications = [
 ];
 
 export const galleryImages = [
-  { src: "/image1.PNG", alt: "Luxury facial treatment room at DBS Aesthetics Clinic & Salon" },
+  { src: "/image1.png", alt: "Luxury facial treatment room at DBS Aesthetics Clinic & Salon" },
   { src: "/hairstyle.png", alt: "Modern salon styling experience with premium finishing" },
-  { src: "/image2.PNG", alt: "Advanced laser and skincare treatment environment" },
-  { src: "/team.PNG", alt: "Professional team preparing a client for treatment" },
+  { src: "/image2.png", alt: "Advanced laser and skincare treatment environment" },
+  { src: "/team.png", alt: "Professional team preparing a client for treatment" },
 ];
