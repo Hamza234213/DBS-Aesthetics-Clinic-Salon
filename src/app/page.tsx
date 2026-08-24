@@ -249,10 +249,9 @@ export default function Home() {
 
         <div className="absolute bottom-3 left-3 right-3">
 
-          <span className="inline-block rounded-md bg-[#c9ac6a] px-2 py-1 text-[9px] uppercase font-bold tracking-widest text-[#0a0a0a]">
-            Top Requested
-          </span>
-
+<span className="inline-block rounded-md px-2 py-1 text-[9px] uppercase font-bold tracking-widest text-[#232323] bg-[linear-gradient(135deg,#8f6b2e_0%,#c9a55c_20%,#f4d98a_40%,#b8893f_60%,#e0c16c_80%,#8f6b2e_100%)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.5),0_4px_15px_rgba(201,172,106,0.25)]">
+  Top Requested
+</span>
           <h3 className="mt-1 text-lg sm:text-xl lg:text-lg font-serif font-semibold text-[#f7f2e9]">
             Vampire Hydra Facial
           </h3>
@@ -728,7 +727,7 @@ export default function Home() {
   </div>
 
   {/* Address Heading */}
-  <p className="relative z-10 text-sm uppercase tracking-[0.35em] text-[#c9ac6a] font-[Oswald]">
+  <p className="relative z-10 text-sm uppercase tracking-[0.35em] text-[#c9ac6a] font-[500]">
     Clinic Addresses
   </p>
 

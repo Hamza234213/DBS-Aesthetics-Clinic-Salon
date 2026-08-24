@@ -77,7 +77,7 @@ export function Navbar() {
           <Link
             href="/"
             scroll={true}
-            className="flex items-center gap-3 flex-shrink-0"
+            className="flex items-center gap-1 flex-shrink-0"
             onClick={(e) => {
               if (window.location.pathname === "/") {
                 e.preventDefault();
@@ -92,40 +92,22 @@ export function Navbar() {
             {/* Bigger Logo */}
             <div className="relative h-12 w-12 sm:h-16 sm:w-16 lg:h-[68px] lg:w-[68px] flex-shrink-0">
               <Image
-                src="/dbslogo.png"
-                alt="DBS Logo"
+                src="/DBS_Logo.png"
+                alt="DBS_Logo"
                 fill
                 priority
                 className="object-contain"
               />
             </div>
 
-            <div>
-              <p
-                className="
-                  bg-gradient-to-r
-                  from-[#8f6b2e]
-                  via-[#f4d98a]
-                  via-[#c9a55c]
-                  to-[#8f6b2e]
-                  bg-clip-text
-                  text-transparent
-                  text-lg
-                  animate-shimmer
-                  sm:text-lg
-                  font-[Patrick]
-                  tracking-[0.15em]
-                  normal-case
-                  font-semibold
-                  whitespace-nowrap
-                "
-              >
-             DBS   Aesthetics 
-              </p>
-
-              <p className="text-[10px] sm:text-xs font-[Patrick] tracking-[0.15em] normal-case text-white font-medium whitespace-nowrap">
-               Clinic & Salon
-              </p>
+            <div className="relative h-10 w-[190px] sm:h-12 sm:w-[230px] lg:h-14 lg:w-[270px] flex-shrink-0">
+              <Image
+                src="/Logo%20Font.png"
+                alt="DBS Aesthetics Clinic & Salon"
+                fill
+                priority
+                className="object-contain object-left"
+              />
             </div>
           </Link>
 
@@ -187,33 +169,16 @@ export function Navbar() {
     {/* =========================
     DESKTOP BUTTON
 ========================== */}
+{/* =========================
+    DESKTOP BUTTON
+========================== */}
 <div className="hidden lg:flex items-center gap-4">
-  <a
+  <Link
     href="/book-appointment"
-    className="
-      inline-flex items-center justify-center
-      rounded-full
-      px-6 py-2.5
-      text-sm font-semibold
-      text-[#2a2112]
- hover:animate-shimmer
-      bg-[linear-gradient(120deg,#c99c4e_0%,#e4c56f_20%,#fff0ad_40%,#d9b45b_58%,#f3d57d_78%,#c99c4e_100%)]
-
-      border border-[#f8e5a5]/70
-
-      shadow-[inset_0_1px_2px_rgba(255,255,255,0.8),0_5px_20px_rgba(201,172,106,0.25)]
-
-      transition-all
-      duration-300
-
-      hover:scale-[1.03]
-      hover:brightness-110
-
-      hover:shadow-[inset_0_1px_3px_rgba(255,255,255,0.9),0_8px_26px_rgba(201,172,106,0.45)]
-    "
+    className="inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium text-[#232323] transition-all duration-300 bg-[linear-gradient(135deg,#8f6b2e_0%,#c9a55c_20%,#f4d98a_40%,#b8893f_60%,#e0c16c_80%,#8f6b2e_100%)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.5),0_4px_15px_rgba(201,172,106,0.25)] hover:brightness-110 hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.6),0_6px_20px_rgba(201,172,106,0.4)]"
   >
     Book Appointment
-  </a>
+  </Link>
 </div>
 
           {/* =========================
@@ -346,40 +311,25 @@ export function Navbar() {
                 <Link
                   href="/"
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center gap-3"
+                  className="flex items-center gap-1"
                 >
                   {/* Bigger Mobile Logo */}
                   <div className="relative h-14 w-14 sm:h-16 sm:w-16">
                     <Image
-                      src="/dbslogo.png"
-                      alt="DBS Logo"
+                      src="/DBS_Logo.png"
+                      alt="DBS_Logo"
                       fill
                       className="object-contain"
                     />
                   </div>
 
-                  <div>
-                    <p
-                      className="
-                        bg-gradient-to-r
-                        from-[#8f6b2e]
-                        via-[#f4d98a]
-                        to-[#8f6b2e]
-                        bg-clip-text
-                        text-transparent
-                        text-sm
-                        font-[Patrick]
-                        tracking-[0.15em]
-                        normal-case
-                        font-semibold
-                      "
-                    >
-                      Aesthetics Clinic
-                    </p>
-
-                    <p className="text-xs font-[Patrick] tracking-[0.15em] normal-case text-white font-medium">
-                      & Salon
-                    </p>
+                  <div className="relative h-10 w-[210px]">
+                    <Image
+                      src="/Logo%20Font.png"
+                      alt="DBS Aesthetics Clinic & Salon"
+                      fill
+                      className="object-contain object-left"
+                    />
                   </div>
                 </Link>
 
@@ -479,4 +429,4 @@ export function Navbar() {
       </AnimatePresence>
     </>
   );
-} 
+}

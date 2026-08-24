@@ -175,8 +175,7 @@ export function DealsSlider() {
           className="flex gap-5 sm:gap-6 w-max cursor-grab active:cursor-grabbing touch-pan-y"
           style={{ x }}
           drag="x"
-          dragConstraints={false}
-          dragElastic={0.05}
+          dragElastic={1}
           dragMomentum={true}
           onDragStart={() => {
             if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
@@ -203,9 +202,9 @@ export function DealsSlider() {
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#c9ac6a]/30 bg-[#c9ac6a]/15 text-sm text-[#c9ac6a] transition-transform duration-300 group-hover:scale-110">
                       {deal.icon}
                     </div>
-                    <span className="shrink-0 rounded-full bg-[#c9ac6a] px-3 py-1 text-[10px] font-bold text-[#0a0a0a] shadow-md shadow-[#c9ac6a]/15">
-                      {deal.tag}
-                    </span>
+                  <span className="shrink-0 rounded-full px-3 py-1 text-[10px] font-bold text-[#232323] bg-[linear-gradient(135deg,#8f6b2e_0%,#c9a55c_20%,#f4d98a_40%,#b8893f_60%,#e0c16c_80%,#8f6b2e_100%)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.5),0_4px_15px_rgba(201,172,106,0.25)]">
+                    {deal.tag}
+                  </span>
                   </div>
 
                   {/* Title */}
@@ -228,17 +227,16 @@ export function DealsSlider() {
                     </span>
                   </div>
                 </div>
-
-                {/* Claim Offer Button */}
-                <div className="mt-5">
-                  <Link
-                    href={`/book-appointment?treatment=${encodeURIComponent(deal.title)}&session=${encodeURIComponent(deal.sessionType)}`}
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#c9ac6a]/40 bg-[#c9ac6a]/10 px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-[#c9ac6a] transition-all duration-300 group-hover:bg-[#c9ac6a] group-hover:text-[#0a0a0a]"
-                  >
-                    <span>Claim Offer</span>
-                    <FaArrowRight className="text-xs transition-transform duration-300 group-hover:translate-x-1" />
-                  </Link>
-                </div>
+              {/* Claim Offer Button */}
+              <div className="mt-5">
+                <Link
+                  href={`/book-appointment?treatment=${encodeURIComponent(deal.title)}&session=${encodeURIComponent(deal.sessionType)}`}
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3 text-xs font-semibold uppercase tracking-wider text-[#232323] transition-all duration-300 bg-[linear-gradient(135deg,#8f6b2e_0%,#c9a55c_20%,#f4d98a_40%,#b8893f_60%,#e0c16c_80%,#8f6b2e_100%)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.5),0_4px_15px_rgba(201,172,106,0.25)] hover:brightness-110 hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.6),0_6px_20px_rgba(201,172,106,0.4)]"
+                >
+                  <span>Claim Offer</span>
+                  <FaArrowRight className="text-xs transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+              </div>
               </div>
             </div>
           ))}

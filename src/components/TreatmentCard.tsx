@@ -56,7 +56,7 @@ export function TreatmentCard({ title, description, duration, href = "/", image 
         <div className="absolute top-4 left-4">
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0a0a0a]/80 backdrop-blur-sm border border-[#c9ac6a]/30">
             <span className="h-1.5 w-1.5 rounded-full bg-[#c9ac6a] animate-pulse" />
-            <span className="text-[10px] uppercase tracking-[0.2em] text-[#c9ac6a] font-[Oswald]">
+            <span className="text-[10px] uppercase tracking-[0.2em] text-[#c9ac6a] font-[500]">
               Premium
             </span>
           </div>
@@ -92,7 +92,7 @@ export function TreatmentCard({ title, description, duration, href = "/", image 
         
         {/* Learn More Link */}
         <div className="mt-4 flex items-center gap-2 text-xs text-[#c9ac6a]/40 transition-all duration-300 group-hover:gap-3 group-hover:text-[#c9ac6a]">
-          <span className="font-[Oswald] tracking-wider">Learn More</span>
+          <span className="font-[500] tracking-wider">Learn More</span>
           <svg 
             className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-1" 
             fill="none" 
