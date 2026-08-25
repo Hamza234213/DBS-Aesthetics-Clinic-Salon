@@ -31,8 +31,26 @@ export async function submitAppointment(input: AppointmentInput) {
     const normalizedUrl = databaseUrl.replace(/^postgresql\+asyncpg:\/\//, "postgresql://");
     const sql = neon(normalizedUrl);
 
-    // Generate a unique appointment ID and a guest client ID
-    const appointmentId = `apt_${Math.random().toString(36).substring(2, 9)}_${Date.now().toString(36)}`;
+    // Fetch the highest existing appointment ID matching 'APT-%' to increment sequentially
+    let appointmentId = "APT-1001";
+    try {
+      const highestApt = await sql`
+        SELECT id FROM appointments 
+        WHERE id LIKE 'APT-%' 
+        ORDER BY id DESC 
+        LIMIT 1
+      `;
+      if (highestApt.length > 0) {
+        const match = highestApt[0].id.match(/^APT-(\d+)$/);
+        if (match) {
+          const num = parseInt(match[1], 10);
+          appointmentId = `APT-${num + 1}`;
+        }
+      }
+    } catch (dbError) {
+      console.warn("Could not query highest appointment ID, using default APT-1001", dbError);
+    }
+
     const clientId = `guest_${Math.random().toString(36).substring(2, 9)}`;
     const staffId = "unassigned";
     const staffName = "Any Available Staff";
