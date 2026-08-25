@@ -240,7 +240,14 @@ export function AppointmentForm() {
     
     // Slugify service and branch
     const serviceId = preferred.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-    const branchId = clinic.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    
+    // Map selected clinic to the correct database branch ID
+    let branchId = "BR-001";
+    if (clinic.includes("Saadi")) {
+      branchId = "BR-001";
+    } else if (clinic.includes("Badar")) {
+      branchId = "BR-002";
+    }
 
     // Parse price
     let priceVal = 0;
