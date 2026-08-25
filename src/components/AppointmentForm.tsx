@@ -995,7 +995,7 @@ export function AppointmentForm() {
                     uppercase
                     tracking-[0.25em]
                     text-[#c9ac6a]
-                    font-[Oswald]
+                    font-[500]
                   "
                           >
                             {cat}
@@ -1050,10 +1050,9 @@ export function AppointmentForm() {
           {/* Session Preference Option */}
           <div className="block text-sm text-[#f7f2e9]/70">
             <span className="mb-2 block font-medium text-[#f7f2e9]">Session Preference</span>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
-                { id: "Full Package", label: "Full Package Deal", desc: "Multi-session savings" },
-                { id: "Single Session", label: "Single Visit", desc: "Individual session" },
+                { id: "Single Session", label: "Book a Session", desc: "Individual session" },
                 { id: "Consultation Only", label: "Consultation Only", desc: "Doctor evaluation" },
               ].map((opt) => (
                 <button

@@ -73,12 +73,12 @@ export function Footer() {
           <Link
             href="/"
             aria-label="DBS Aesthetics & Salon Home"
-            className="group inline-flex items-center gap-4 transition-all duration-500 hover:scale-[1.02]"
+            className="group inline-flex items-center gap-1 transition-all duration-500 hover:scale-[1.02]"
           >
 
             <Image
-              src="/dbslogo.png"
-              alt="DBS Aesthetics & Salon"
+              src="/DBS_Logo.png"
+              alt="DBS_Logo"
               width={80}
               height={80}
               priority
@@ -94,18 +94,13 @@ export function Footer() {
               "
             />
 
-            <div>
-              <h3 className="bg-[length:200%_100%] bg-clip-text font-[Patrick] text-2xl leading-relaxed text-transparent animate-shimmer   bg-gradient-to-r
-                  from-[#8f6b2e]
-                  via-[#f4d98a]
-                  via-[#c9a55c]
-                  to-[#8f6b2e]">
-                {clinicInfo.footername}
-              </h3>
-
-              <h4 className="font-[Playfair] text-xl leading-relaxed text-[#f7f2e9]">
-                {clinicInfo.footersubname}
-              </h4>
+            <div className="relative h-12 w-[230px] sm:h-14 sm:w-[270px]">
+              <Image
+                src="/Logo%20Font.png"
+                alt="DBS Aesthetics Clinic & Salon"
+                fill
+                className="object-contain object-left"
+              />
             </div>
 
           </Link>
@@ -237,7 +232,7 @@ export function Footer() {
         <div className="pt-[8px] lg:pt-[18px]">
 
           <h4
-            className="font-[Oswald] text-lg font-semibold uppercase tracking-[0.2em]
+            className="text-lg uppercase tracking-[0.2em] bg-clip-text text-xl font-semibold text-transparent font-[Patrick]
                bg-[length:200%_100%]
                bg-clip-text
                text-transparent
@@ -358,7 +353,7 @@ export function Footer() {
 
         <div className="pt-[8px] lg:pt-[18px]">
 
-          <h4 className="font-[Oswald] text-lg font-semibold uppercase tracking-[0.2em]
+          <h4 className="text-lg uppercase tracking-[0.2em] bg-clip-text text-xl font-semibold text-transparent font-[Patrick]
                bg-[length:200%_100%]
                bg-clip-text
                text-transparent
