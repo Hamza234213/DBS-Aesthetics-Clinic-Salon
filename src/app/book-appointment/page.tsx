@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   description: "Reserve a private consultation with the DBS Aesthetics Clinic & Salon team in Karachi.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default function BookAppointmentPage() {
   return (
     <div className="page-metallic-shell relative overflow-hidden min-h-screen">
