@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { allServices, clinicInfo } from "@/data/clinic";
+import { submitAppointment } from "@/app/book-appointment/actions";
 
 export function AppointmentForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -37,6 +38,13 @@ export function AppointmentForm() {
 
   // Validation message for custom controls
   const [validationMessage, setValidationMessage] = useState("");
+
+  // Patient and booking database states
+  const [patientName, setPatientName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [notes, setNotes] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const clinicContainerRef = useRef<HTMLDivElement | null>(null);
@@ -184,7 +192,7 @@ export function AppointmentForm() {
     );
   }
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (!selectedDate) {
@@ -224,7 +232,51 @@ export function AppointmentForm() {
     }
 
     setValidationMessage("");
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setSubmitError("");
+
+    // Format date: YYYY-MM-DD
+    const formattedDate = formatDateForForm(selectedDate);
+    
+    // Slugify service and branch
+    const serviceId = preferred.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    const branchId = clinic.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+
+    // Parse price
+    let priceVal = 0;
+    const matchedService = allServices.find(s => s.name === preferred);
+    if (matchedService) {
+      const priceStr = matchedService.price || matchedService.individualPrice || matchedService.packagePrice || matchedService.priceRange || "";
+      const firstPart = priceStr.split(/[–-]/)[0] || "";
+      const parsed = parseFloat(firstPart.replace(/[^0-9]/g, ""));
+      priceVal = isNaN(parsed) ? 0 : parsed;
+    }
+
+    try {
+      const result = await submitAppointment({
+        clientName: patientName,
+        phone: phoneNumber,
+        serviceName: preferred,
+        serviceId,
+        date: formattedDate,
+        time: selectedTime,
+        notes,
+        price: priceVal,
+        branchId,
+        category: sessionOption === "Consultation Only" ? "consultation" : "treatment",
+      });
+
+      if (result.success) {
+        setSubmitted(true);
+      } else {
+        setSubmitError(result.error || "Failed to book appointment. Please try again.");
+      }
+    } catch (err) {
+      console.error(err);
+      setSubmitError("A connection error occurred. Please check your internet connection and try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   const servicesByCategory = useMemo(() => {
@@ -368,6 +420,8 @@ export function AppointmentForm() {
 
               <input
                 required
+                value={patientName}
+                onChange={(e) => setPatientName(e.target.value)}
                 className="w-full rounded-full border border-[#c9ac6a]/20 bg-transparent px-4 py-3 text-[#c9ac6a] outline-none focus:border-[#c9ac6a] transition-colors duration-300 placeholder:text-[#f7f2e9]/30"
                 placeholder="Enter your full name"
               />
@@ -383,6 +437,7 @@ export function AppointmentForm() {
                 maxLength={12}
                 placeholder="03XX-XXXXXXX"
                 className="w-full rounded-full border border-[#c9ac6a]/20 bg-transparent px-4 py-3 text-[#c9ac6a] outline-none focus:border-[#c9ac6a] transition-colors duration-300 placeholder:text-[#f7f2e9]/30"
+                value={phoneNumber}
                 onInput={(e) => {
                   const input = e.currentTarget;
 
@@ -394,6 +449,7 @@ export function AppointmentForm() {
                   }
 
                   input.value = value;
+                  setPhoneNumber(value);
                 }}
               />
             </label>
@@ -1099,11 +1155,19 @@ export function AppointmentForm() {
             </p>
           )}
 
+          {submitError && (
+            <p className="rounded-xl border border-red-500/20 bg-red-500/5 px-4 py-3 text-sm text-red-400">
+              {submitError}
+            </p>
+          )}
+
           <label className="block min-w-0 text-sm text-[#f7f2e9]/70">
             <span className="mb-2 block">Additional Notes</span>
 
             <textarea
               rows={4}
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
               className="w-full rounded-[1.25rem] border border-[#c9ac6a]/20 bg-transparent px-4 py-3 text-[#c9ac6a] outline-none focus:border-[#c9ac6a] transition-colors duration-300 resize-none placeholder:text-[#f7f2e9]/30"
               placeholder="Any specific requests or questions..."
             />
@@ -1111,6 +1175,7 @@ export function AppointmentForm() {
 
           <button
             type="submit"
+            disabled={isSubmitting}
             className="
               w-full
               rounded-full
@@ -1126,9 +1191,11 @@ export function AppointmentForm() {
               hover:brightness-110
               hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.6),0_8px_25px_rgba(201,172,106,0.45)]
               active:scale-[0.98]
+              disabled:opacity-50
+              disabled:cursor-not-allowed
             "
           >
-            Submit Request
+            {isSubmitting ? "Submitting Request..." : "Submit Request"}
           </button>
 
           <p className="text-center text-sm text-[#f7f2e9]/60">
