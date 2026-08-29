@@ -31,8 +31,8 @@ export default function ContactPage() {
             <div className="page-card rounded-[2.25rem] border border-[#c9ac6a]/20 p-8 transition-all duration-300 hover:border-[#c9ac6a]/40">
               <h2 className="text-2xl font-serif font-semibold text-[#f7f2e9]">Clinic Contact Details</h2>
               <ul className="mt-6 space-y-4 text-base sm:text-lg text-[#f7f2e9]/75">
-                <li><span className="font-semibold text-[#c9ac6a]">UAN / Mobile:</span> {clinicInfo.phone}</li>
-                <li><span className="font-semibold text-[#c9ac6a]">Landline:</span> {clinicInfo.landline}</li>
+                <li><span className="font-semibold text-[#c9ac6a]">Mobile:</span> {clinicInfo.phone}</li>
+                <li><span className="font-semibold text-[#c9ac6a]">UAN:</span> {clinicInfo.landline}</li>
                 <li><span className="font-semibold text-[#c9ac6a]">WhatsApp:</span> {clinicInfo.whatsapp}</li>
                 <li><span className="font-semibold text-[#c9ac6a]">Operating Hours:</span> {clinicInfo.hours}</li>
               </ul>
