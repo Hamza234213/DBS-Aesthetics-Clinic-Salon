@@ -39,7 +39,6 @@ export function Footer() {
 
   return (
     <footer className="relative overflow-hidden border-t border-[#c9ac6a]/20 bg-[#050505]">
-
       {/* =====================================================
           BACKGROUND EFFECTS
       ====================================================== */}
@@ -54,20 +53,16 @@ export function Footer() {
 
       <div className="absolute right-1/4 top-1/2 h-64 w-64 -translate-y-1/2 rounded-full bg-[#c9ac6a]/8 blur-3xl" />
 
-
       {/* =====================================================
           MAIN FOOTER
       ====================================================== */}
 
       <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.2fr_0.8fr_0.8fr] lg:px-8">
-
-
         {/* ===================================================
             LEFT COLUMN — BRAND
         ==================================================== */}
 
         <div>
-
           {/* BRAND NAME WITH LOGO */}
 
           <Link
@@ -75,7 +70,6 @@ export function Footer() {
             aria-label="DBS Aesthetics & Salon Home"
             className="group inline-flex items-center gap-1 transition-all duration-500 hover:scale-[1.02]"
           >
-
             <Image
               src="/DBS_Logo.png"
               alt="DBS_Logo"
@@ -84,7 +78,7 @@ export function Footer() {
               priority
               className="
                 h-auto
-                w-[70px]
+                w-auto
                 object-contain
                 transition-all
                 duration-500
@@ -94,22 +88,19 @@ export function Footer() {
               "
             />
 
-            <div className="relative h-12 w-[230px] sm:h-14 sm:w-[270px]">
+            <div className="relative h-10 w-[190px] sm:h-12 sm:w-[230px] lg:h-22 lg:w-[270px] flex-shrink-0">
               <Image
-                src="/Logo%20Font.png"
+                src="/DBS%20Text%20Logo.png"
                 alt="DBS Aesthetics Clinic & Salon"
                 fill
                 className="object-contain object-left"
               />
             </div>
-
           </Link>
-
 
           {/* GOLD DIVIDER */}
 
           <div className="mt-4 h-px w-[230px] bg-gradient-to-r from-[#c9ac6a]/50 to-transparent" />
-
 
           {/* ABOUT */}
 
@@ -117,14 +108,11 @@ export function Footer() {
             {clinicInfo.footerabout}
           </p>
 
-
           {/* =================================================
               SOCIAL ICONS
           ================================================== */}
 
           <div className="mt-6 flex gap-3">
-
-
             {/* INSTAGRAM */}
 
             <a
@@ -149,13 +137,10 @@ export function Footer() {
                 hover:shadow-[0_0_30px_rgba(201,172,106,0.12)]
               "
             >
-
               <span className="absolute inset-0 rounded-full bg-gradient-to-r from-[#c9ac6a]/10 via-transparent to-[#c9ac6a]/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
               <FaInstagram className="relative z-10" />
-
             </a>
-
 
             {/* FACEBOOK */}
 
@@ -181,13 +166,10 @@ export function Footer() {
                 hover:shadow-[0_0_30px_rgba(201,172,106,0.12)]
               "
             >
-
               <span className="absolute inset-0 rounded-full bg-gradient-to-r from-[#c9ac6a]/10 via-transparent to-[#c9ac6a]/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
               <FaFacebookF className="relative z-10" />
-
             </a>
-
 
             {/* WHATSAPP */}
 
@@ -213,24 +195,18 @@ export function Footer() {
                 hover:shadow-[0_0_30px_rgba(201,172,106,0.12)]
               "
             >
-
               <span className="absolute inset-0 rounded-full bg-gradient-to-r from-[#c9ac6a]/10 via-transparent to-[#c9ac6a]/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
               <FaWhatsapp className="relative z-10" />
-
             </a>
-
           </div>
-
         </div>
-
 
         {/* ===================================================
             MIDDLE COLUMN — CONTACT
         ==================================================== */}
 
         <div className="pt-[8px] lg:pt-[18px]">
-
           <h4
             className="text-lg uppercase tracking-[0.2em] bg-clip-text text-xl font-semibold text-transparent font-[Patrick]
                bg-[length:200%_100%]
@@ -246,19 +222,14 @@ export function Footer() {
             Contact
           </h4>
 
-
           {/* GOLD DIVIDER */}
 
           <div className="mt-3 h-px w-12 bg-gradient-to-r from-[#c9ac6a]/50 to-transparent" />
 
-
           <ul className="mt-5 space-y-4 text-sm text-[#f7f2e9]/65">
-
-
             {/* WHATSAPP NUMBER */}
 
             <li className="flex items-start gap-3">
-
               <RiWhatsappFill
                 size={15}
                 className="mt-1 shrink-0 text-[#c9ac6a]/70"
@@ -272,18 +243,12 @@ export function Footer() {
               >
                 {clinicInfo.phone}
               </a>
-
             </li>
-
 
             {/* LANDLINE */}
 
             <li className="flex items-start gap-3">
-
-              <FaPhone
-                size={14}
-                className="mt-1 shrink-0 text-[#c9ac6a]/70"
-              />
+              <FaPhone size={14} className="mt-1 shrink-0 text-[#c9ac6a]/70" />
 
               <a
                 href={landlineUrl}
@@ -291,14 +256,11 @@ export function Footer() {
               >
                 {clinicInfo.landline}
               </a>
-
             </li>
-
 
             {/* FIRST ADDRESS */}
 
             <li className="flex items-start gap-3">
-
               <FaMapMarkerAlt
                 size={14}
                 className="mt-1 shrink-0 text-[#c9ac6a]/70"
@@ -307,14 +269,11 @@ export function Footer() {
               <span className="transition-colors duration-300 hover:text-[#f7f2e9]/90">
                 {clinicInfo.address1}
               </span>
-
             </li>
-
 
             {/* SECOND ADDRESS */}
 
             <li className="flex items-start gap-3">
-
               <FaMapMarkerAlt
                 size={14}
                 className="mt-1 shrink-0 text-[#c9ac6a]/70"
@@ -323,37 +282,27 @@ export function Footer() {
               <span className="transition-colors duration-300 hover:text-[#f7f2e9]/90">
                 {clinicInfo.address2}
               </span>
-
             </li>
-
 
             {/* OPENING HOURS */}
 
             <li className="flex items-start gap-3">
-
-              <FaClock
-                size={14}
-                className="mt-1 shrink-0 text-[#c9ac6a]/70"
-              />
+              <FaClock size={14} className="mt-1 shrink-0 text-[#c9ac6a]/70" />
 
               <span className="transition-colors duration-300 hover:text-[#f7f2e9]/90">
                 {clinicInfo.hours}
               </span>
-
             </li>
-
           </ul>
-
         </div>
-
 
         {/* ===================================================
             RIGHT COLUMN — EXPLORE
         ==================================================== */}
 
         <div className="pt-[8px] lg:pt-[18px]">
-
-          <h4 className="text-lg uppercase tracking-[0.2em] bg-clip-text text-xl font-semibold text-transparent font-[Patrick]
+          <h4
+            className="text-lg uppercase tracking-[0.2em] bg-clip-text text-xl font-semibold text-transparent font-[Patrick]
                bg-[length:200%_100%]
                bg-clip-text
                text-transparent
@@ -362,127 +311,89 @@ export function Footer() {
                from-[#8f6b2e]
                via-[#f4d98a]
                via-[#c9a55c]
-               to-[#8f6b2e]">
+               to-[#8f6b2e]"
+          >
             Explore
           </h4>
-
 
           {/* GOLD DIVIDER */}
 
           <div className="mt-3 h-px w-12 bg-gradient-to-r from-[#c9ac6a]/50 to-transparent" />
 
-
           <ul className="mt-5 space-y-3 text-sm text-[#f7f2e9]/65">
-
-
             {/* ABOUT */}
 
             <li>
-
               <Link
                 href="/about"
                 className="group flex items-center gap-2 transition-all duration-300 hover:text-[#c9ac6a]"
               >
-
                 <span className="flex h-px w-4 shrink-0 items-center">
-
                   <span className="h-px w-full bg-[#c9ac6a]/40 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100" />
-
                 </span>
 
                 <span>About</span>
-
               </Link>
-
             </li>
-
 
             {/* SERVICES */}
 
             <li>
-
               <Link
                 href="/services"
                 className="group flex items-center gap-2 transition-all duration-300 hover:text-[#c9ac6a]"
               >
-
                 <span className="flex h-px w-4 shrink-0 items-center">
-
                   <span className="h-px w-full bg-[#c9ac6a]/40 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100" />
-
                 </span>
 
                 <span>Services</span>
-
               </Link>
-
             </li>
-
 
             {/* GALLERY */}
 
             <li>
-
               <Link
                 href="/gallery"
                 className="group flex items-center gap-2 transition-all duration-300 hover:text-[#c9ac6a]"
               >
-
                 <span className="flex h-px w-4 shrink-0 items-center">
-
                   <span className="h-px w-full bg-[#c9ac6a]/40 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100" />
-
                 </span>
 
                 <span>Gallery</span>
-
               </Link>
-
             </li>
-
 
             {/* BOOK APPOINTMENT */}
 
             <li>
-
               <Link
                 href="/book-appointment"
                 className="group flex items-center gap-2 transition-all duration-300 hover:text-[#c9ac6a]"
               >
-
                 <span className="flex h-px w-4 shrink-0 items-center">
-
                   <span className="h-px w-full bg-[#c9ac6a]/40 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100" />
-
                 </span>
 
                 <span>Book Appointment</span>
-
               </Link>
-
             </li>
-
           </ul>
-
         </div>
-
       </div>
-
 
       {/* =====================================================
           BOTTOM COPYRIGHT BAR
       ====================================================== */}
 
       <div className="relative z-10 border-t border-[#c9ac6a]/10 bg-[#060606]/80">
-
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-
           <p className="group flex items-center justify-center gap-3 text-center text-[11px] font-semibold uppercase tracking-[0.3em] text-[#f7f2e9]/40 transition-all duration-500 hover:text-[#c9ac6a]/80 sm:text-[13px] sm:tracking-[0.35em]">
-
             {/* LEFT LINE */}
 
             <span className="h-px w-6 bg-[#c9ac6a]/30 transition-all duration-500 group-hover:w-10 group-hover:bg-[#c9ac6a]/60 sm:w-8" />
-
 
             {/* CREDIT */}
 
@@ -493,17 +404,12 @@ export function Footer() {
               </span>
             </span>
 
-
             {/* RIGHT LINE */}
 
             <span className="h-px w-6 bg-[#c9ac6a]/30 transition-all duration-500 group-hover:w-10 group-hover:bg-[#c9ac6a]/60 sm:w-8" />
-
           </p>
-
         </div>
-
       </div>
-
     </footer>
   );
 }

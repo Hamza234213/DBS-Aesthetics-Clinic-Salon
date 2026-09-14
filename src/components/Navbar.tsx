@@ -60,17 +60,14 @@ export function Navbar() {
         }}
         transition={{ duration: 0.25 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isOpen
-            ? "pointer-events-none"
-            : "pointer-events-auto"
+          isOpen ? "pointer-events-none" : "pointer-events-auto"
         } ${
           isScrolled && !isOpen
-          ? "bg-[#111111]/45 backdrop-blur-2xl border-b border-white/10 "
+            ? "bg-[#111111]/45 backdrop-blur-2xl border-b border-white/10 "
             : "bg-transparent backdrop-blur-none border-b border-white/5"
         }`}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between bg-transparent px-4 py-3 sm:px-6 lg:px-8">
-
           {/* =========================
               LOGO
           ========================== */}
@@ -100,9 +97,9 @@ export function Navbar() {
               />
             </div>
 
-            <div className="relative h-10 w-[190px] sm:h-12 sm:w-[230px] lg:h-14 lg:w-[270px] flex-shrink-0">
+            <div className="relative h-10 w-[190px] sm:h-12 sm:w-[230px] lg:h-22 lg:w-[270px] flex-shrink-0">
               <Image
-                src="/Logo%20Font.png"
+                src="/DBS%20Text%20Logo.png"
                 alt="DBS Aesthetics Clinic & Salon"
                 fill
                 priority
@@ -166,27 +163,27 @@ export function Navbar() {
             })}
           </nav>
 
-    {/* =========================
+          {/* =========================
     DESKTOP BUTTON
 ========================== */}
-{/* =========================
+          {/* =========================
     DESKTOP BUTTON
 ========================== */}
-<div className="hidden lg:flex items-center gap-4">
-  <Link
-    href="/book-appointment"
-    className="inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium text-[#232323] transition-all duration-300 bg-[linear-gradient(135deg,#8f6b2e_0%,#c9a55c_20%,#f4d98a_40%,#b8893f_60%,#e0c16c_80%,#8f6b2e_100%)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.5),0_4px_15px_rgba(201,172,106,0.25)] hover:brightness-110 hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.6),0_6px_20px_rgba(201,172,106,0.4)]"
-  >
-    Book Appointment
-  </Link>
-</div>
+          <div className="hidden lg:flex items-center gap-4">
+            <Link
+              href="/book-appointment"
+              className="inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium text-[#232323] transition-all duration-300 bg-[linear-gradient(135deg,#8f6b2e_0%,#c9a55c_20%,#f4d98a_40%,#b8893f_60%,#e0c16c_80%,#8f6b2e_100%)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.5),0_4px_15px_rgba(201,172,106,0.25)] hover:brightness-110 hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.6),0_6px_20px_rgba(201,172,106,0.4)]"
+            >
+              Book Appointment
+            </Link>
+          </div>
 
           {/* =========================
               MOBILE MENU BUTTON
           ========================== */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-           className="
+            className="
   lg:hidden
   relative
   w-11
@@ -302,12 +299,10 @@ export function Navbar() {
             <div className="absolute bottom-20 left-10 w-32 h-32 rounded-full bg-[#c9ac6a]/5 blur-3xl" />
 
             <div className="relative z-10 flex flex-col h-full px-6 py-8">
-
               {/* =========================
                   MOBILE HEADER
               ========================== */}
               <div className="flex items-center justify-between mb-12">
-
                 <Link
                   href="/"
                   onClick={() => setIsOpen(false)}
