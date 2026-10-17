@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import Image from "next/image";
-import { clinicInfo, teamMembers, certifications, stats } from "@/data/clinic";
 import { SectionShell } from "@/components/SectionShell";
 import { Button } from "@/components/Button";
 import { DoctorCard } from "@/components/DoctorCard";
