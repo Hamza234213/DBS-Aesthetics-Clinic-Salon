@@ -17,7 +17,21 @@ import { ReviewCard } from "@/components/ReviewCard";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { AnimatedHero, AnimatedCard } from "@/components/AnimatedHero";
 import { DealsSlider } from "@/components/DealsSlider";
+import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 
+const featuredSlugs = [
+  "hydra-facial-treatments",
+  "laser-treatments",
+  "skin-whitening-treatments",
+  "facial-services",
+  "hair-fashion-services",
+  "makeup-services",
+];
+
+const featuredCategories = featuredSlugs.flatMap(
+  (slug) => treatmentCategories.find((c) => c.slug === slug) ?? [],
+);
 
 export default function Home() {
   return (
@@ -59,11 +73,11 @@ export default function Home() {
 
         <div className="pointer-events-none absolute top-1/2 left-1/2 z-10 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#c9ac6a]/8 blur-3xl" />
 
-{/* =========================================================
+        {/* =========================================================
     HERO CONTENT AREA
 ========================================================= */}
-<div
-  className="
+        <div
+          className="
     relative
     z-20
     mx-auto
@@ -85,13 +99,10 @@ export default function Home() {
     lg:pt-[90px]
     lg:pb-8
   "
->
-
-  {/* =========================================================
+        >
+          {/* =========================================================
       DECORATIVE DBS LOGO
   ========================================================= */}
-  
-
 
           {/* =====================================================
     LEFT SIDE
@@ -188,15 +199,14 @@ export default function Home() {
           {/* =====================================================
               RIGHT SIDE: LUXURY FEATURED SHOWCASE
           ====================================================== */}
-        <AnimatedHero>
-  <div className="group relative mx-auto w-full max-w-md lg:max-w-[440px]">
+          <AnimatedHero>
+            <div className="group relative mx-auto w-full max-w-md lg:max-w-[440px]">
+              {/* Decorative Gold Glow Backdrop */}
+              <div className="absolute -inset-1 rounded-[2rem] bg-gradient-to-r from-[#c9ac6a]/30 via-[#f4d98a]/15 to-[#c9ac6a]/30 opacity-60 blur-xl transition-opacity duration-500 group-hover:opacity-90" />
 
-    {/* Decorative Gold Glow Backdrop */}
-    <div className="absolute -inset-1 rounded-[2rem] bg-gradient-to-r from-[#c9ac6a]/30 via-[#f4d98a]/15 to-[#c9ac6a]/30 opacity-60 blur-xl transition-opacity duration-500 group-hover:opacity-90" />
-
-    {/* Main Luxury Glassmorphic Card */}
-    <div
-      className="
+              {/* Main Luxury Glassmorphic Card */}
+              <div
+                className="
         relative
         overflow-hidden
         rounded-[2rem]
@@ -216,97 +226,85 @@ export default function Home() {
         group-hover:border-[#c9ac6a]/60
         group-hover:shadow-[0_28px_65px_rgba(0,0,0,0.85)]
       "
-    >
+              >
+                {/* Header Tag */}
+                <div className="flex items-center justify-between border-b border-[#c9ac6a]/20 pb-3">
+                  <div className="flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#c9ac6a] animate-ping" />
 
-      {/* Header Tag */}
-      <div className="flex items-center justify-between border-b border-[#c9ac6a]/20 pb-3">
+                    <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-serif font-bold text-[#c9ac6a]">
+                      Featured Suite
+                    </span>
+                  </div>
 
-        <div className="flex items-center gap-2">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#c9ac6a] animate-ping" />
+                  <span className="rounded-full border border-[#c9ac6a]/30 bg-[#c9ac6a]/10 px-2.5 py-1 text-[9px] sm:text-[10px] font-semibold text-[#f4d98a]">
+                    ★ 4.9 / 5
+                  </span>
+                </div>
 
-          <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-serif font-bold text-[#c9ac6a]">
-            Featured Suite
-          </span>
-        </div>
+                {/* Main Visual Image */}
+                <div className="relative mt-3 h-44 sm:h-52 lg:h-48 w-full overflow-hidden rounded-xl border border-[#c9ac6a]/20">
+                  <Image
+                    src="/hydra.png"
+                    alt="Vampire Hydra Facial Treatment Suite"
+                    fill
+                    className="object-cover"
+                  />
 
-        <span className="rounded-full border border-[#c9ac6a]/30 bg-[#c9ac6a]/10 px-2.5 py-1 text-[9px] sm:text-[10px] font-semibold text-[#f4d98a]">
-          ★ 4.9 / 5
-        </span>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-90" />
 
-      </div>
+                  <div className="absolute bottom-3 left-3 right-3">
+                    <span className="inline-block rounded-md px-2 py-1 text-[9px] uppercase font-bold tracking-widest text-[#232323] bg-[linear-gradient(135deg,#8f6b2e_0%,#c9a55c_20%,#f4d98a_40%,#b8893f_60%,#e0c16c_80%,#8f6b2e_100%)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.5),0_4px_15px_rgba(201,172,106,0.25)]">
+                      Top Requested
+                    </span>
+                    <h3 className="mt-1 text-lg sm:text-xl lg:text-lg font-serif font-semibold text-[#f7f2e9]">
+                      Vampire Hydra Facial
+                    </h3>
+                  </div>
+                </div>
 
-      {/* Main Visual Image */}
-      <div className="relative mt-3 h-44 sm:h-52 lg:h-48 w-full overflow-hidden rounded-xl border border-[#c9ac6a]/20">
+                {/* Card Details */}
+                <div className="mt-3 grid grid-cols-2 gap-2.5 text-xs">
+                  <div className="rounded-lg border border-[#c9ac6a]/15 bg-[#121212]/90 p-3">
+                    <p className="text-[10px] text-[#c9ac6a] font-medium">
+                      Session Duration
+                    </p>
 
-        <Image
-          src="/hydra.png"
-          alt="Vampire Hydra Facial Treatment Suite"
-          fill
-          className="object-cover"
-        />
+                    <p className="mt-0.5 text-xs sm:text-sm font-semibold text-[#f7f2e9]">
+                      60 Minutes
+                    </p>
+                  </div>
 
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-90" />
+                  <div className="rounded-lg border border-[#c9ac6a]/15 bg-[#121212]/90 p-3">
+                    <p className="text-[10px] text-[#c9ac6a] font-medium">
+                      Expected Result
+                    </p>
 
-        <div className="absolute bottom-3 left-3 right-3">
+                    <p className="mt-0.5 text-xs sm:text-sm font-semibold text-[#f7f2e9]">
+                      Instant Deep Glow
+                    </p>
+                  </div>
+                </div>
 
-<span className="inline-block rounded-md px-2 py-1 text-[9px] uppercase font-bold tracking-widest text-[#232323] bg-[linear-gradient(135deg,#8f6b2e_0%,#c9a55c_20%,#f4d98a_40%,#b8893f_60%,#e0c16c_80%,#8f6b2e_100%)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.5),0_4px_15px_rgba(201,172,106,0.25)]">
-  Top Requested
-</span>
-          <h3 className="mt-1 text-lg sm:text-xl lg:text-lg font-serif font-semibold text-[#f7f2e9]">
-            Vampire Hydra Facial
-          </h3>
+                {/* CTA */}
+                <div className="mt-3 pt-3 border-t border-[#c9ac6a]/15 flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] text-[#f7f2e9]/60">
+                      Starting from
+                    </span>
 
-        </div>
-      </div>
+                    <p className="text-base sm:text-lg font-bold font-serif text-[#c9ac6a]">
+                      PKR 15,000
+                    </p>
+                  </div>
 
-      {/* Card Details */}
-      <div className="mt-3 grid grid-cols-2 gap-2.5 text-xs">
-
-        <div className="rounded-lg border border-[#c9ac6a]/15 bg-[#121212]/90 p-3">
-          <p className="text-[10px] text-[#c9ac6a] font-medium">
-            Session Duration
-          </p>
-
-          <p className="mt-0.5 text-xs sm:text-sm font-semibold text-[#f7f2e9]">
-            60 Minutes
-          </p>
-        </div>
-
-        <div className="rounded-lg border border-[#c9ac6a]/15 bg-[#121212]/90 p-3">
-          <p className="text-[10px] text-[#c9ac6a] font-medium">
-            Expected Result
-          </p>
-
-          <p className="mt-0.5 text-xs sm:text-sm font-semibold text-[#f7f2e9]">
-            Instant Deep Glow
-          </p>
-        </div>
-
-      </div>
-
-      {/* CTA */}
-      <div className="mt-3 pt-3 border-t border-[#c9ac6a]/15 flex items-center justify-between">
-
-        <div>
-          <span className="text-[10px] text-[#f7f2e9]/60">
-            Starting from
-          </span>
-
-          <p className="text-base sm:text-lg font-bold font-serif text-[#c9ac6a]">
-            PKR 15,000
-          </p>
-        </div>
-
-        <Button href="/book-appointment?treatment=Hydra%20Facial">
-          Book Suite
-        </Button>
-
-      </div>
-
-    </div>
-
-  </div>
-</AnimatedHero>
+                  <Button href="/book-appointment?treatment=Hydra%20Facial">
+                    Book Suite
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </AnimatedHero>
         </div>
       </section>
 
@@ -434,34 +432,36 @@ export default function Home() {
             description="Every category is available under one luxury roof in Karachi."
           >
             <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {treatmentCategories.map((category) => (
+              {featuredCategories.map((category) => (
                 <Link
                   key={category.slug}
                   href={`/services/${category.slug}`}
                   className="
-                    group
-                    overflow-hidden
-                    rounded-4xl
-                    border
-                    border-[#c9ac6a]/20
-                    bg-[#0a0a0a]/60
-                    backdrop-blur-sm
-                    transition-all
-                    duration-300
-                    hover:scale-[1.03]
-                    hover:border-[#c9ac6a]/60
-                    hover:bg-[#0a0a0a]/90
-                    hover:shadow-[0_20px_60px_rgba(201,172,106,0.15)]
-                    active:scale-95
-                  "
+          group
+          overflow-hidden
+          rounded-4xl
+          border
+          border-[#c9ac6a]/20
+          bg-[#0a0a0a]/60
+          backdrop-blur-sm
+          transition-all
+          duration-300
+          hover:scale-[1.03]
+          hover:border-[#c9ac6a]/60
+          hover:bg-[#0a0a0a]/90
+          hover:shadow-[0_20px_60px_rgba(201,172,106,0.15)]
+          active:scale-95
+        "
                 >
-                  <div className="relative h-44 overflow-hidden">
+                  <div className="relative aspect-[4/3] overflow-hidden">
                     <Image
                       src={category.image}
                       alt={category.title}
                       fill
-                      className="object-cover transition duration-500 group-hover:scale-105"
+                      sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                   </div>
 
                   <div className="relative overflow-hidden p-6">
@@ -478,30 +478,16 @@ export default function Home() {
                 </Link>
               ))}
             </div>
-          </SectionShell>
 
-          {/* =====================================================
-              OUR SPECIALISTS
-          ====================================================== */}
-          <SectionShell
-            eyebrow="Our specialists"
-            title="Meet the team behind the experience"
-            description="A refined team of clinicians and beauty specialists focused on safety, artistry and trust."
-          >
-            <div className="grid gap-8 md:grid-cols-3">
-              {teamMembers.map((member) => (
-                <div
-                  key={member.name}
-                  className="transition-all duration-300 hover:z-10 hover:scale-[1.03] active:scale-95"
-                >
-                  <DoctorCard
-                    name={member.name}
-                    role={member.role}
-                    bio={member.bio}
-                    image={member.image}
-                  />
-                </div>
-              ))}
+            {/* Explore More */}
+            <div className="mt-10 flex justify-center">
+              <Link
+                href="/services"
+                className="inline-flex items-center justify-center gap-2 rounded-full px-8 py-3 text-sm font-semibold uppercase tracking-wider text-[#232323] transition-all duration-300 bg-[linear-gradient(135deg,#8f6b2e_0%,#c9a55c_20%,#f4d98a_40%,#b8893f_60%,#e0c16c_80%,#8f6b2e_100%)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.5),0_4px_15px_rgba(201,172,106,0.25)] hover:brightness-110 hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.6),0_6px_20px_rgba(201,172,106,0.4)]"
+              >
+                Explore More
+                <span aria-hidden="true">→</span>
+              </Link>
             </div>
           </SectionShell>
 
@@ -639,7 +625,7 @@ export default function Home() {
                 <div className="mt-4 h-px w-16 bg-gradient-to-r from-[#c9ac6a]/40 to-transparent" />
 
                 {/* Description */}
-                <p className="mt-6 text-lg leading-8 text-[#f7f2e9]/60 transition-colors duration-300 group-hover:text-[#f7f2e9]/80">
+                <p className="mt-6 text-md leading-8 text-[#f7f2e9]/60 transition-colors duration-300 group-hover:text-[#f7f2e9]/80">
                   {clinicInfo.contactvision}
                 </p>
 
@@ -677,8 +663,8 @@ export default function Home() {
               </div>
 
               {/* RIGHT COLUMN - ADDRESS CARD */}
-<div
-  className="
+              <div
+                className="
     relative
     z-10
     rounded-[1.75rem]
@@ -694,214 +680,131 @@ export default function Home() {
     hover:shadow-[0_20px_40px_rgba(201,172,106,0.04)]
     sm:p-8
   "
->
-  {/* Inner Gold Glow */}
-  <div className="pointer-events-none absolute inset-0 rounded-[1.75rem] bg-gradient-to-br from-[#c9ac6a]/3 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              >
+                {/* Inner Gold Glow */}
+                <div className="pointer-events-none absolute inset-0 rounded-[1.75rem] bg-gradient-to-br from-[#c9ac6a]/3 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-  {/* Location Icon + Heading Line */}
-  <div className="relative z-10 mb-4 flex items-center gap-3">
-    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#c9ac6a]/30 bg-[#c9ac6a]/5">
-      <svg
-        className="h-4 w-4 text-[#c9ac6a]"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-        />
+                {/* Location Icon + Heading Line */}
+                <div className="relative z-10 mb-4 flex items-center gap-3">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#c9ac6a]/30 bg-[#c9ac6a]/5">
+                    <svg
+                      className="h-4 w-4 text-[#c9ac6a]"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                      />
 
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-        />
-      </svg>
-    </div>
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                    </svg>
+                  </div>
 
-    <span className="h-px flex-1 bg-gradient-to-r from-[#c9ac6a]/20 to-transparent" />
-  </div>
+                  <p className="relative z-10 text-sm uppercase tracking-[0.35em] text-[#c9ac6a] font-semibold font-[Patrick] font-[500]">
+                    Clinic Address
+                  </p>
+                  <span className="h-px flex-1 bg-gradient-to-r from-[#c9ac6a]/20 to-transparent" />
+                </div>
 
-  {/* Address Heading */}
-  <p className="relative z-10 text-sm uppercase tracking-[0.35em] text-[#c9ac6a] font-[500]">
-    Clinic Addresses
-  </p>
+                {/* ================= BRANCH 1 ================= */}
+                <div className="relative mt-6">
+                  <div className="flex items-start gap-4">
+                    {/* Branch Information */}
+                    <div className="min-w-0 flex-1 mt-7">
+                      <h4 className="text-3xl font-serif font-semibold text-center leading-9 text-[#f7f2e9]">
+                        Khayaban-e-Badar Branch
+                      </h4>
 
-  <div className="relative z-10 mt-3 h-px w-12 bg-gradient-to-r from-[#c9ac6a]/40 to-transparent" />
+                      {/* Address card */}
+                      <div className="mt-10 flex items-center gap-4 rounded-2xl border border-[#c9ac6a]/30 bg-[#c9ac6a]/5 px-5 py-4 transition-colors duration-300 group-hover:border-[#c9ac6a]/60">
+                        <FaMapMarkerAlt className="shrink-0 text-2xl text-[#c9ac6a]" />
+                        <p className="text-sm leading-6 text-[#f7f2e9]/80 sm:text-base">
+                          {clinicInfo.address2}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-  {/* ================= BRANCH 1 ================= */}
-  <div className="relative z-10 mt-6">
-    <div className="flex items-start gap-4">
-      
-      {/* Branch Badge */}
-      <span
-        className="
-          mt-0.5
-          shrink-0
-          rounded-full
-          border
-          border-[#c9ac6a]/50
-          bg-gradient-to-r
-          from-[#c9ac6a]
-          via-[#f4d98a]
-          to-[#c9ac6a]
-          px-4
-          py-1.5
-          text-[11px]
-          font-semibold
-          tracking-[0.08em]
-          text-[#151515]
-          shadow-[0_4px_15px_rgba(201,172,106,0.12)]
-        "
-      >
-        BRANCH 1
-      </span>
+                {/* Contact Divider */}
+                <div className="relative z-10 mt-10 h-px w-full bg-gradient-to-r from-[#c9ac6a]/20 via-[#c9ac6a]/10 to-transparent" />
 
-      {/* Branch Information */}
-      <div className="min-w-0 flex-1">
-        <h4 className="text-base font-semibold leading-6 text-[#f7f2e9]">
-          Khayaban-e-Saadi Branch
-        </h4>
+                {/* Contact Info */}
+                <div className="relative z-10 mt-6 flex items-center justify-center gap-4 sm:gap-8">
+                  {/* Telephone */}
+                  <div className="flex min-w-0 flex-1 items-center justify-center gap-3">
+                    <FaPhoneAlt className="shrink-0 text-2xl text-[#c9ac6a]" />
 
-        <p className="mt-1 text-sm leading-6 text-[#f7f2e9]/65 transition-colors duration-300 group-hover:text-[#f7f2e9]/80">
-          {clinicInfo.address1}
-        </p>
-      </div>
-    </div>
-  </div>
+                    <div className="min-w-0">
+                      <p className="text-xs text-[#f7f2e9]/60 sm:text-sm">
+                        Tel:
+                      </p>
+                      <a
+                        href={`tel:${String(clinicInfo.landline).replace(/\D/g, "")}`}
+                        className="block text-sm font-medium text-[#f7f2e9] transition-all duration-300 hover:text-[#f4d98a] hover:underline underline-offset-4 sm:text-lg"
+                        aria-label={`Call ${clinicInfo.landline}`}
+                      >
+                        {clinicInfo.landline}
+                      </a>
+                    </div>
+                  </div>
 
-  {/* Branch Divider */}
-  <div className="relative z-10 my-5 h-px w-full bg-gradient-to-r from-[#c9ac6a]/20 via-[#c9ac6a]/10 to-transparent" />
+                  {/* Vertical gold divider */}
+                  <div className="h-12 w-px shrink-0 bg-[#c9ac6a]/40" />
 
-  {/* ================= BRANCH 2 ================= */}
-  <div className="relative z-10">
-    <div className="flex items-start gap-4">
-      
-      {/* Branch Badge */}
-      <span
-        className="
-          mt-0.5
-          shrink-0
-          rounded-full
-          border
-          border-[#c9ac6a]/50
-          bg-gradient-to-r
-          from-[#c9ac6a]
-          via-[#f4d98a]
-          to-[#c9ac6a]
-          px-4
-          py-1.5
-          text-[11px]
-          font-semibold
-          tracking-[0.08em]
-          text-[#151515]
-          shadow-[0_4px_15px_rgba(201,172,106,0.12)]
-        "
-      >
-        BRANCH 2
-      </span>
+                  {/* WhatsApp */}
+                  <div className="flex min-w-0 flex-1 items-center justify-center gap-3">
+                    <FaWhatsapp className="shrink-0 text-3xl text-[#c9ac6a]" />
 
-      {/* Branch Information */}
-      <div className="min-w-0 flex-1">
-        <h4 className="text-base font-semibold leading-6 text-[#f7f2e9]">
-          Khayaban-e-Badar Branch
-        </h4>
+                    <div className="min-w-0">
+                      <p className="text-xs text-[#f7f2e9]/60 sm:text-sm">
+                        WhatsApp:
+                      </p>
+                      <a
+                        href={`https://wa.me/${(() => {
+                          const number = String(clinicInfo.whatsapp).replace(
+                            /\D/g,
+                            "",
+                          );
 
-        <p className="mt-1 text-sm leading-6 text-[#f7f2e9]/65 transition-colors duration-300 group-hover:text-[#f7f2e9]/80">
-          {clinicInfo.address2}
-        </p>
-      </div>
-    </div>
-  </div>
+                          if (number.startsWith("0")) {
+                            return `92${number.slice(1)}`;
+                          }
 
-  {/* Contact Divider */}
-  <div className="relative z-10 mt-5 h-px w-full bg-gradient-to-r from-[#c9ac6a]/20 via-[#c9ac6a]/10 to-transparent" />
+                          if (number.startsWith("92")) {
+                            return number;
+                          }
 
-  {/* Contact Info */}
-  <div className="relative z-10 mt-5 space-y-3">
-    
-    {/* Telephone */}
-    <div className="flex items-center gap-3">
-      <span className="text-xs text-[#c9ac6a]/50">
-        ✦
-      </span>
+                          return `92${number}`;
+                        })()}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block text-sm font-medium text-[#f7f2e9] transition-all duration-300 hover:text-[#f4d98a] hover:underline underline-offset-4 sm:text-lg"
+                        aria-label={`Message ${clinicInfo.whatsapp} on WhatsApp`}
+                      >
+                        {clinicInfo.whatsapp}
+                      </a>
+                    </div>
+                  </div>
+                </div>
 
-      <p className="text-sm text-[#f7f2e9]/50">
-        Tel:{" "}
-        <a
-          href={`tel:${String(clinicInfo.landline).replace(/\D/g, "")}`}
-          className="
-            text-[#c9ac6a]/70
-            transition-all
-            duration-300
-            hover:text-[#f4d98a]
-            hover:underline
-            underline-offset-4
-          "
-          aria-label={`Call ${clinicInfo.landline}`}
-        >
-          {clinicInfo.landline}
-        </a>
-      </p>
-    </div>
+                {/* Bottom Gold Divider */}
+                <div className="relative z-10 mt-6 h-px w-full bg-gradient-to-r from-[#c9ac6a]/20 via-[#c9ac6a]/10 to-transparent" />
 
-    {/* WhatsApp */}
-    <div className="flex items-center gap-3">
-      <span className="text-xs text-[#c9ac6a]/50">
-        ✦
-      </span>
-
-      <p className="text-sm text-[#f7f2e9]/50">
-        WhatsApp:{" "}
-        <a
-          href={`https://wa.me/${(() => {
-            const number = String(clinicInfo.whatsapp).replace(
-              /\D/g,
-              "",
-            );
-
-            if (number.startsWith("0")) {
-              return `92${number.slice(1)}`;
-            }
-
-            if (number.startsWith("92")) {
-              return number;
-            }
-
-            return `92${number}`;
-          })()}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="
-            text-[#c9ac6a]/70
-            transition-all
-            duration-300
-            hover:text-[#f4d98a]
-            hover:underline
-            underline-offset-4
-          "
-          aria-label={`Message ${clinicInfo.whatsapp} on WhatsApp`}
-        >
-          {clinicInfo.whatsapp}
-        </a>
-      </p>
-    </div>
-  </div>
-
-  {/* Bottom Gold Divider */}
-  <div className="relative z-10 mt-6 h-px w-full bg-gradient-to-r from-[#c9ac6a]/20 via-[#c9ac6a]/10 to-transparent" />
-
-  {/* Contact Button */}
-  <div className="relative z-10 mt-7">
-    <Button href="/contact">
-      Visit Contact Page
-    </Button>
-  </div>
-</div>
+                {/* Contact Button */}
+                <div className="relative z-10 mt-10 flex justify-center">
+                  <Button href="/contact">Visit Contact Page</Button>
+                </div>
+              </div>
             </div>
           </SectionShell>
         </div>
@@ -909,13 +812,3 @@ export default function Home() {
     </div>
   );
 }
- 
-
-
-
-
- 
-
-
-
-

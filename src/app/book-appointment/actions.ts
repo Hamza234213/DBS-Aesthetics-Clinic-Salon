@@ -10,7 +10,7 @@ export interface AppointmentInput {
   date: string;
   time: string;
   notes?: string;
-  price: number;
+  price?: number;
   branchId?: string;
   category: "treatment" | "consultation";
 }
@@ -22,13 +22,17 @@ export async function submitAppointment(input: AppointmentInput) {
     console.error("DATABASE_URL is not set in environment variables.");
     return {
       success: false,
-      error: "Database configuration is missing. Please contact clinic support or set DATABASE_URL in environment.",
+      error:
+        "Database configuration is missing. Please contact clinic support or set DATABASE_URL in environment.",
     };
   }
 
   try {
     // Normalize DATABASE_URL for the Neon serverless client (replace postgresql+asyncpg with postgresql)
-    const normalizedUrl = databaseUrl.replace(/^postgresql\+asyncpg:\/\//, "postgresql://");
+    const normalizedUrl = databaseUrl.replace(
+      /^postgresql\+asyncpg:\/\//,
+      "postgresql://",
+    );
     const sql = neon(normalizedUrl);
 
     // Fetch the highest existing appointment ID matching 'APT-%' to increment sequentially
@@ -48,7 +52,10 @@ export async function submitAppointment(input: AppointmentInput) {
         }
       }
     } catch (dbError) {
-      console.warn("Could not query highest appointment ID, using default APT-1001", dbError);
+      console.warn(
+        "Could not query highest appointment ID, using default APT-1001",
+        dbError,
+      );
     }
 
     const clientId = `guest_${Math.random().toString(36).substring(2, 9)}`;
@@ -101,7 +108,9 @@ export async function submitAppointment(input: AppointmentInput) {
     console.error("Database insertion failed:", error);
     return {
       success: false,
-      error: error.message || "An unexpected error occurred while saving the appointment.",
+      error:
+        error.message ||
+        "An unexpected error occurred while saving the appointment.",
     };
   }
 }

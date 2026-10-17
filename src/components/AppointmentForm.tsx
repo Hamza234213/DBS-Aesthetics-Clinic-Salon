@@ -237,26 +237,19 @@ export function AppointmentForm() {
 
     // Format date: YYYY-MM-DD
     const formattedDate = formatDateForForm(selectedDate);
-    
+
     // Slugify service and branch
-    const serviceId = preferred.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-    
+    const serviceId = preferred
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
+
     // Map selected clinic to the correct database branch ID
     let branchId = "BR-001";
     if (clinic.includes("Saadi")) {
       branchId = "BR-001";
     } else if (clinic.includes("Badar")) {
       branchId = "BR-002";
-    }
-
-    // Parse price
-    let priceVal = 0;
-    const matchedService = allServices.find(s => s.name === preferred);
-    if (matchedService) {
-      const priceStr = matchedService.price || matchedService.individualPrice || matchedService.packagePrice || matchedService.priceRange || "";
-      const firstPart = priceStr.split(/[–-]/)[0] || "";
-      const parsed = parseFloat(firstPart.replace(/[^0-9]/g, ""));
-      priceVal = isNaN(parsed) ? 0 : parsed;
     }
 
     try {
@@ -268,19 +261,23 @@ export function AppointmentForm() {
         date: formattedDate,
         time: selectedTime,
         notes,
-        price: priceVal,
         branchId,
-        category: sessionOption === "Consultation Only" ? "consultation" : "treatment",
+        category:
+          sessionOption === "Consultation Only" ? "consultation" : "treatment",
       });
 
       if (result.success) {
         setSubmitted(true);
       } else {
-        setSubmitError(result.error || "Failed to book appointment. Please try again.");
+        setSubmitError(
+          result.error || "Failed to book appointment. Please try again.",
+        );
       }
     } catch (err) {
       console.error(err);
-      setSubmitError("A connection error occurred. Please check your internet connection and try again.");
+      setSubmitError(
+        "A connection error occurred. Please check your internet connection and try again.",
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -1056,11 +1053,21 @@ export function AppointmentForm() {
 
           {/* Session Preference Option */}
           <div className="block text-sm text-[#f7f2e9]/70">
-            <span className="mb-2 block font-medium text-[#f7f2e9]">Session Preference</span>
+            <span className="mb-2 block font-medium text-[#f7f2e9]">
+              Session Preference
+            </span>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
-                { id: "Single Session", label: "Book a Session", desc: "Individual session" },
-                { id: "Consultation Only", label: "Consultation Only", desc: "Doctor evaluation" },
+                {
+                  id: "Single Session",
+                  label: "Book a Session",
+                  desc: "Individual session",
+                },
+                {
+                  id: "Consultation Only",
+                  label: "Consultation Only",
+                  desc: "Doctor evaluation",
+                },
               ].map((opt) => (
                 <button
                   key={opt.id}
@@ -1076,80 +1083,13 @@ export function AppointmentForm() {
                   }`}
                 >
                   <span className="font-semibold text-sm">{opt.label}</span>
-                  <span className="text-[11px] opacity-70 mt-0.5">{opt.desc}</span>
+                  <span className="text-[11px] opacity-70 mt-0.5">
+                    {opt.desc}
+                  </span>
                 </button>
               ))}
             </div>
             <input type="hidden" name="sessionType" value={sessionOption} />
-          </div>
-
-          {/* Clinic Selection */}
-          <div className="block text-sm text-[#f7f2e9]/70">
-            <span className="mb-2 block">Select Clinic</span>
-
-            <div ref={clinicContainerRef} className="relative">
-              <button
-                type="button"
-                onClick={() => {
-                  setClinicOpen((s) => !s);
-                  setOpen(false);
-                  setCalendarOpen(false);
-                  setTimeOpen(false);
-                  setValidationMessage("");
-                }}
-                className="w-full text-left rounded-full border border-[#c9ac6a]/20 bg-transparent px-4 py-3 text-[#c9ac6a] outline-none focus:border-[#c9ac6a] transition-all duration-300 flex items-center justify-between"
-              >
-                <span className="truncate">
-                  {clinic || "Select a clinic..."}
-                </span>
-
-                <svg
-                  className={`h-4 w-4 ml-4 shrink-0 transition-transform ${
-                    clinicOpen ? "rotate-180" : ""
-                  }`}
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  stroke="currentColor"
-                >
-                  <path
-                    d="M6 8l4 4 4-4"
-                    strokeWidth={1.5}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
-
-              {clinicOpen && (
-                <div className="absolute left-0 right-0 mt-3 z-50 rounded-2xl border border-[#c9ac6a]/20 bg-[#0a0a0a]/95 p-2 shadow-[0_30px_80px_rgba(0,0,0,0.6)]">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setClinic("Khayaban-e-Saadi Branch");
-                      setClinicOpen(false);
-                      setValidationMessage("");
-                    }}
-                    className="w-full text-left rounded-lg px-3 py-2.5 text-sm text-[#f7f2e9]/70 hover:bg-[#111] hover:text-[#c9ac6a] transition-colors duration-200"
-                  >
-                    Khayaban-e-Saadi Branch
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setClinic("Khayaban-e-Badar Branch");
-                      setClinicOpen(false);
-                      setValidationMessage("");
-                    }}
-                    className="w-full text-left rounded-lg px-3 py-2.5 text-sm text-[#f7f2e9]/70 hover:bg-[#111] hover:text-[#c9ac6a] transition-colors duration-200"
-                  >
-                    Khayaban-e-Badar Branch
-                  </button>
-                </div>
-              )}
-
-              <input type="hidden" name="clinic" value={clinic} />
-            </div>
           </div>
 
           {/* Hidden input so server/form can pick it up if needed */}

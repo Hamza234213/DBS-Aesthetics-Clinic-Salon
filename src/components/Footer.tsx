@@ -73,8 +73,8 @@ export function Footer() {
             <Image
               src="/DBS_Logo.png"
               alt="DBS_Logo"
-              width={80}
-              height={80}
+              width={50}
+              height={50}
               priority
               className="
                 h-auto
@@ -88,9 +88,9 @@ export function Footer() {
               "
             />
 
-            <div className="relative h-10 w-[190px] sm:h-12 sm:w-[230px] lg:h-22 lg:w-[270px] flex-shrink-0">
+            <div className="relative h-12 w-[210px] sm:h-12 sm:w-[220px] lg:h-22 lg:w-[270px] flex-shrink-0">
               <Image
-                src="/DBS%20Text%20Logo.png"
+                src="/DBS%20Text%20Logo%20Navbar.png"
                 alt="DBS Aesthetics Clinic & Salon"
                 fill
                 className="object-contain object-left"
@@ -208,7 +208,7 @@ export function Footer() {
 
         <div className="pt-[8px] lg:pt-[18px]">
           <h4
-            className="text-lg uppercase tracking-[0.2em] bg-clip-text text-xl font-semibold text-transparent font-[Patrick]
+            className="text-lg uppercase tracking-[0.2em] bg-clip-text text-xl font-semibold font-serif
                bg-[length:200%_100%]
                bg-clip-text
                text-transparent
@@ -258,19 +258,6 @@ export function Footer() {
               </a>
             </li>
 
-            {/* FIRST ADDRESS */}
-
-            <li className="flex items-start gap-3">
-              <FaMapMarkerAlt
-                size={14}
-                className="mt-1 shrink-0 text-[#c9ac6a]/70"
-              />
-
-              <span className="transition-colors duration-300 hover:text-[#f7f2e9]/90">
-                {clinicInfo.address1}
-              </span>
-            </li>
-
             {/* SECOND ADDRESS */}
 
             <li className="flex items-start gap-3">
@@ -302,7 +289,7 @@ export function Footer() {
 
         <div className="pt-[8px] lg:pt-[18px]">
           <h4
-            className="text-lg uppercase tracking-[0.2em] bg-clip-text text-xl font-semibold text-transparent font-[Patrick]
+            className="text-lg uppercase tracking-[0.2em] bg-clip-text text-xl font-semibold font-serif 
                bg-[length:200%_100%]
                bg-clip-text
                text-transparent

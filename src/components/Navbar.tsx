@@ -97,9 +97,9 @@ export function Navbar() {
               />
             </div>
 
-            <div className="relative h-10 w-[190px] sm:h-12 sm:w-[230px] lg:h-22 lg:w-[270px] flex-shrink-0">
+            <div className="relative h-12 w-[220px] sm:h-12 sm:w-[230px] lg:h-22 lg:w-[270px] flex-shrink-0">
               <Image
-                src="/DBS%20Text%20Logo.png"
+                src="/DBS%20Text%20Logo%20Navbar.png"
                 alt="DBS Aesthetics Clinic & Salon"
                 fill
                 priority

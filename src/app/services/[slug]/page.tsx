@@ -2,7 +2,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { servicePages, servicesWithPrices } from "@/data/clinic";
+import {
+  servicePages,
+  servicesWithPrices,
+  treatmentCategories,
+} from "@/data/clinic";
 import { Button } from "@/components/Button";
 import { SectionShell } from "@/components/SectionShell";
 import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
@@ -11,96 +15,142 @@ interface ServicePageProps {
   params: Promise<{ slug: string }>;
 }
 
+type PricingGroup =
+  (typeof servicesWithPrices)[keyof typeof servicesWithPrices];
+
+type TreatmentItem = {
+  name: string;
+  description?: string;
+  features?: string[];
+};
+
+const allGroups: PricingGroup[] = Object.values(servicesWithPrices);
+
+/** Finds the price group whose `slug` matches (case-insensitive). */
+const findGroupBySlug = (slug: string): PricingGroup | null =>
+  allGroups.find((group) => group.slug.toLowerCase() === slug.toLowerCase()) ??
+  null;
+
+/**
+ * The generic landing pages in `servicePages` that don't share a slug with a
+ * price group. Each one shows the group listed here.
+ */
+const DIRECT_PRICING: Record<string, string> = {
+  "facial-treatments": "hydra-facial-treatments",
+  "hair-treatments": "hair-treatment",
+  "skin-treatments": "skin-whitening-treatments",
+  "body-treatments": "haifu-treatments",
+  "salon-services": "eyebrows-and-lips-tint-services",
+};
+
+/**
+ * Every slug in `treatmentCategories` (clinic.ts) that has no page of its own
+ * is rendered with the closest `servicePages` template. Its treatments and
+ * prices come from the price group with the same slug.
+ * Keys are lowercase because lookups are case-insensitive.
+ */
+const CATEGORY_TEMPLATE: Record<string, string> = {
+  "hydra-facial-treatments": "facial-treatments",
+  "skin-whitening-treatments": "skin-treatments",
+  "haifu-treatments": "body-treatments",
+  "sliming-drips-treatments": "body-treatments",
+  "hair-treatment": "hair-treatments",
+  "hair-extensions-services": "hair-treatments",
+  "face-prp-treatments": "facial-treatments",
+  "facial-services": "facial-treatments",
+  "guinot-treatment": "facial-treatments",
+  "whitening-and-lifting-facial": "facial-treatments",
+  "peeling-treatments": "skin-treatments",
+  "meso-therapy-service": "skin-treatments",
+  "botox-treatments": "skin-treatments",
+  "filling-services": "skin-treatments",
+  "exosomal-therapy-treatment": "skin-treatments",
+  "stemcells-therapy-treatment": "skin-treatments",
+  "profilow-treatment": "skin-treatments",
+  "bleaching-treatment": "skin-treatments",
+  "eyebrows-and-lips-tint-services": "salon-services",
+  "waxing-treatment": "salon-services",
+  "threading-treatment": "salon-services",
+  "makeup-services": "salon-services",
+  "hands-and-feet-services": "salon-services",
+  "hair-fashion-services": "salon-services",
+  "nail-art-services": "salon-services",
+  "mehandi-services": "salon-services",
+  "eyelash-extension-services": "salon-services",
+};
+
+function resolveRoute(slug: string) {
+  const key = slug.toLowerCase();
+
+  // 1. A real page in servicePages (price group by same slug, else DIRECT_PRICING)
+  const direct = servicePages.find((item) => item.slug.toLowerCase() === key);
+  if (direct) {
+    const group =
+      findGroupBySlug(direct.slug) ??
+      findGroupBySlug(DIRECT_PRICING[direct.slug] ?? "");
+    return { service: direct, label: direct.title, group };
+  }
+
+  // 2. A category from treatmentCategories shown on a servicePages template
+  const category = treatmentCategories.find(
+    (item) => item.slug.toLowerCase() === key,
+  );
+  const templateSlug = CATEGORY_TEMPLATE[key];
+  if (category && templateSlug) {
+    const service = servicePages.find((item) => item.slug === templateSlug);
+    if (service) {
+      return {
+        service,
+        label: category.title,
+        group: findGroupBySlug(category.slug),
+      };
+    }
+  }
+
+  return null;
+}
+
+export function generateStaticParams() {
+  const slugs = new Set<string>([
+    ...servicePages.map((item) => item.slug),
+    ...treatmentCategories.map((item) => item.slug),
+  ]);
+  return Array.from(slugs).map((slug) => ({ slug }));
+}
+
 export async function generateMetadata({
   params,
 }: ServicePageProps): Promise<Metadata> {
   const { slug } = await params;
-  const service = servicePages.find((item) => item.slug === slug);
+  const resolved = resolveRoute(slug);
   return {
-    title: service?.title ?? "Service",
-    description: service?.intro ?? "Premium DBS aesthetic service",
+    title: resolved?.label ?? "Service",
+    description: resolved?.service.intro ?? "Premium DBS aesthetic service",
   };
 }
 
-// Helper function to get services for a category
-const getServicesForCategory = (slug: string) => {
-  const categoryMap: Record<string, string> = {
-    "facial-treatments": "hydraFacials",
-    "hair-treatments": "hairTreatments",
-    "laser-treatments": "laserHairRemoval",
-    "skin-treatments": "skinWhiteningDrips",
-    "body-treatments": "hifuTreatments",
-    "salon-services": "eyebrowLipTints",
-  };
-
-  const key = categoryMap[slug];
-  if (!key) return null;
-
-  const serviceData =
-    servicesWithPrices[key as keyof typeof servicesWithPrices];
-  return serviceData || null;
-};
-
-// Type guard to check if treatment has packagePrice
-const hasPackagePrice = (
-  treatment: any,
-): treatment is { packagePrice: number } => {
-  return treatment && typeof treatment.packagePrice === "number";
-};
-
-// Type guard to check if treatment has individualPrice
-const hasIndividualPrice = (
-  treatment: any,
-): treatment is { individualPrice: number } => {
-  return treatment && typeof treatment.individualPrice === "number";
-};
-
-// Type guard to check if treatment has price
-const hasPrice = (treatment: any): treatment is { price: number } => {
-  return treatment && typeof treatment.price === "number";
-};
-
-// Type guard to check if treatment has priceRange
-const hasPriceRange = (treatment: any): treatment is { priceRange: string } => {
-  return treatment && typeof treatment.priceRange === "string";
-};
-
-const TAX_RATE = 0.1;
-const formatCurrency = (amount: number) => `PKR ${amount.toLocaleString()}`;
-
 export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const { slug } = await params;
-  const service = servicePages.find((item) => item.slug === slug);
+  const resolved = resolveRoute(slug);
 
-  if (!service) {
+  if (!resolved) {
     notFound();
   }
 
-  const heroImage = service.gallery?.[0] ?? "/image1.png";
-  const servicePricing = getServicesForCategory(slug);
+  const { service, label, group } = resolved;
+  const treatments = (group?.treatments ?? []) as TreatmentItem[];
 
-  // Check if any treatment has specific price types
-  const hasAnyPackagePrice =
-    servicePricing?.treatments?.some(hasPackagePrice) ?? false;
-  const hasAnyIndividualPrice =
-    servicePricing?.treatments?.some(hasIndividualPrice) ?? false;
-  const hasAnyPrice = servicePricing?.treatments?.some(hasPrice) ?? false;
-  const hasAnyPriceRange =
-    servicePricing?.treatments?.some(hasPriceRange) ?? false;
-
-  // Prepare before/after pairs from gallery
-  const beforeAfterPairs = [];
-  for (let i = 0; i < service.gallery.length; i += 2) {
-    if (i + 1 < service.gallery.length) {
-      beforeAfterPairs.push({
-        before: service.gallery[i],
-        after: service.gallery[i + 1],
-      });
-    }
+  // Before/after pairs from the gallery (clinic.ts galleries hold 2 images)
+  const beforeAfterPairs: { before: string; after: string }[] = [];
+  for (let i = 0; i + 1 < service.gallery.length; i += 2) {
+    beforeAfterPairs.push({
+      before: service.gallery[i],
+      after: service.gallery[i + 1],
+    });
   }
-
-  // If we have an odd number of images, use the last one as a standalone
   const hasStandaloneImage = service.gallery.length % 2 !== 0;
+
+  const bookingHref = `/book-appointment?treatment=${encodeURIComponent(label)}`;
 
   return (
     <div className="page-metallic-shell relative overflow-hidden min-h-screen">
@@ -108,7 +158,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
         <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div>
             <p className="text-sm uppercase tracking-[0.35em] text-[#c9ac6a]">
-              {service.title}
+              {label}
             </p>
             <h1 className="mt-4 text-4xl font-semibold text-[#f7f2e9] sm:text-5xl">
               {service.intro}
@@ -117,181 +167,147 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
               {service.overview}
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Button href="/book-appointment">Book This Treatment</Button>
+              <Button href={bookingHref}>Book This Treatment</Button>
             </div>
           </div>
 
           <div className="page-card rounded-[1.75rem] overflow-hidden p-0">
-{beforeAfterPairs.length > 0 ? (
-  <div className="h-full">
-    <BeforeAfterSlider
-      beforeImage={beforeAfterPairs[0].before}
-      afterImage={beforeAfterPairs[0].after}
-      alt={`${service.title} - Before & After`}
-      className="h-full"
-    />
-  </div>
-) : (
-          // Fallback to regular gallery if no pairs
-          <div className="grid gap-6 md:grid-cols-2">
-            {service.gallery.map((item) => (
-              <div
-                key={item}
-                className="page-card overflow-hidden rounded-[1.25rem]"
-              >
-                <div className="relative h-72">
-                  <Image
-                    src={item}
-                    alt={service.title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Show standalone image if odd number */}
-        {hasStandaloneImage && beforeAfterPairs.length > 0 && (
-          <div className="mt-6 grid gap-6 md:grid-cols-2">
-            <div className="page-card overflow-hidden rounded-[1.25rem] md:col-span-2">
-              <div className="relative h-72">
-                <Image
-                  src={service.gallery[service.gallery.length - 1]}
-                  alt={service.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+            {beforeAfterPairs.length > 0 ? (
+              <div className="h-full">
+                <BeforeAfterSlider
+                  beforeImage={beforeAfterPairs[0].before}
+                  afterImage={beforeAfterPairs[0].after}
+                  alt={`${label} - Before & After`}
+                  className="h-full"
                 />
               </div>
-            </div>
-          </div>
-        )}
-     </div>
+            ) : (
+              <div className="grid gap-6 md:grid-cols-2">
+                {service.gallery.map((item) => (
+                  <div
+                    key={item}
+                    className="page-card overflow-hidden rounded-[1.25rem]"
+                  >
+                    <div className="relative h-72">
+                      <Image
+                        src={item}
+                        alt={label}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
 
-     
+            {hasStandaloneImage && beforeAfterPairs.length > 0 && (
+              <div className="mt-6 grid gap-6 md:grid-cols-2">
+                <div className="page-card overflow-hidden rounded-[1.25rem] md:col-span-2">
+                  <div className="relative h-72">
+                    <Image
+                      src={service.gallery[service.gallery.length - 1]}
+                      alt={label}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </section>
 
-      {/* PRICING SECTION - Only show if pricing data exists */}
-      {servicePricing &&
-        servicePricing.treatments &&
-        servicePricing.treatments.length > 0 && (
-          <SectionShell
-            eyebrow="Pricing"
-            title={`${servicePricing.category} Packages & Pricing`}
-            description={servicePricing.description}
-          >
+      {/* TREATMENT CARDS */}
+      {group && treatments.length > 0 && (
+        <SectionShell
+          eyebrow="Treatments"
+          title={group.category}
+          description={group.description}
+        >
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {treatments.map((treatment) => {
+              const description =
+                treatment.description ??
+                "A luxurious experience with customized care for you.";
+              const features =
+                treatment.features ?? service.benefits.slice(0, 3);
 
-              {/* Responsive Luxury Treatment Cards Grid (Replaces outdated HTML table) */}
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {servicePricing.treatments.map((treatment: any, index: number) => {
-                  const isMultiSession = treatment.packagePrice && treatment.individualPrice;
+              return (
+                <div
+                  key={treatment.name}
+                  className="group relative overflow-hidden rounded-[1.5rem] border border-[#c9ac6a]/20 bg-[linear-gradient(135deg,#0b0907_0%,#17120b_55%,#261c0e_100%)] transition-all duration-300 hover:-translate-y-1 hover:border-[#c9ac6a]/40 hover:shadow-[0_15px_40px_rgba(201,172,106,0.1)]"
+                >
+                  {/* droplet background image */}
+                  <Image
+                    src="/Water%20Droplet.png"
+                    alt=""
+                    aria-hidden="true"
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    className="pointer-events-none select-none object-cover object-right"
+                  />
 
-                  return (
-                    <div
-                      key={index}
-                      className="page-card group flex flex-col justify-between rounded-[1.75rem] border border-[#c9ac6a]/20 p-6 transition-all duration-300 hover:border-[#c9ac6a]/40 hover:shadow-[0_15px_40px_rgba(201,172,106,0.1)]"
+                  <div className="relative z-10 p-5 pr-[34%]">
+                    <h3 className="font-serif text-lg font-semibold leading-tight text-[#f7f2e9]">
+                      {treatment.name}
+                    </h3>
+
+                    <p className="mt-2 text-xs leading-5 text-[#f7f2e9]/80 line-clamp-2">
+                      {description}
+                    </p>
+
+                    <ul className="mt-3 space-y-1.5">
+                      {features.map((feature) => (
+                        <li
+                          key={feature}
+                          className="flex items-center gap-2 text-[#f7f2e9]/90"
+                        >
+                          <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#e6c987] to-[#b08d48]">
+                            <svg
+                              viewBox="0 0 24 24"
+                              className="h-2.5 w-2.5"
+                              fill="none"
+                              stroke="#1a1308"
+                              strokeWidth="3.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <path d="M5 12.5l4.5 4.5L19 7.5" />
+                            </svg>
+                          </span>
+                          <span className="text-xs">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <Link
+                      href={`/book-appointment?treatment=${encodeURIComponent(treatment.name)}`}
+                      className="mt-4 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium text-[#232323] transition-all duration-300 bg-[linear-gradient(135deg,#8f6b2e_0%,#c9a55c_20%,#f4d98a_40%,#b8893f_60%,#e0c16c_80%,#8f6b2e_100%)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.5),0_4px_15px_rgba(201,172,106,0.25)] hover:brightness-110 hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.6),0_6px_20px_rgba(201,172,106,0.4)]"
                     >
-                      <div>
-                        {/* Card Header & Badge */}
-                        <div className="flex items-start justify-between gap-3 mb-3">
-                          <h3 className="text-xl font-serif font-semibold text-[#f7f2e9] group-hover:text-[#c9ac6a] transition-colors">
-                            {treatment.name}
-                          </h3>
-                          {isMultiSession && (
-                            <span className="rounded-full bg-[#c9ac6a]/15 border border-[#c9ac6a]/30 px-3 py-1 text-[11px] font-semibold text-[#c9ac6a] whitespace-nowrap">
-                              Multi-Session Available
-                            </span>
-                          )}
-                        </div>
-
-                        {/* Pricing details */}
-                        <div className="mt-4 space-y-3">
-                          {treatment.packagePrice && (
-                            <div className="flex items-center justify-between rounded-xl bg-[#0a0a0a]/70 p-3.5 border border-[#c9ac6a]/15">
-                              <div>
-                                <span className="text-xs font-serif font-semibold text-[#c9ac6a] uppercase tracking-wider">Full Package</span>
-                                <p className="text-xs text-[#f7f2e9]/60">Complete Treatment Series</p>
-                              </div>
-                              <span className="text-lg font-bold font-serif text-[#f7f2e9]">
-                                {formatCurrency(treatment.packagePrice)}
-                              </span>
-                            </div>
-                          )}
-
-                          {treatment.individualPrice && (
-                            <div className="flex items-center justify-between rounded-xl bg-[#0a0a0a]/40 p-3.5 border border-white/5">
-                              <div>
-                                <span className="text-xs font-serif font-medium text-[#f7f2e9]/80 uppercase tracking-wider">Per Session</span>
-                                <p className="text-xs text-[#f7f2e9]/50">Single Visit Option</p>
-                              </div>
-                              <span className="text-base font-semibold text-[#f7f2e9]/90">
-                                {formatCurrency(treatment.individualPrice)}
-                              </span>
-                            </div>
-                          )}
-
-                          {treatment.price && !isMultiSession && (
-                            <div className="flex items-center justify-between rounded-xl bg-[#0a0a0a]/60 p-3.5 border border-[#c9ac6a]/15">
-                              <span className="text-xs font-serif font-semibold text-[#c9ac6a] uppercase tracking-wider">Standard Rate</span>
-                              <span className="text-lg font-bold font-serif text-[#f7f2e9]">
-                                {formatCurrency(treatment.price)}
-                              </span>
-                            </div>
-                          )}
-
-                          {treatment.priceRange && (
-                            <div className="flex items-center justify-between rounded-xl bg-[#0a0a0a]/60 p-3.5 border border-[#c9ac6a]/15">
-                              <span className="text-xs font-serif font-semibold text-[#c9ac6a] uppercase tracking-wider">Price Range</span>
-                              <span className="text-base font-semibold text-[#f7f2e9]">
-                                PKR {treatment.priceRange}
-                              </span>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Action buttons */}
-                      <div className="mt-6 pt-4 border-t border-[#c9ac6a]/15 flex flex-wrap gap-2">
-                        {isMultiSession ? (
-                          <>
-                            <Button
-                              href={`/book-appointment?treatment=${encodeURIComponent(treatment.name)}&session=Full%20Package`}
-                              className="flex-1 text-center justify-center text-xs py-2.5"
-                            >
-                              Book Package
-                            </Button>
-                            <Button
-                              href={`/book-appointment?treatment=${encodeURIComponent(treatment.name)}&session=Single%20Session`}
-                              variant="secondary"
-                              className="flex-1 text-center justify-center text-xs py-2.5"
-                            >
-                              Single Session
-                            </Button>
-                          </>
-                        ) : (
-                          <Button
-                            href={`/book-appointment?treatment=${encodeURIComponent(treatment.name)}`}
-                            className="w-full text-center justify-center py-2.5"
-                          >
-                            Book Treatment
-                          </Button>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              <p className="mt-6 text-sm text-[#f7f2e9]/60 italic text-center sm:text-left">
-                * All listed prices are exclusive of tax. An additional {TAX_RATE * 100}% tax
-                will be applied at the time of billing.
-              </p>
-          </SectionShell>
-        )}
+                      Book Treatment
+                      <svg
+                        viewBox="0 0 24 24"
+                        className="h-4 w-4"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M5 12h14M13 6l6 6-6 6" />
+                      </svg>
+                    </Link>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </SectionShell>
+      )}
 
       <SectionShell
         eyebrow="Treatment overview"
@@ -350,10 +366,6 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
         </div>
       </SectionShell>
 
-
-
- 
-
       <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
         <div className="page-card p-8 text-center rounded-[1.25rem]">
           <h2 className="text-3xl font-semibold text-[#f7f2e9]">
@@ -364,7 +376,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
             recommendation.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Button href="/book-appointment">Book Appointment</Button>
+            <Button href={bookingHref}>Book Appointment</Button>
             <Button href="https://wa.me/923333378862" variant="secondary">
               WhatsApp
             </Button>

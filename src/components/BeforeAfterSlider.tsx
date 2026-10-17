@@ -10,7 +10,12 @@ interface BeforeAfterSliderProps {
   className?: string;
 }
 
-export function BeforeAfterSlider({ beforeImage, afterImage, alt, className = "" }: BeforeAfterSliderProps) {
+export function BeforeAfterSlider({
+  beforeImage,
+  afterImage,
+  alt,
+  className = "",
+}: BeforeAfterSliderProps) {
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -70,35 +75,35 @@ export function BeforeAfterSlider({ beforeImage, afterImage, alt, className = ""
     >
       {/* After Image (full image - always visible on right side) */}
       <div className="absolute inset-0">
-       <Image
-  src={afterImage}
-  alt={`${alt} - After`}
-  fill
-  className="object-cover"
-  sizes="(max-width: 768px) 100vw, 50vw"
-  priority
-  draggable={false}
-/>
+        <Image
+          src={afterImage}
+          alt={`${alt} - After`}
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, 50vw"
+          priority
+          draggable={false}
+        />
       </div>
 
       {/* Before Image (clipped by slider - always visible on left side) */}
       <div
-  className="absolute inset-0 overflow-hidden"
-  style={{
-    clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`,
-    WebkitClipPath: `inset(0 ${100 - sliderPosition}% 0 0)`,
-  }}
->
-  <Image
-    src={beforeImage}
-    alt={`${alt} - Before`}
-    fill
-    className="object-cover"
-    sizes="(max-width: 768px) 100vw, 50vw"
-    priority
-    draggable={false}
-  />
-</div>
+        className="absolute inset-0 overflow-hidden"
+        style={{
+          clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`,
+          WebkitClipPath: `inset(0 ${100 - sliderPosition}% 0 0)`,
+        }}
+      >
+        <Image
+          src={beforeImage}
+          alt={`${alt} - Before`}
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, 50vw"
+          priority
+          draggable={false}
+        />
+      </div>
 
       {/* Vertical Slider Line - this moves */}
       <div
@@ -107,7 +112,8 @@ export function BeforeAfterSlider({ beforeImage, afterImage, alt, className = ""
       >
         {/* Slider Handle */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-          <div className="
+          <div
+            className="
             w-8 h-8 md:w-10 md:h-10 
             rounded-full 
             bg-white 
@@ -116,15 +122,21 @@ export function BeforeAfterSlider({ beforeImage, afterImage, alt, className = ""
             border-2 border-gray-200
             hover:scale-110 transition-transform
             active:scale-95
-          ">
+          "
+          >
             {/* Double arrows */}
-            <svg 
-              className="w-4 h-4 md:w-5 md:h-5 text-gray-700" 
-              fill="none" 
-              stroke="currentColor" 
+            <svg
+              className="w-4 h-4 md:w-5 md:h-5 text-gray-700"
+              fill="none"
+              stroke="currentColor"
               viewBox="0 0 24 24"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
+              />
             </svg>
           </div>
         </div>
@@ -132,24 +144,28 @@ export function BeforeAfterSlider({ beforeImage, afterImage, alt, className = ""
 
       {/* Labels - stationary */}
       <div className="absolute bottom-4 left-4 z-10">
-        <span className="
+        <span
+          className="
           px-3 py-1.5 
           bg-black/60 backdrop-blur-sm 
           text-white text-xs font-medium 
           rounded-full
           border border-white/10
-        ">
+        "
+        >
           Before
         </span>
       </div>
       <div className="absolute bottom-4 right-4 z-10">
-        <span className="
+        <span
+          className="
           px-3 py-1.5 
           bg-black/60 backdrop-blur-sm 
           text-white text-xs font-medium 
           rounded-full
           border border-white/10
-        ">
+        "
+        >
           After
         </span>
       </div>
