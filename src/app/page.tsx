@@ -241,7 +241,7 @@ export default function Home() {
                 {/* Main Visual Image */}
                 <div className="relative mt-3 h-44 sm:h-52 lg:h-48 w-full overflow-hidden rounded-xl border border-[#c9ac6a]/20">
                   <Image
-                    src="/hydra.png"
+                    src="/Hydra Facial.png"
                     alt="Vampire Hydra Facial Treatment Suite"
                     fill
                     className="object-cover"
