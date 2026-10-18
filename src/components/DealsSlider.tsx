@@ -48,7 +48,7 @@ const deals = [
   {
     id: 5,
     title: "Korean Diamond Hydra Facial with Free Cocktail Frequency",
-    tag: "Upto 25% OFF",
+    tag: "25% OFF",
     originalPrice: "PKR 12,000",
     discountedPrice: "PKR 3,000",
     // Only this deal shows two price options instead of a single price
