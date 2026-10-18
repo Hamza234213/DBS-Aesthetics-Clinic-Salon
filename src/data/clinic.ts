@@ -193,7 +193,7 @@ export const treatmentCategories = [
     title: "Laser Treatment",
     description:
       "Medical-grade laser hair removal for face and body with expert supervision.",
-    image: "/laser Treatment.png",
+    image: "/Laser Treatment.png",
   },
   {
     slug: "haifu-treatments",
