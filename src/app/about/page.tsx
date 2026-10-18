@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import Image from "next/image";
+import { clinicInfo, stats, certifications } from "@/data/clinic";
 import { SectionShell } from "@/components/SectionShell";
 import { Button } from "@/components/Button";
-import { DoctorCard } from "@/components/DoctorCard";
 import { AnimatedHero } from "@/components/AnimatedHero";
 
 export const metadata: Metadata = {

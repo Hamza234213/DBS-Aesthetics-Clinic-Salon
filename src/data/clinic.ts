@@ -970,15 +970,15 @@ export const galleryImages = [
     alt: "Luxury facial treatment room at DBS Aesthetics Clinic & Salon",
   },
   {
-    src: "/Gallery Image 2.jpeg",
+    src: "/Gallery Image 2.1.jpeg",
     alt: "Modern salon styling experience with premium finishing",
   },
   {
-    src: "/Gallery Image 3.jpeg",
+    src: "/Gallery Image 3.0.jpeg",
     alt: "Advanced laser and skincare treatment environment",
   },
   {
-    src: "/Gallery Image 4.jpeg",
+    src: "/Gallery Image 4.0.jpeg",
     alt: "Professional team preparing a client for treatment",
   },
   {
