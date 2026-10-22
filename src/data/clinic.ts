@@ -642,8 +642,8 @@ export const servicePages = [
       },
     ],
     gallery: [
-      "/Whitening & Lifting Facial Before.png",
-      "/Whitening & Lifting Facial After.png",
+      "/Whitening Skin Care Before.png",
+      "/Whitening Skin Care After.png",
     ],
   },
   {
