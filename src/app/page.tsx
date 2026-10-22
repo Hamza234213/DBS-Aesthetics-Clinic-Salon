@@ -317,15 +317,15 @@ export default function Home() {
                   Instagram. Tap below to see what&apos;s on right now.
                 </p>
 
-                <a
-                  href={instagramHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`mt-6 inline-flex items-center justify-center gap-2 rounded-full px-8 py-3 text-sm font-semibold tracking-wider text-[#232323] uppercase transition-[filter] duration-300 hover:brightness-110 ${GOLD_GRADIENT} ${GOLD_SHADOW}`}
-                >
-                  <FaInstagram aria-hidden="true" />
-                  View Exclusive Deals
-                </a>
+<a
+  href="https://www.instagram.com/p/DWow5v6jFuq/?cplk=MWhuendia2g0OG9lZw=="
+  target="_blank"
+  rel="noopener noreferrer"
+  className={`mt-6 inline-flex items-center justify-center gap-2 rounded-full px-8 py-3 text-sm font-semibold tracking-wider text-[#232323] uppercase transition-[filter] duration-300 hover:brightness-110 ${GOLD_GRADIENT} ${GOLD_SHADOW}`}
+>
+  <FaInstagram aria-hidden="true" />
+  View Exclusive Deals
+</a>
               </div>
             </div>
           </section>
