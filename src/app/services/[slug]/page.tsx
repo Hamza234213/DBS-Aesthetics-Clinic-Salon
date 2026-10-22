@@ -243,7 +243,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 >
                   {/* droplet background image */}
                   <Image
-                    src="/Water%20Droplet.png"
+                    src="/Water%20Droplet%201.png"
                     alt=""
                     aria-hidden="true"
                     fill

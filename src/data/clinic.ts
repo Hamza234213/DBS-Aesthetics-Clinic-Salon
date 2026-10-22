@@ -42,51 +42,6 @@ export const clinicInfo = {
   },
 };
 
-export const featuredTreatments = [
-  {
-    title: "Hydra Facial",
-    description: "Deep cleansing and hydration for radiant, glowing skin.",
-    duration: "60 mins",
-    image: "/hydra.png",
-  },
-  {
-    title: "Laser Hair Removal",
-    description: "Permanent hair reduction with advanced laser technology.",
-    duration: "45-90 mins",
-    image: "/laser.png",
-  },
-  {
-    title: "Luxury Hair Styling",
-    description: "Professional haircuts, styling, and color transformations.",
-    duration: "60-90 mins",
-    image: "/hairstyle.png",
-  },
-  {
-    slug: "skin-treatments",
-    title: "Skin Treatments",
-    duration: "60 mins",
-    description:
-      "Rejuvenation and corrective skin treatments for visible radiance.",
-    image: "/image2.png",
-  },
-  {
-    slug: "body-treatments",
-    title: "Body Treatments",
-    duration: "60-75 mins",
-    description:
-      "Body contouring and sculpting solutions with a luxurious finish.",
-    image: "/skintreatment.png",
-  },
-  {
-    slug: "salon-services",
-    title: "Salon Services",
-    duration: "45-90 mins",
-    description:
-      "Hair styling, makeovers and grooming experiences in a private setting.",
-    image: "/image1.png",
-  },
-];
-
 // ===== CATEGORIES (display order follows the DBS price list) =====
 export const treatmentCategories = [
   {
@@ -651,26 +606,26 @@ export const servicePages = [
     slug: "whitening-skin-care",
     title: "Whitening Skin Care",
     intro:
-      "Result-focused skin therapies designed to improve tone, texture and resilience.",
+      "Dermatological whitening facials and hydra therapies for a brighter, clearer complexion.",
     overview:
-      "Our skin treatments combine science-led formulations and luxury care to support glowing, healthy skin.",
+      "From sensitive and acne facials to whitening polish and hydra therapies, our whitening skin care programmes use professional formulations (Jenson, Dermatological, Thalgo) to improve tone, clarity and hydration.",
     benefits: [
+      "Brighter, more even tone",
       "Refined pores",
-      "Even complexion",
       "Reduced redness",
       "Boosted hydration",
     ],
     process: [
       "Consultation",
-      "Treatment prep",
+      "Skin analysis and prep",
       "Therapy session",
-      "Recovery guidance",
+      "Aftercare guidance",
     ],
     duration: "30-60 minutes",
     recovery: "Minimal to 24 hours",
     suitableFor: [
       "Dull skin",
-      "Texture concerns",
+      "Uneven tone",
       "Acne-prone skin",
       "Sensitive skin",
     ],
@@ -680,41 +635,49 @@ export const servicePages = [
         answer:
           "We recommend discussing your medical history during consultation before booking.",
       },
+      {
+        question: "How many sessions will I need?",
+        answer:
+          "Most clients see a visible glow after the first session; a course is recommended for lasting tone improvement.",
+      },
     ],
-    gallery: ["/skin1.png", "/skin2.png"],
+    gallery: [
+      "/Whitening Skin Care Before.png",
+      "/Whitening Skin Care After.png",
+    ],
   },
   {
-    slug: "facial-treatments",
-    title: "Facial Treatments",
+    slug: "facial-services",
+    title: "Facial",
     intro:
-      "Elevated facial therapies designed to refresh, sculpt and reveal your healthiest glow.",
+      "Deep cleansing, polish, herbal whitening and anti-ageing facials tailored to your skin.",
     overview:
-      "Our facial treatments blend advanced skincare technology with expert touch to target dullness, congestion, dehydration and uneven texture.",
+      "Our facials cleanse, exfoliate, nourish and massage the skin to remove dullness and congestion, leaving it fresh, soft and glowing. Each facial is chosen after a quick skin analysis.",
     benefits: [
-      "Deep hydration",
+      "Deep pore cleansing",
       "Visible glow",
-      "Gentle resurfacing",
-      "Customised for all skin types",
+      "Soft, hydrated skin",
+      "Customised to your skin type",
     ],
     process: [
-      "Personal consultation",
       "Skin analysis",
-      "Treatment application",
+      "Cleansing and exfoliation",
+      "Mask and massage",
       "Aftercare guidance",
     ],
     duration: "45-90 minutes",
     recovery: "No downtime",
     suitableFor: [
       "Busy professionals",
-      "Brides",
+      "Brides-to-be",
       "First-time clients",
-      "Sensitive skin",
+      "Dull or tired skin",
     ],
     faqs: [
       {
-        question: "Is the facial treatment painful?",
+        question: "Is a facial painful?",
         answer:
-          "Most treatments are soothing and comfortable with no significant discomfort.",
+          "No. Facials are relaxing and comfortable, with no significant discomfort.",
       },
       {
         question: "How often should I book?",
@@ -722,56 +685,529 @@ export const servicePages = [
           "A monthly session is ideal for maintenance and long-term glow.",
       },
     ],
-    gallery: ["/prp.png", "/prp2.png"],
+    gallery: ["/Facial Before.png", "/Facial After.png"],
   },
   {
-    slug: "hair-treatments",
-    title: "Hair Treatments",
-    intro:
-      "Clinical scalp care and restorative therapies for healthier, stronger hair.",
+    slug: "bleaching-treatment",
+    title: "Bleach",
+    intro: "Face and body bleach treatments for an even, brighter tone.",
     overview:
-      "From strengthening treatments to premium hair repairs, our hair services focus on visible softness, vitality and manageability.",
+      "Choose from sandal, whitening, polish and detox bleach for the face, plus arms, feet and full body options. The bleach is applied by our trained team to lighten fine hair and brighten dull skin.",
     benefits: [
-      "Strengthening care",
+      "Brighter, even-looking tone",
+      "Softened facial hair",
+      "Instant freshness",
+      "Options for face and body",
+    ],
+    process: [
+      "Skin check and patch test",
+      "Cleansing",
+      "Bleach application",
+      "Removal and soothing care",
+    ],
+    duration: "20-45 minutes",
+    recovery: "No downtime; avoid harsh sun on the day",
+    suitableFor: [
+      "Dull or tanned skin",
+      "Visible fine hair",
+      "Pre-event glow",
+      "Face, arms and feet",
+    ],
+    faqs: [
+      {
+        question: "Is bleach safe for sensitive skin?",
+        answer:
+          "We perform a patch test and recommend a gentler option if your skin is sensitive.",
+      },
+      {
+        question: "How long do results last?",
+        answer:
+          "The brightening effect typically lasts a few weeks, depending on your hair growth and skin.",
+      },
+    ],
+    gallery: ["/Bleach Before.png", "/Bleach After.png"],
+  },
+  {
+    slug: "guinot-treatment",
+    title: "Guinot Skin Care",
+    intro:
+      "Professional Guinot cleansing, aroma and lifting skin care treatments.",
+    overview:
+      "Guinot is a French professional skin care line. Our Classic Cleansing, New Aruma and Lift Summum treatments cleanse deeply, calm the skin and support a firmer, more radiant look.",
+    benefits: [
+      "Deep, gentle cleansing",
+      "Calmed and balanced skin",
+      "Firmer-looking contours",
+      "Relaxing aroma experience",
+    ],
+    process: [
+      "Consultation and skin analysis",
+      "Deep cleansing",
+      "Treatment and massage",
+      "Home care advice",
+    ],
+    duration: "60-75 minutes",
+    recovery: "No downtime",
+    suitableFor: [
+      "Congested skin",
+      "Dull or stressed skin",
+      "Early signs of ageing",
+      "Special occasions",
+    ],
+    faqs: [
+      {
+        question: "Which Guinot treatment is right for me?",
+        answer:
+          "Our specialist will recommend Classic Cleansing, New Aruma or Lift Summum after analysing your skin.",
+      },
+      {
+        question: "Can I wear makeup afterwards?",
+        answer:
+          "Yes, though we suggest letting your skin rest for a few hours when possible.",
+      },
+    ],
+    gallery: ["/Guinot Skin Care Before.png", "/Guinot Skin Care After.png"],
+  },
+  {
+    slug: "whitening-and-lifting-facial",
+    title: "Whitening & Lifting Facial",
+    intro:
+      "Oxygen glow, firming, whitening and lifting facials for radiant skin.",
+    overview:
+      "Our oxygen-based facials infuse the skin with nourishing actives to brighten tone, boost firmness and refresh the complexion. Options include Oxygen Glow or Gold, Bust Firming, Whitening and Lifting facials.",
+    benefits: [
+      "Radiant, brighter skin",
+      "Lifted, firmer feel",
+      "Boosted hydration",
+      "Instant red-carpet glow",
+    ],
+    process: [
+      "Consultation",
+      "Cleansing and prep",
+      "Oxygen infusion and massage",
+      "Aftercare guidance",
+    ],
+    duration: "60-90 minutes",
+    recovery: "No downtime",
+    suitableFor: [
+      "Dull or tired skin",
+      "Loss of firmness",
+      "Pre-event skin prep",
+      "Brides-to-be",
+    ],
+    faqs: [
+      {
+        question: "Will I see results straight away?",
+        answer:
+          "Most clients notice an immediate glow, with lifting and brightening building over a course of sessions.",
+      },
+      {
+        question: "Is it suitable for sensitive skin?",
+        answer:
+          "Usually yes. Please mention sensitivities during consultation so we can adjust the products.",
+      },
+    ],
+    gallery: [
+      "/Whitening & Lifting Facial Before.png",
+      "/Whitening & Lifting Facial After.png",
+    ],
+  },
+  {
+    slug: "waxing-treatment",
+    title: "Waxing",
+    intro: "Smooth, hair-free skin with Rica waxing for face and body.",
+    overview:
+      "We use Rica wax for gentle, efficient hair removal on the face and body, from upper lip and eyebrows to full arms, legs, back and full body.",
+    benefits: [
+      "Smooth skin for weeks",
+      "Gentle Rica wax",
+      "Hygienic, single-use practice",
+      "Finer regrowth over time",
+    ],
+    process: ["Skin check", "Skin prep", "Waxing", "Soothing aftercare"],
+    duration: "15-90 minutes depending on area",
+    recovery: "Mild redness for a few hours",
+    suitableFor: [
+      "Face and body hair removal",
+      "Pre-event smoothness",
+      "Holiday prep",
+      "Regular maintenance",
+    ],
+    faqs: [
+      {
+        question: "How long should my hair be?",
+        answer: "About 0.5 cm (a quarter inch) is ideal for effective waxing.",
+      },
+      {
+        question: "Does waxing hurt?",
+        answer:
+          "There is brief discomfort, which usually lessens with regular sessions.",
+      },
+    ],
+    gallery: ["/Waxing Before.png", "/Waxing After.png"],
+  },
+  {
+    slug: "threading-treatment",
+    title: "Threading",
+    intro: "Precise threading for brows, lips and the full face.",
+    overview:
+      "Threading removes unwanted facial hair with fine control, ideal for shaping eyebrows and tidying the lip, chin, cheeks, forehead or the full face.",
+    benefits: [
+      "Precise brow shaping",
+      "No wax or chemicals",
+      "Suitable for sensitive skin",
+      "Quick sessions",
+    ],
+    process: [
+      "Shape consultation",
+      "Skin cleansing",
+      "Threading",
+      "Soothing finish",
+    ],
+    duration: "10-30 minutes",
+    recovery: "Slight redness for a short time",
+    suitableFor: [
+      "Brow shaping",
+      "Facial hair removal",
+      "Sensitive skin",
+      "Quick touch-ups",
+    ],
+    faqs: [
+      {
+        question: "How often should I book threading?",
+        answer: "Every 2-4 weeks, depending on your hair growth.",
+      },
+      {
+        question: "Is threading suitable for sensitive skin?",
+        answer:
+          "Yes, it avoids wax and chemicals, making it a gentle choice for most clients.",
+      },
+    ],
+    gallery: ["/Threading Before.png", "/Threading After.png"],
+  },
+  {
+    slug: "makeup-services",
+    title: "Makeup",
+    intro: "Bridal, nikkah, engagement and party makeovers with hairdo.",
+    overview:
+      "Our makeup artists create looks that suit your features and outfit, from Bridal Special and Nikkah makeovers to Glamour Shimmer, Smokey, Model and Engagement looks, finished with hairstyling where included.",
+    benefits: [
+      "Customised look for your features",
+      "Long-lasting finish",
+      "Premium products",
+      "Camera-ready results",
+    ],
+    process: [
+      "Look consultation",
+      "Skin prep",
+      "Makeup and hairdo",
+      "Final touch-ups",
+    ],
+    duration: "60-180 minutes (bridal takes longest)",
+    recovery: "Immediate",
+    suitableFor: [
+      "Brides",
+      "Nikkah and engagement",
+      "Parties and events",
+      "Photoshoots",
+    ],
+    faqs: [
+      {
+        question: "Should I book a trial?",
+        answer:
+          "For bridal and big events we recommend discussing your look in advance; contact us to arrange it.",
+      },
+      {
+        question: "How early should I book?",
+        answer:
+          "For wedding season, book as early as possible to secure your date.",
+      },
+    ],
+    gallery: ["/Makeup Before.png", "/Makeup After.png"],
+  },
+  {
+    slug: "hands-and-feet-services",
+    title: "Hands & Feet Care",
+    intro:
+      "Manicure, pedicure, French tips and stone massage for hands and feet.",
+    overview:
+      "Treat your hands and feet to professional care, with Mani Pedi options (Paraffin, OPI, Aroma White), French tips, Gilden Tree with Sea Minerals and relaxing stone massage.",
+    benefits: [
+      "Soft, smooth skin",
+      "Neat, polished nails",
+      "Relaxation and circulation",
+      "Hygienic tools and products",
+    ],
+    process: [
+      "Soak and cleanse",
+      "Nail shaping and cuticle care",
+      "Scrub, massage or paraffin",
+      "Polish and finish",
+    ],
+    duration: "45-90 minutes",
+    recovery: "Immediate",
+    suitableFor: [
+      "Rough or dry hands and feet",
+      "Regular grooming",
+      "Weddings and events",
+      "Relaxation",
+    ],
+    faqs: [
+      {
+        question: "How often should I get a mani pedi?",
+        answer: "Every 3-4 weeks is typical for maintenance.",
+      },
+      {
+        question: "Are your tools sterilised?",
+        answer: "Yes, we follow strict hygiene standards for every client.",
+      },
+    ],
+    gallery: ["/Hands & Feet Care Before.png", "/Hands & Feet Care After.png"],
+  },
+  {
+    slug: "hair-fashion-services",
+    title: "Hair Fashion",
+    intro:
+      "Colour, highlights, perming, keratin and smoothing transformations.",
+    overview:
+      "From root touch-ups and natural or fashion colour to highlights, balayage/ombre, perming, keratin, rebounding and complete transformations, our stylists craft the look you want while caring for your hair.",
+    benefits: [
+      "Custom colour and style",
+      "Smoother, shinier hair",
+      "Expert stylists",
+      "Long-lasting results",
+    ],
+    process: [
+      "Hair consultation",
+      "Colour or treatment selection",
+      "Application and processing",
+      "Styling and care tips",
+    ],
+    duration: "1.5-5 hours depending on service",
+    recovery: "Immediate; follow aftercare advice",
+    suitableFor: [
+      "Grey coverage",
+      "A new look",
+      "Frizzy or unruly hair",
+      "Special events",
+    ],
+    faqs: [
+      {
+        question: "Will colouring damage my hair?",
+        answer:
+          "We assess your hair first and recommend suitable products and aftercare to keep it healthy.",
+      },
+      {
+        question: "How long does keratin last?",
+        answer: "Typically a few months, depending on hair type and home care.",
+      },
+    ],
+    gallery: ["/Hair Fashion Before.png", "/Hair Fashion After.png"],
+  },
+  {
+    slug: "hair-extensions-services",
+    title: "Hair Extension",
+    intro: "Hair extensions and wigs, plus blow dry, styling and haircuts.",
+    overview:
+      "Add length, volume or a whole new look with extensions, front pieces and wigs, and keep your style fresh with blow dry, ironing, tongs, trims and haircuts.",
+    benefits: [
+      "Instant length and volume",
+      "Natural-looking blend",
+      "Flexible styling",
+      "Full salon finishing",
+    ],
+    process: [
+      "Consultation and colour match",
+      "Preparation",
+      "Extension or styling",
+      "Care guidance",
+    ],
+    duration: "45-180 minutes",
+    recovery: "Immediate",
+    suitableFor: [
+      "Thin or short hair",
+      "Weddings and events",
+      "Style changes",
+      "Everyday polish",
+    ],
+    faqs: [
+      {
+        question: "Will extensions damage my natural hair?",
+        answer:
+          "Properly fitted and maintained extensions are gentle; we will guide you on care.",
+      },
+      {
+        question: "Can extensions be coloured or styled?",
+        answer:
+          "Yes, within the limits of the hair type; ask our stylist for advice.",
+      },
+    ],
+    gallery: ["/Hair Extension Before.png", "/Hair Extension After.png"],
+  },
+  {
+    slug: "hair-treatment",
+    title: "Hair Treatment",
+    intro:
+      "Repair, restore and strengthen with premium scalp and hair therapies.",
+    overview:
+      "Our treatments include deep conditioning, oil massage, protein treatment, pro keratin and glamour conditioner to restore moisture, strength and shine.",
+    benefits: [
+      "Stronger, healthier hair",
       "Improved shine",
-      "Reduced breakage",
-      "Stress-free styling",
+      "Reduced breakage and frizz",
+      "Relaxing scalp care",
     ],
     process: [
       "Hair and scalp assessment",
       "Treatment selection",
-      "Application and styling",
+      "Application and massage",
       "Maintenance plan",
     ],
     duration: "45-75 minutes",
-    recovery: "Minimal downtime",
+    recovery: "Immediate",
     suitableFor: [
-      "Hair thinning",
-      "Dry hair",
-      "Post-styling damage",
-      "Event-ready hair",
+      "Dry or damaged hair",
+      "Frizz",
+      "Post-colour care",
+      "Dull hair",
     ],
     faqs: [
       {
-        question: "Can I combine scalp care with styling?",
-        answer:
-          "Yes, many clients pair a treatment with a beauty finish or blowout.",
+        question: "How often should I get a hair treatment?",
+        answer: "Usually every 2-4 weeks, depending on your hair condition.",
+      },
+      {
+        question: "Can I combine a treatment with styling?",
+        answer: "Yes, many clients pair a treatment with a blow dry or style.",
       },
     ],
-    gallery: ["/prgf.png", "/prgf2.png"],
+    gallery: ["/Hair Treatment Before.png", "/Hair Treatment After.png"],
+  },
+  {
+    slug: "nail-art-services",
+    title: "Nail Art",
+    intro: "Acrylic nails and nail art finished by our experts.",
+    overview:
+      "Acrylic extensions and custom nail art designed to match your style, from classic and subtle to bold and bridal.",
+    benefits: [
+      "Added length and strength",
+      "Custom designs",
+      "Long-lasting finish",
+      "Neat, polished look",
+    ],
+    process: [
+      "Design consultation",
+      "Nail prep",
+      "Acrylic application and art",
+      "Finish and care tips",
+    ],
+    duration: "60-120 minutes",
+    recovery: "Immediate",
+    suitableFor: [
+      "Weak or short nails",
+      "Events and weddings",
+      "Creative designs",
+      "Long-wear manicures",
+    ],
+    faqs: [
+      {
+        question: "How long do acrylic nails last?",
+        answer: "Typically 3-4 weeks before a refill is recommended.",
+      },
+      {
+        question: "Will acrylics damage my nails?",
+        answer:
+          "When applied and removed correctly, damage is minimal; avoid peeling them off at home.",
+      },
+    ],
+    gallery: ["/Nail Art Before.png", "/Nail Art After.png"],
+  },
+  {
+    slug: "mehandi-services",
+    title: "Mehandi Art",
+    intro: "Everyday, engagement and bridal mehandi designs, per side or full.",
+    overview:
+      "Our mehandi artists create designs from simple bunch and ordinary patterns to Engagement, Bridal and Uroosa designs with fine detail.",
+    benefits: [
+      "Intricate designs",
+      "Skilled artists",
+      "Rich, natural colour",
+      "Options for every occasion",
+    ],
+    process: [
+      "Design selection",
+      "Skin prep",
+      "Mehandi application",
+      "Aftercare advice",
+    ],
+    duration: "30-240 minutes depending on design",
+    recovery: "Keep dry for several hours as advised",
+    suitableFor: ["Brides", "Engagements", "Festivals", "Parties"],
+    faqs: [
+      {
+        question: "How long does mehandi last?",
+        answer: "Usually 1-2 weeks, depending on skin and care.",
+      },
+      {
+        question: "How can I get a darker colour?",
+        answer:
+          "Avoid water for the first hours and follow our aftercare tips.",
+      },
+    ],
+    gallery: ["/Mehandi Art Before.png", "/Mehandi Art After.png"],
+  },
+  {
+    slug: "eyelash-extension-services",
+    title: "Eyelash Extension",
+    intro: "Classic, hybrid, volume and mega volume lash extensions.",
+    overview:
+      "Semi-permanent lash extensions applied one by one to add length, curl and fullness, from natural classic to dramatic mega volume.",
+    benefits: [
+      "Fuller, longer-looking lashes",
+      "Less need for mascara",
+      "Customised style",
+      "Wake up ready",
+    ],
+    process: [
+      "Style consultation",
+      "Eye prep",
+      "Lash application",
+      "Aftercare guidance",
+    ],
+    duration: "90-150 minutes",
+    recovery: "None; avoid water for the first 24 hours",
+    suitableFor: [
+      "Sparse lashes",
+      "Weddings and events",
+      "Low-maintenance routines",
+      "A bolder eye look",
+    ],
+    faqs: [
+      {
+        question: "How long do lash extensions last?",
+        answer:
+          "Typically 3-4 weeks, with refills recommended to maintain fullness.",
+      },
+      {
+        question: "Can I wear mascara?",
+        answer:
+          "We advise against it, as it can shorten the life of your extensions.",
+      },
+    ],
+    gallery: ["/Eyelash Extension Before.png", "/Eyelash Extension After.png"],
   },
   {
     slug: "laser-treatments",
-    title: "Laser Treatments",
+    title: "Laser Treatment",
     intro:
-      "Medical-grade laser care for precision, comfort and lasting confidence.",
+      "Medical-grade laser hair removal for face and body with expert supervision.",
     overview:
-      "Our laser services focus on safe skin correction and hair reduction with an expert-led approach tailored to your needs.",
+      "Our laser hair removal packages cover full body, hands and feet, face and neck, underarms and bikini areas, delivering long-term hair reduction with professional oversight.",
     benefits: [
-      "Targeted treatment",
-      "Long-term results",
-      "Professional oversight",
-      "Comfort-first sessions",
+      "Long-term hair reduction",
+      "Smoother skin",
+      "Fewer ingrowns and razor irritation",
+      "Comfort-focused sessions",
     ],
     process: [
       "Medical consultation",
@@ -779,130 +1215,541 @@ export const servicePages = [
       "Laser session",
       "Follow-up care",
     ],
-    duration: "20-60 minutes",
-    recovery: "1-3 days depending on treatment",
+    duration: "15-90 minutes depending on area",
+    recovery: "Mild redness for a few hours",
     suitableFor: [
-      "Hair reduction",
-      "Pigmentation concerns",
-      "Skin resurfacing",
-      "Tattoo clarification",
+      "Unwanted facial and body hair",
+      "Ingrown hairs",
+      "Frequent shavers and waxers",
+      "Low-maintenance routines",
     ],
     faqs: [
       {
         question: "Are laser treatments safe?",
         answer:
-          "Yes, treatments are performed by qualified professionals under clinical standards.",
+          "Yes, they are performed by qualified professionals under clinical standards.",
+      },
+      {
+        question: "How many sessions will I need?",
+        answer:
+          "It depends on the area and hair growth; our packages set out the recommended sessions.",
       },
     ],
-    gallery: ["/laser1.png", "/laser2.png"],
+    gallery: ["/Laser Treatment Before.png", "/Laser Treatment After.png"],
   },
   {
-    slug: "skin-treatments",
-    title: "Skin Treatments",
+    slug: "haifu-treatments",
+    title: "Haifu Treatment",
     intro:
-      "Result-focused skin therapies designed to improve tone, texture and resilience.",
+      "Lift, tighten and contour the face and body with focused ultrasound.",
     overview:
-      "Our skin treatments combine science-led formulations and luxury care to support glowing, healthy skin.",
+      "Haifu (HIFU) uses focused ultrasound energy to stimulate collagen and tighten skin, with options for body, face and chin, and face, chin and neck.",
     benefits: [
-      "Refined pores",
-      "Even complexion",
-      "Reduced redness",
-      "Boosted hydration",
+      "Non-surgical lifting",
+      "Firmer, tighter skin",
+      "Defined jawline",
+      "Little to no downtime",
     ],
     process: [
       "Consultation",
-      "Treatment prep",
-      "Therapy session",
-      "Recovery guidance",
-    ],
-    duration: "30-60 minutes",
-    recovery: "Minimal to 24 hours",
-    suitableFor: [
-      "Dull skin",
-      "Texture concerns",
-      "Acne-prone skin",
-      "Sensitive skin",
-    ],
-    faqs: [
-      {
-        question: "Can I book a treatment if I am pregnant?",
-        answer:
-          "We recommend discussing your medical history during consultation before booking.",
-      },
-    ],
-    gallery: ["/skin1.png", "/skin2.png"],
-  },
-  {
-    slug: "body-treatments",
-    title: "Body Treatments",
-    intro:
-      "Sculpting, contouring and body-enhancement experiences with a luxe approach.",
-    overview:
-      "Our body treatments support inch-loss, sculpting and smoothness goals while prioritizing comfort and confidence.",
-    benefits: [
-      "Body contouring",
-      "Firming support",
-      "Minimal downtime",
-      "Tailored sessions",
-    ],
-    process: [
-      "Goal discussion",
-      "Body assessment",
-      "Treatment session",
-      "Progress planning",
+      "Skin cleansing and marking",
+      "Ultrasound treatment",
+      "Aftercare guidance",
     ],
     duration: "30-90 minutes",
-    recovery: "1-2 days",
+    recovery: "Little to none; mild redness or tenderness possible",
     suitableFor: [
-      "Body sculpting",
-      "Postpartum confidence",
-      "Wellness goals",
-      "Special occasions",
+      "Mild skin laxity",
+      "Jowls and jawline",
+      "Neck tightening",
+      "Non-surgical lifting",
     ],
     faqs: [
       {
-        question: "Will there be downtime?",
+        question: "When will I see results?",
+        answer: "Results build gradually over weeks as new collagen forms.",
+      },
+      {
+        question: "Is the treatment painful?",
         answer:
-          "Most sessions have minimal downtime and allow a comfortable return to daily life.",
+          "You may feel warmth or mild tingling; our team will keep you comfortable.",
       },
     ],
-    gallery: ["/chest.png", "/chest2.png"],
+    gallery: ["/Haifu Before.png", "/Haifu After.png"],
   },
   {
-    slug: "salon-services",
-    title: "Salon Services",
-    intro:
-      "Private salon care with polished styling, expert finishing and elevated convenience.",
+    slug: "hydra-facial-treatments",
+    title: "Hydra Facial",
+    intro: "Advanced facials, skin resurfacing and glow-focused therapies.",
     overview:
-      "From precision haircuts to expressive makeovers, our salon experience blends artistry with hospitality.",
+      "Hydra facials cleanse, exfoliate, extract and hydrate in one session. Choose Glow, Signature Cocktail, Black Beauty, Vampire or the classic Hydra Facial.",
     benefits: [
-      "Signature styling",
-      "Premium finish",
-      "Private experience",
-      "Flexible appointments",
+      "Deeply cleansed pores",
+      "Instant glow",
+      "Intense hydration",
+      "No downtime",
     ],
     process: [
-      "Style consultation",
-      "Cut and finish",
-      "Final styling",
-      "Aftercare tips",
+      "Skin analysis",
+      "Cleanse and exfoliate",
+      "Extraction and serum infusion",
+      "Hydrating finish",
     ],
-    duration: "60-90 minutes",
-    recovery: "Immediate",
+    duration: "45-60 minutes",
+    recovery: "No downtime",
     suitableFor: [
-      "Everyday polish",
-      "Events",
-      "Brides",
-      "Professional styling",
+      "Dull or congested skin",
+      "Dehydrated skin",
+      "Pre-event glow",
+      "Most skin types",
     ],
     faqs: [
       {
-        question: "Can I book a same-day appointment?",
-        answer:
-          "Yes, availability varies, so we recommend contacting the team directly for urgent scheduling.",
+        question: "Does Hydra Facial hurt?",
+        answer: "No. Most clients find it comfortable and relaxing.",
+      },
+      {
+        question: "How often can I have one?",
+        answer: "Monthly sessions are ideal for lasting glow.",
       },
     ],
-    gallery: ["/tint1.png", "/tint2.png"],
+    gallery: ["/Hydra Facial Before.png", "/Hydra Facial After.png"],
+  },
+  {
+    slug: "skin-whitening-treatments",
+    title: "Skin Whitening Drip",
+    intro:
+      "Intravenous glutathione and vitamin drips for bright, even-toned skin.",
+    overview:
+      "Our whitening drips deliver glutathione and vitamins into the bloodstream under professional supervision to support brighter, more even skin tone. Programmes include whitening drips and Whitening Skin Black sessions.",
+    benefits: [
+      "Brighter-looking skin",
+      "Even skin tone",
+      "Antioxidant support",
+      "Doctor-guided programmes",
+    ],
+    process: [
+      "Medical consultation",
+      "Programme planning",
+      "Drip session",
+      "Follow-up review",
+    ],
+    duration: "45-60 minutes per session",
+    recovery: "None",
+    suitableFor: [
+      "Dull or uneven skin tone",
+      "Pigmentation concerns",
+      "Skin brightening goals",
+      "Course-based programmes",
+    ],
+    faqs: [
+      {
+        question: "Is the drip safe?",
+        answer:
+          "It is administered by trained staff after a medical consultation. Tell us about any health conditions or allergies.",
+      },
+      {
+        question: "How soon will I see results?",
+        answer: "Results vary by person; a full course gives the best outcome.",
+      },
+    ],
+    gallery: ["/Skin Whitening Before.png", "/Skin Whitening After.png"],
+  },
+  {
+    slug: "eyebrows-and-lips-tint-services",
+    title: "Eyebrows & Lip Tint",
+    intro: "Semi-permanent colour enhancement for brows and lips.",
+    overview:
+      "Eyebrow and lip tint add natural-looking definition and colour, reducing the need for daily makeup.",
+    benefits: [
+      "Defined brows",
+      "Natural lip colour",
+      "Saves daily makeup time",
+      "Custom shade matching",
+    ],
+    process: [
+      "Shade consultation",
+      "Skin prep",
+      "Tint application",
+      "Aftercare guidance",
+    ],
+    duration: "30-60 minutes",
+    recovery: "Mild redness or dryness for a day or two",
+    suitableFor: [
+      "Sparse or faint brows",
+      "Pale lips",
+      "Low-maintenance beauty",
+      "Event prep",
+    ],
+    faqs: [
+      {
+        question: "How long does the tint last?",
+        answer:
+          "Typically several weeks, depending on skin type and aftercare.",
+      },
+      {
+        question: "Can I wear makeup afterwards?",
+        answer:
+          "We suggest avoiding makeup on the treated area for a short time; our team will advise.",
+      },
+    ],
+    gallery: [
+      "/Eyebrows & Lip Tint Before.png",
+      "/Eyebrows & Lip Tint After.png",
+    ],
+  },
+  {
+    slug: "sliming-drips-treatments",
+    title: "Sliming Drip",
+    intro:
+      "Slimming drip packages and body-shaping injections as per doctor consultancy.",
+    overview:
+      "Doctor-guided slimming plans include an 8-drip package and Labolighting injection for body shaping, designed to support weight and inch-loss goals alongside a healthy lifestyle.",
+    benefits: [
+      "Supports slimming goals",
+      "Doctor-guided plan",
+      "Body-shaping support",
+      "Structured package",
+    ],
+    process: [
+      "Doctor consultation",
+      "Goal planning",
+      "Drip or injection session",
+      "Progress review",
+    ],
+    duration: "30-60 minutes per session",
+    recovery: "Minimal",
+    suitableFor: [
+      "Weight management support",
+      "Stubborn areas",
+      "Body-shaping goals",
+      "Structured programmes",
+    ],
+    faqs: [
+      {
+        question: "Do I need a consultation first?",
+        answer: "Yes, treatments are planned as per doctor consultancy.",
+      },
+      {
+        question: "Do I still need diet and exercise?",
+        answer:
+          "Results are best when combined with a balanced diet and activity.",
+      },
+    ],
+    gallery: ["/Sliming Drip Before.png", "/Sliming Drip After.png"],
+  },
+  {
+    slug: "face-prp-treatments",
+    title: "Face PRP",
+    intro: "Platelet-rich plasma therapy for skin rejuvenation and hair.",
+    overview:
+      "PRP uses your own plasma, rich in growth factors, to rejuvenate skin and support hair health. Options include Full Face PRP and Hair PRP.",
+    benefits: [
+      "Natural rejuvenation",
+      "Improved skin texture",
+      "Healthier-looking skin",
+      "Supports hair health",
+    ],
+    process: [
+      "Medical consultation",
+      "Blood sample and PRP preparation",
+      "PRP application",
+      "Aftercare guidance",
+    ],
+    duration: "45-75 minutes",
+    recovery: "1-3 days of redness or mild swelling",
+    suitableFor: [
+      "Dull or tired skin",
+      "Fine lines",
+      "Texture concerns",
+      "Thinning hair",
+    ],
+    faqs: [
+      {
+        question: "Is PRP safe?",
+        answer:
+          "It uses your own blood, which lowers the risk of reaction, and is done under clinical standards.",
+      },
+      {
+        question: "How many sessions are needed?",
+        answer:
+          "Usually a series of sessions is recommended; your doctor will advise.",
+      },
+    ],
+    gallery: ["/Face PRP Before.png", "/Face PRP After.png"],
+  },
+  {
+    slug: "peeling-treatments",
+    title: "Peeling",
+    intro: "Chemical, glow and acne scar peels plus lifting treatments.",
+    overview:
+      "Peels exfoliate the skin to improve texture, tone and scarring. We offer Chemical, Glow and Acne Scar peeling alongside lifting treatments, selected after consultation.",
+    benefits: [
+      "Smoother texture",
+      "Brighter tone",
+      "Improved look of acne scars",
+      "Fresher skin",
+    ],
+    process: [
+      "Skin consultation",
+      "Cleansing",
+      "Peel application",
+      "Aftercare and sun protection",
+    ],
+    duration: "30-45 minutes",
+    recovery: "2-7 days of dryness or flaking depending on peel",
+    suitableFor: ["Acne scars", "Dull skin", "Uneven texture", "Pigmentation"],
+    faqs: [
+      {
+        question: "Will my skin peel?",
+        answer:
+          "Mild flaking is common for a few days, depending on the peel strength.",
+      },
+      {
+        question: "Do I need sun protection afterwards?",
+        answer: "Yes, sunscreen is essential after any peel.",
+      },
+    ],
+    gallery: ["/Peeling Before.png", "/Peeling After.png"],
+  },
+  {
+    slug: "meso-therapy-service",
+    title: "Meso Therapy",
+    intro:
+      "Nourishing meso therapy sessions to refresh and revitalise facial skin.",
+    overview:
+      "Meso therapy delivers vitamins, hyaluronic acid and nutrients into the skin to improve hydration, glow and freshness.",
+    benefits: [
+      "Deep hydration",
+      "Radiant glow",
+      "Improved texture",
+      "Refreshed look",
+    ],
+    process: [
+      "Consultation",
+      "Skin prep",
+      "Micro-injection session",
+      "Aftercare guidance",
+    ],
+    duration: "30-45 minutes",
+    recovery: "Mild redness or small bumps for 24 hours",
+    suitableFor: [
+      "Dull or dehydrated skin",
+      "Fine lines",
+      "Tired complexion",
+      "Skin refresh",
+    ],
+    faqs: [
+      {
+        question: "Does it hurt?",
+        answer:
+          "A numbing cream is usually used, so most clients tolerate it well.",
+      },
+      {
+        question: "How many sessions do I need?",
+        answer:
+          "A short course is typically recommended; your doctor will advise.",
+      },
+    ],
+    gallery: ["/Meso Therapy Before.png", "/Meso Therapy After.png"],
+  },
+  {
+    slug: "botox-treatments",
+    title: "Botox",
+    intro:
+      "Smoothing botox treatments for the full face, neck or a single area.",
+    overview:
+      "Botox relaxes the muscles that cause expression lines, softening wrinkles for a refreshed, natural look. Choose full face and neck, full face, or a single area.",
+    benefits: [
+      "Smoother lines",
+      "Natural-looking results",
+      "Quick treatment",
+      "Minimal downtime",
+    ],
+    process: [
+      "Doctor consultation",
+      "Facial assessment",
+      "Botox injections",
+      "Aftercare guidance",
+    ],
+    duration: "15-30 minutes",
+    recovery: "Little to none; avoid rubbing the area for the day",
+    suitableFor: [
+      "Forehead lines",
+      "Frown lines",
+      "Crow's feet",
+      "Preventative care",
+    ],
+    faqs: [
+      {
+        question: "When do I see results?",
+        answer:
+          "Results typically appear within several days and settle in around two weeks.",
+      },
+      {
+        question: "How long do results last?",
+        answer: "Usually 3-4 months; your doctor will advise on maintenance.",
+      },
+    ],
+    gallery: ["/Botox Before.png", "/Botox After.png"],
+  },
+  {
+    slug: "filling-services",
+    title: "Fillers",
+    intro: "Dermal fillers for natural-looking volume and definition.",
+    overview:
+      "Dermal fillers restore volume and enhance contours in a chosen area, such as lips, cheeks or under-eyes, with a natural, balanced result.",
+    benefits: [
+      "Restored volume",
+      "Enhanced definition",
+      "Immediate results",
+      "Minimal downtime",
+    ],
+    process: [
+      "Doctor consultation",
+      "Facial assessment",
+      "Filler injection",
+      "Aftercare guidance",
+    ],
+    duration: "30-45 minutes",
+    recovery: "Mild swelling or bruising for 1-3 days",
+    suitableFor: [
+      "Lip enhancement",
+      "Cheek volume",
+      "Under-eye hollows",
+      "Facial contouring",
+    ],
+    faqs: [
+      {
+        question: "Are fillers permanent?",
+        answer:
+          "No, they are temporary and typically last several months to over a year, depending on the product and area.",
+      },
+      {
+        question: "Will it look natural?",
+        answer:
+          "Our doctors focus on subtle, balanced results tailored to your features.",
+      },
+    ],
+    gallery: ["/Fillers Before.png", "/Fillers After.png"],
+  },
+  {
+    slug: "exosomal-therapy-treatment",
+    title: "Exosomal Therapy",
+    intro: "Advanced exosomal therapy sessions for face and hair regeneration.",
+    overview:
+      "Exosomal therapy uses exosomes, tiny cell-signalling particles, to support skin renewal and hair health. Sessions are available for face and hair.",
+    benefits: [
+      "Skin renewal support",
+      "Improved texture and glow",
+      "Supports hair health",
+      "Advanced regenerative care",
+    ],
+    process: [
+      "Medical consultation",
+      "Skin or scalp prep",
+      "Exosome application",
+      "Aftercare guidance",
+    ],
+    duration: "45-60 minutes",
+    recovery: "Mild redness for a few hours to a day",
+    suitableFor: [
+      "Dull or ageing skin",
+      "Texture concerns",
+      "Thinning hair",
+      "Post-procedure skin recovery",
+    ],
+    faqs: [
+      {
+        question: "How many sessions do I need?",
+        answer: "Your doctor will recommend a plan based on your goals.",
+      },
+      {
+        question: "Is there downtime?",
+        answer: "Downtime is minimal; mild redness is possible.",
+      },
+    ],
+    gallery: ["/Exosomal Therapy Before.png", "/Exosomal Therapy After.png"],
+  },
+  {
+    slug: "stemcells-therapy-treatment",
+    title: "Stemcells Therapy",
+    intro: "Stem cell therapy sessions for face and hair rejuvenation.",
+    overview:
+      "Stem cell therapy uses regenerative actives to support skin rejuvenation and hair vitality. Sessions are available for face and hair.",
+    benefits: [
+      "Rejuvenated skin",
+      "Improved firmness and tone",
+      "Supports hair vitality",
+      "Advanced regenerative care",
+    ],
+    process: [
+      "Medical consultation",
+      "Skin or scalp prep",
+      "Therapy session",
+      "Aftercare guidance",
+    ],
+    duration: "45-60 minutes",
+    recovery: "Mild redness or swelling for 1-2 days",
+    suitableFor: [
+      "Ageing skin",
+      "Dull complexion",
+      "Thinning hair",
+      "Skin renewal goals",
+    ],
+    faqs: [
+      {
+        question: "How soon will I see results?",
+        answer: "Results build gradually over weeks as the skin renews.",
+      },
+      {
+        question: "Is it suitable for everyone?",
+        answer: "A doctor's consultation will confirm if it is right for you.",
+      },
+    ],
+    gallery: ["/Stemcells Therapy Before.png", "/Stemcells Therapy After.png"],
+  },
+  {
+    slug: "profilow-treatment",
+    title: "Profilow Treatment",
+    intro: "Face Profilow treatment for deep skin revitalisation and firmness.",
+    overview:
+      "Profilow is a face treatment that supports skin hydration, firmness and a revitalised look by delivering nourishing actives into the skin.",
+    benefits: [
+      "Deep revitalisation",
+      "Improved firmness",
+      "Boosted hydration",
+      "Smoother-looking skin",
+    ],
+    process: [
+      "Consultation",
+      "Skin prep",
+      "Profilow session",
+      "Aftercare guidance",
+    ],
+    duration: "30-45 minutes",
+    recovery: "Mild redness for 24 hours",
+    suitableFor: [
+      "Loose or tired skin",
+      "Dehydrated skin",
+      "Early ageing signs",
+      "Skin revitalisation",
+    ],
+    faqs: [
+      {
+        question: "How many sessions are needed?",
+        answer:
+          "A short course is generally recommended; your doctor will advise.",
+      },
+      {
+        question: "Is there downtime?",
+        answer: "Minimal; mild redness may appear for a day.",
+      },
+    ],
+    gallery: [
+      "/Profilow Treatment Before.png",
+      "/Profilow Treatment After.png",
+    ],
   },
 ];
 

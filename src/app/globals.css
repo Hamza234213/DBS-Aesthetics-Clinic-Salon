@@ -34,32 +34,62 @@ body {
   overflow: hidden;
   min-height: 100vh;
   background-color: #050505;
-  background-image:
-    linear-gradient(135deg, rgba(201, 172, 106, 0.22) 0%, transparent 28%),
-    radial-gradient(circle at top right, rgba(201, 172, 106, 0.16), transparent 48%),
-    radial-gradient(circle at bottom left, rgba(201, 172, 106, 0.12), transparent 42%),
-    linear-gradient(125deg, rgba(255, 255, 255, 0.02) 0%, transparent 40%, rgba(201, 172, 106, 0.045) 100%);
 }
 
+/* Decorative gradients live on a fixed, viewport-sized layer so they are
+   painted once and do not repaint when the page height changes
+   (e.g. when a FAQ item opens). */
 .page-metallic-shell::before {
   content: "";
-  position: absolute;
+  position: fixed;
   inset: 0;
-  background:
-    linear-gradient(120deg, rgba(255, 255, 255, 0.025) 0%, transparent 40%, rgba(201, 172, 106, 0.035) 100%),
-    linear-gradient(to right, transparent 0%, rgba(201, 172, 106, 0.04) 50%, transparent 100%);
+  z-index: -1;
+  background-image:
+    linear-gradient(135deg, rgba(201, 172, 106, 0.22) 0%, transparent 28%),
+    radial-gradient(
+      circle at top right,
+      rgba(201, 172, 106, 0.16),
+      transparent 48%
+    ),
+    radial-gradient(
+      circle at bottom left,
+      rgba(201, 172, 106, 0.12),
+      transparent 42%
+    ),
+    linear-gradient(
+      125deg,
+      rgba(255, 255, 255, 0.02) 0%,
+      transparent 40%,
+      rgba(201, 172, 106, 0.045) 100%
+    ),
+    linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.025) 0%,
+      transparent 40%,
+      rgba(201, 172, 106, 0.035) 100%
+    ),
+    linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(201, 172, 106, 0.04) 50%,
+      transparent 100%
+    );
   pointer-events: none;
 }
 
 .page-metallic-shell::after {
   content: "";
-  position: absolute;
-  top: 10%;
+  position: fixed;
+  top: 6rem;
   right: -8%;
+  z-index: -1;
   width: 40rem;
   height: 40rem;
-  background: radial-gradient(circle, rgba(201, 172, 106, 0.12), transparent 70%);
-  filter: blur(60px);
+  background: radial-gradient(
+    circle,
+    rgba(201, 172, 106, 0.12),
+    transparent 70%
+  );
   pointer-events: none;
 }
 
@@ -73,16 +103,27 @@ body {
   isolation: isolate;
   overflow: hidden;
   border: 1px solid rgba(201, 172, 106, 0.18);
-  background: linear-gradient(135deg, rgba(8, 8, 8, 0.98) 0%, rgba(18, 18, 18, 0.96) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(8, 8, 8, 0.98) 0%,
+    rgba(18, 18, 18, 0.96) 100%
+  );
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
-  transition: all 300ms ease;
+  transition:
+    border-color 300ms ease,
+    transform 300ms ease;
 }
 
 .page-card::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(201, 172, 106, 0.12) 0%, transparent 35%, rgba(201, 172, 106, 0.05) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(201, 172, 106, 0.12) 0%,
+    transparent 35%,
+    rgba(201, 172, 106, 0.05) 100%
+  );
   pointer-events: none;
 }
 
@@ -93,12 +134,15 @@ body {
 
 .page-card:hover {
   border-color: rgba(201, 172, 106, 0.42);
-  box-shadow: 0 30px 90px rgba(201, 172, 106, 0.12);
   transform: translateY(-3px);
 }
 
 .page-card-soft {
-  background: linear-gradient(135deg, rgba(12, 12, 12, 0.98) 0%, rgba(24, 24, 24, 0.96) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(12, 12, 12, 0.98) 0%,
+    rgba(24, 24, 24, 0.96) 100%
+  );
 }
 
 @keyframes shimmer {
@@ -111,8 +155,29 @@ body {
 }
 
 .animate-shimmer {
-  animation: shimmer 3s ease-in-out infinite;
   background-size: 200% auto;
+}
+
+/* Shimmer only runs on hover: an infinite background-position animation
+   forces a repaint every frame, which made the whole page laggy. */
+.animate-shimmer:hover {
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* FAQ answer reveal: opacity + transform only (no layout work per frame) */
+@keyframes faq-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-faq-in {
+  animation: faq-in 250ms ease-out;
 }
 
 .hide-scrollbar {

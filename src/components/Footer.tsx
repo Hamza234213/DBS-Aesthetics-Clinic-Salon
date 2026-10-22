@@ -49,9 +49,9 @@ export function Footer() {
 
       <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#c9ac6a]/35 to-transparent" />
 
-      <div className="absolute left-1/4 top-1/2 h-64 w-64 -translate-y-1/2 rounded-full bg-[#c9ac6a]/8 blur-3xl" />
+      <div className="absolute left-1/4 top-1/2 h-64 w-64 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(201,172,106,0.08),transparent_70%)]" />
 
-      <div className="absolute right-1/4 top-1/2 h-64 w-64 -translate-y-1/2 rounded-full bg-[#c9ac6a]/8 blur-3xl" />
+      <div className="absolute right-1/4 top-1/2 h-64 w-64 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(201,172,106,0.08),transparent_70%)]" />
 
       {/* =====================================================
           MAIN FOOTER

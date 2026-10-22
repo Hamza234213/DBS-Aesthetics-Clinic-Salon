@@ -31,9 +31,11 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
     setIsOpen(false);
-  }, [pathname]);
+  }
 
   useEffect(() => {
     if (isOpen) {
@@ -59,22 +61,22 @@ export function Navbar() {
           opacity: isOpen ? 0 : 1,
         }}
         transition={{ duration: 0.25 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ${
           isOpen ? "pointer-events-none" : "pointer-events-auto"
         } ${
           isScrolled && !isOpen
-            ? "bg-[#111111]/45 backdrop-blur-2xl border-b border-white/10 "
+            ? "bg-[#111111]/80 backdrop-blur-md border-b border-white/10 "
             : "bg-transparent backdrop-blur-none border-b border-white/5"
         }`}
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between bg-transparent px-4 py-3 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 bg-transparent px-3 py-3 min-[400px]:gap-3 min-[400px]:px-4 sm:px-6 lg:px-8">
           {/* =========================
               LOGO
           ========================== */}
           <Link
             href="/"
             scroll={true}
-            className="flex items-center gap-1 flex-shrink-0"
+            className="flex min-w-0 flex-1 items-center gap-1 lg:flex-none"
             onClick={(e) => {
               if (window.location.pathname === "/") {
                 e.preventDefault();
@@ -86,23 +88,26 @@ export function Navbar() {
               }
             }}
           >
-            {/* Bigger Logo */}
-            <div className="relative h-12 w-12 sm:h-16 sm:w-16 lg:h-[68px] lg:w-[68px] flex-shrink-0">
+            {/* Icon logo - fluid size, never shrinks below its own box */}
+            <div className="relative h-[clamp(2.5rem,12vw,3rem)] w-[clamp(2.5rem,12vw,3rem)] shrink-0 grow-0 sm:h-16 sm:w-16 lg:h-[68px] lg:w-[68px]">
               <Image
                 src="/DBS_Logo.png"
                 alt="DBS_Logo"
                 fill
                 priority
+                sizes="(min-width: 1024px) 68px, 64px"
                 className="object-contain"
               />
             </div>
 
-            <div className="relative h-12 w-[220px] sm:h-12 sm:w-[230px] lg:h-22 lg:w-[270px] flex-shrink-0">
+            {/* Text logo - height scales with screen width, width is capped by the space left */}
+            <div className="relative h-[clamp(1.5rem,6.5vw,2.5rem)] min-w-0 max-w-[220px] flex-1 sm:h-12 sm:max-w-[270px] lg:h-[68px] lg:w-[270px] lg:flex-none">
               <Image
                 src="/DBS%20Text%20Logo%20Navbar.png"
                 alt="DBS Aesthetics Clinic & Salon"
                 fill
                 priority
+                sizes="(min-width: 1024px) 270px, 60vw"
                 className="object-contain object-left"
               />
             </div>
@@ -164,11 +169,8 @@ export function Navbar() {
           </nav>
 
           {/* =========================
-    DESKTOP BUTTON
-========================== */}
-          {/* =========================
-    DESKTOP BUTTON
-========================== */}
+              DESKTOP BUTTON
+          ========================== */}
           <div className="hidden lg:flex items-center gap-4">
             <Link
               href="/book-appointment"
@@ -183,24 +185,7 @@ export function Navbar() {
           ========================== */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="
-  lg:hidden
-  relative
-  w-11
-  h-11
-  flex
- 
-  items-center
-  justify-center
-  rounded-full
-  bg-white/5
-  backdrop-blur-xl
-  border
-  border-white/10
-  hover:bg-white/10
-  transition-all
-  duration-300
-"
+            className="relative flex size-11 min-h-11 min-w-11 shrink-0 grow-0 basis-11 items-center justify-center rounded-full border border-white/10 bg-white/5 p-0 backdrop-blur-xl transition-all duration-300 hover:bg-white/10 lg:hidden"
             aria-label="Toggle menu"
           >
             <motion.div
@@ -306,35 +291,44 @@ export function Navbar() {
                 <Link
                   href="/"
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center gap-1"
+                  className="flex min-w-0 flex-1 items-center gap-1"
                 >
-                  {/* Bigger Mobile Logo */}
-                  <div className="relative h-14 w-14 sm:h-16 sm:w-16">
+                  {/* Mobile icon logo - fixed size */}
+                  <div className="relative h-[clamp(2.75rem,13vw,3.5rem)] w-[clamp(2.75rem,13vw,3.5rem)] shrink-0 grow-0 sm:h-16 sm:w-16">
                     <Image
                       src="/DBS_Logo.png"
                       alt="DBS_Logo"
                       fill
+                      sizes="64px"
                       className="object-contain"
                     />
                   </div>
 
-                  <div className="relative h-10 w-[210px]">
+                  {/* Mobile text logo - scales with screen, capped by remaining space */}
+                  <div className="relative h-[clamp(1.5rem,7vw,2.25rem)] min-w-0 max-w-[200px] flex-1">
                     <Image
-                      src="/Logo%20Font.png"
+                      src="/DBS%20Text%20Logo%20Navbar.png"
                       alt="DBS Aesthetics Clinic & Salon"
                       fill
+                      sizes="60vw"
                       className="object-contain object-left"
                     />
                   </div>
                 </Link>
 
-                {/* Close Button - FIXED */}
+                {/* Close Button - fixed circle */}
                 <button
                   onClick={() => setIsOpen(false)}
                   className="
                     relative
-                    w-12
-                    h-12
+                    ml-3
+                    size-12
+                    min-h-12
+                    min-w-12
+                    shrink-0
+                    grow-0
+                    basis-12
+                    p-0
                     flex
                     items-center
                     justify-center
