@@ -1353,7 +1353,7 @@ export const servicePages = [
         answer: "Results vary by person; a full course gives the best outcome.",
       },
     ],
-    gallery: ["/Skin Whitening Before.png", "/Skin Whitening After.png"],
+    gallery: ["/Skin Whitening Drip Before.png", "/Skin Whitening Drip After.png"],
   },
   {
     slug: "eyebrows-and-lips-tint-services",
