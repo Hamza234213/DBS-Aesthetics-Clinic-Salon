@@ -258,7 +258,7 @@ export function Footer() {
               </a>
             </li>
 
-            {/* SECOND ADDRESS */}
+            {/* ADDRESS */}
 
             <li className="flex items-start gap-3">
               <FaMapMarkerAlt
@@ -266,7 +266,7 @@ export function Footer() {
                 className="mt-1 shrink-0 text-[#c9ac6a]/70"
               />
 
-              <span className="transition-colors duration-300 hover:text-[#f7f2e9]/90">
+              <span className="transition-colors duration-300 hover:text-[#c9ac6a]">
                 {clinicInfo.address2}
               </span>
             </li>
@@ -276,7 +276,7 @@ export function Footer() {
             <li className="flex items-start gap-3">
               <FaClock size={14} className="mt-1 shrink-0 text-[#c9ac6a]/70" />
 
-              <span className="transition-colors duration-300 hover:text-[#f7f2e9]/90">
+              <span className="transition-colors duration-300 hover:text-[#c9ac6a]">
                 {clinicInfo.hours}
               </span>
             </li>
