@@ -426,7 +426,7 @@ export function AppointmentForm() {
                 required
                 value={patientName}
                 onChange={(e) => setPatientName(e.target.value)}
-                className="w-full rounded-full border border-[#c9ac6a]/20 bg-transparent px-4 py-3 text-[#c9ac6a] outline-none focus:border-[#c9ac6a] transition-colors duration-300 placeholder:text-[#f7f2e9]/30"
+                className="w-full rounded-full border border-[#c9ac6a]/20 bg-transparent px-4 py-3 text-[#c9ac6a] outline-none focus:border-[#c9ac6a] transition-colors duration-300 placeholder:text-[#c9ac6a]"
                 placeholder="Enter your full name"
               />
             </label>
@@ -440,7 +440,7 @@ export function AppointmentForm() {
                 inputMode="numeric"
                 maxLength={12}
                 placeholder="03XX-XXXXXXX"
-                className="w-full rounded-full border border-[#c9ac6a]/20 bg-transparent px-4 py-3 text-[#c9ac6a] outline-none focus:border-[#c9ac6a] transition-colors duration-300 placeholder:text-[#f7f2e9]/30"
+                className="w-full rounded-full border border-[#c9ac6a]/20 bg-transparent px-4 py-3 text-[#c9ac6a] outline-none focus:border-[#c9ac6a] transition-colors duration-300 placeholder:text-[#c9ac6a]"
                 value={phoneNumber}
                 onInput={(e) => {
                   const input = e.currentTarget;
@@ -1051,46 +1051,46 @@ export function AppointmentForm() {
             </div>
           </div>
 
-          {/* Session Preference Option */}
-          <div className="block text-sm text-[#f7f2e9]/70">
-            <span className="mb-2 block font-medium text-[#f7f2e9]">
-              Session Preference
-            </span>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {[
-                {
-                  id: "Single Session",
-                  label: "Book a Session",
-                  desc: "Individual session",
-                },
-                {
-                  id: "Consultation Only",
-                  label: "Consultation Only",
-                  desc: "Doctor evaluation",
-                },
-              ].map((opt) => (
-                <button
-                  key={opt.id}
-                  type="button"
-                  onClick={() => {
-                    setSessionOption(opt.id);
-                    setValidationMessage("");
-                  }}
-                  className={`flex flex-col items-start rounded-2xl border p-3.5 text-left transition-all duration-300 ${
-                    sessionOption === opt.id
-                      ? "border-[#c9ac6a] bg-[#c9ac6a]/15 text-[#c9ac6a] shadow-[0_0_15px_rgba(201,172,106,0.15)]"
-                      : "border-[#c9ac6a]/20 bg-transparent text-[#f7f2e9]/70 hover:border-[#c9ac6a]/50 hover:bg-[#c9ac6a]/5"
-                  }`}
-                >
-                  <span className="font-semibold text-sm">{opt.label}</span>
-                  <span className="text-[11px] opacity-70 mt-0.5">
-                    {opt.desc}
-                  </span>
-                </button>
-              ))}
-            </div>
-            <input type="hidden" name="sessionType" value={sessionOption} />
-          </div>
+{/* Session Preference Option */}
+<div className="block text-sm text-[#f7f2e9]/70">
+  <span className="mb-2 block font-medium text-[#f7f2e9]">
+    Session Preference
+  </span>
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+    {[
+      {
+        id: "Single Session",
+        label: "Book a Session",
+        desc: "Individual session",
+      },
+      {
+        id: "Consultation Only",
+        label: "Consultation Only",
+        desc: "Doctor evaluation",
+      },
+    ].map((opt) => (
+      <button
+        key={opt.id}
+        type="button"
+        onClick={() => {
+          setSessionOption(opt.id);
+          setValidationMessage("");
+        }}
+        className={`flex flex-col items-start rounded-2xl border p-3.5 text-left transition-all duration-300 ${
+          sessionOption === opt.id
+            ? "border-[#c9ac6a] bg-[#c9ac6a]/15 text-[#c9ac6a] shadow-[0_0_15px_rgba(201,172,106,0.15)]"
+            : "border-[#c9ac6a]/20 bg-transparent text-[#f7f2e9]/70 hover:border-[#c9ac6a]/50 hover:bg-[#c9ac6a]/5"
+        }`}
+      >
+        <span className="font-semibold text-sm">{opt.label}</span>
+        <span className="text-[11px] mt-0.5 text-[#c9ac6a]">
+          {opt.desc}
+        </span>
+      </button>
+    ))}
+  </div>
+  <input type="hidden" name="sessionType" value={sessionOption} />
+</div>
 
           {/* Hidden input so server/form can pick it up if needed */}
           <input type="hidden" name="preferredTreatment" value={preferred} />
@@ -1114,7 +1114,7 @@ export function AppointmentForm() {
               rows={4}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              className="w-full rounded-[1.25rem] border border-[#c9ac6a]/20 bg-transparent px-4 py-3 text-[#c9ac6a] outline-none focus:border-[#c9ac6a] transition-colors duration-300 resize-none placeholder:text-[#f7f2e9]/30"
+              className="w-full rounded-[1.25rem] border border-[#c9ac6a]/20 bg-transparent px-4 py-3 text-[#c9ac6a] outline-none focus:border-[#c9ac6a] transition-colors duration-300 resize-none placeholder:text-[#c9ac6a]"
               placeholder="Any specific requests or questions..."
             />
           </label>
