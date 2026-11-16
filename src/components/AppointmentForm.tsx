@@ -134,29 +134,6 @@ export function AppointmentForm() {
     requestAnimationFrame(scrollToSelected);
   }, [timeOpen, hours, minutes, selectedHour, selectedMinute, selectedPeriod]);
 
-  // When the date or picker changes, move off any time that has already
-  // passed today and jump the wheels to the first available slot.
-  useEffect(() => {
-    if (!selectedDate) return;
-
-    if (isSlotPast(selectedHour, selectedMinute, selectedPeriod)) {
-      for (const h of hours) {
-        const p = h === "11" ? "AM" : "PM";
-        const m = minutes.find((mm) => isSlotAvailable(h, mm, p));
-
-        if (m) {
-          setSelectedHour(h);
-          setSelectedMinute(m);
-          setSelectedPeriod(p);
-          break;
-        }
-      }
-
-      setSelectedTime("");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedDate, timeOpen]);
-
   function to24Hour(hour: string, period: string) {
     let hour24 = Number(hour);
 
@@ -172,35 +149,6 @@ export function AppointmentForm() {
   function isTimeAllowed(hour: string, minute: string, period: string) {
     const totalMinutes = to24Hour(hour, period) * 60 + Number(minute);
     return totalMinutes >= 11 * 60 && totalMinutes <= 20 * 60;
-  }
-
-  // True when the selected date is today and this slot has already passed.
-  function isSlotPast(hour: string, minute: string, period: string) {
-    if (!selectedDate) return false;
-
-    const now = new Date();
-    if (selectedDate.toDateString() !== now.toDateString()) return false;
-
-    const slotMinutes = to24Hour(hour, period) * 60 + Number(minute);
-    const nowMinutes = now.getHours() * 60 + now.getMinutes();
-
-    return slotMinutes <= nowMinutes;
-  }
-
-  // A slot is available if it is inside clinic hours and not in the past.
-  function isSlotAvailable(hour: string, minute: string, period: string) {
-    return (
-      isTimeAllowed(hour, minute, period) && !isSlotPast(hour, minute, period)
-    );
-  }
-
-  function isHourDisabled(hour: string) {
-    const period = hour === "11" ? "AM" : "PM";
-    return !minutes.some((m) => isSlotAvailable(hour, m, period));
-  }
-
-  function hasAvailableSlot() {
-    return hours.some((h) => !isHourDisabled(h));
   }
 
   function normalizeTime(hour: string, minute: string, period: string) {
@@ -222,18 +170,7 @@ export function AppointmentForm() {
     minute: string = selectedMinute,
     period: string = selectedPeriod,
   ) {
-    let normalized = normalizeTime(hour, minute, period);
-
-    // If the chosen minute is already past for this hour, use the first
-    // minute that is still available.
-    if (
-      !isSlotAvailable(normalized.hour, normalized.minute, normalized.period)
-    ) {
-      const fallback = minutes.find((m) =>
-        isSlotAvailable(normalized.hour, m, normalized.period),
-      );
-      if (fallback) normalized = { ...normalized, minute: fallback };
-    }
+    const normalized = normalizeTime(hour, minute, period);
 
     setSelectedHour(normalized.hour);
     setSelectedMinute(normalized.minute);
@@ -256,17 +193,6 @@ export function AppointmentForm() {
 
     if (!selectedTime) {
       setValidationMessage("Please select a preferred time.");
-      setTimeOpen(true);
-      setCalendarOpen(false);
-      setOpen(false);
-      return;
-    }
-
-    if (isSlotPast(selectedHour, selectedMinute, selectedPeriod)) {
-      setValidationMessage(
-        "That time has already passed. Please select a later time.",
-      );
-      setSelectedTime("");
       setTimeOpen(true);
       setCalendarOpen(false);
       setOpen(false);
@@ -428,25 +354,13 @@ export function AppointmentForm() {
       day,
     );
 
-    const now = new Date();
-    const today = new Date(now);
+    const today = new Date();
     today.setHours(0, 0, 0, 0);
-
-    // Today is unavailable once the last slot (8:00 PM) has passed.
-    if (
-      date.getTime() === today.getTime() &&
-      now.getHours() * 60 + now.getMinutes() >= 20 * 60
-    ) {
-      return true;
-    }
 
     return date < today;
   }
 
   const today = new Date();
-
-  const todayClosed =
-    today.getHours() * 60 + today.getMinutes() >= 20 * 60;
 
   const currentMonthIsToday =
     currentMonth.getFullYear() === today.getFullYear() &&
@@ -648,7 +562,6 @@ export function AppointmentForm() {
 
                     <button
                       type="button"
-                      disabled={todayClosed}
                       onClick={() => {
                         const today = new Date();
 
@@ -659,7 +572,7 @@ export function AppointmentForm() {
                         setCalendarOpen(false);
                         setValidationMessage("");
                       }}
-                      className="w-full mt-4 pt-3 border-t border-[#c9ac6a]/10 text-xs text-[#c9ac6a] hover:text-[#f4d98a] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                      className="w-full mt-4 pt-3 border-t border-[#c9ac6a]/10 text-xs text-[#c9ac6a] hover:text-[#f4d98a] transition-colors"
                     >
                       Today
                     </button>
@@ -728,7 +641,7 @@ export function AppointmentForm() {
                               e.currentTarget.scrollTop / 48,
                             );
                             const value = hours[index];
-                            if (value && !isHourDisabled(value))
+                            if (value)
                               updateSelectedTime(
                                 value,
                                 selectedMinute,
@@ -741,21 +654,17 @@ export function AppointmentForm() {
                             <button
                               key={hour}
                               type="button"
-                              disabled={isHourDisabled(hour)}
-                              onClick={() => {
-                                if (isHourDisabled(hour)) return;
+                              onClick={() =>
                                 updateSelectedTime(
                                   hour,
                                   selectedMinute,
                                   selectedPeriod,
-                                );
-                              }}
+                                )
+                              }
                               className={`flex h-12 w-full snap-center items-center justify-center rounded-xl text-sm sm:text-base transition-all duration-200 ${
-                                isHourDisabled(hour)
-                                  ? "cursor-not-allowed text-[#f7f2e9]/10"
-                                  : selectedHour === hour
-                                    ? "font-semibold text-[#c9ac6a]"
-                                    : "text-[#f7f2e9]/40 hover:text-[#f7f2e9]/70"
+                                selectedHour === hour
+                                  ? "font-semibold text-[#c9ac6a]"
+                                  : "text-[#f7f2e9]/40 hover:text-[#f7f2e9]/70"
                               }`}
                             >
                               {hour}
@@ -780,10 +689,7 @@ export function AppointmentForm() {
                               e.currentTarget.scrollTop / 48,
                             );
                             const value = minutes[index];
-                            if (
-                              value &&
-                              isSlotAvailable(selectedHour, value, selectedPeriod)
-                            )
+                            if (value)
                               updateSelectedTime(
                                 selectedHour,
                                 value,
@@ -793,18 +699,23 @@ export function AppointmentForm() {
                         >
                           <div className="h-14" />
                           {minutes.map((minute) => {
-                            const disabled = !isSlotAvailable(
-                              selectedHour,
-                              minute,
-                              selectedPeriod,
-                            );
+                            const disabled =
+                              selectedHour === "08" &&
+                              selectedPeriod === "PM" &&
+                              minute !== "00";
                             return (
                               <button
                                 key={minute}
                                 type="button"
                                 disabled={disabled}
                                 onClick={() => {
-                                  if (!disabled) {
+                                  if (
+                                    isTimeAllowed(
+                                      selectedHour,
+                                      minute,
+                                      selectedPeriod,
+                                    )
+                                  ) {
                                     updateSelectedTime(
                                       selectedHour,
                                       minute,
@@ -839,10 +750,7 @@ export function AppointmentForm() {
                               e.currentTarget.scrollTop / 48,
                             );
                             const value = periods[index];
-                            if (
-                              value &&
-                              isSlotAvailable(selectedHour, selectedMinute, value)
-                            )
+                            if (value)
                               updateSelectedTime(
                                 selectedHour,
                                 selectedMinute,
@@ -852,7 +760,7 @@ export function AppointmentForm() {
                         >
                           <div className="h-14" />
                           {periods.map((period) => {
-                            const disabled = !isSlotAvailable(
+                            const disabled = !isTimeAllowed(
                               selectedHour,
                               selectedMinute,
                               period,
@@ -863,7 +771,13 @@ export function AppointmentForm() {
                                 type="button"
                                 disabled={disabled}
                                 onClick={() => {
-                                  if (!disabled) {
+                                  if (
+                                    isTimeAllowed(
+                                      selectedHour,
+                                      selectedMinute,
+                                      period,
+                                    )
+                                  ) {
                                     updateSelectedTime(
                                       selectedHour,
                                       selectedMinute,
@@ -889,15 +803,13 @@ export function AppointmentForm() {
                     </div>
 
                     <div className="mt-4 text-center text-[11px] text-[#f7f2e9]/35">
-                      {hasAvailableSlot()
-                        ? "Clinic hours: 11:00 AM – 8:00 PM"
-                        : "No more slots available today. Please choose another date."}
+                      Clinic hours: 11:00 AM – 8:00 PM
                     </div>
 
                     <button
                       type="button"
                       disabled={
-                        !isSlotAvailable(
+                        !isTimeAllowed(
                           selectedHour,
                           selectedMinute,
                           selectedPeriod,
@@ -905,7 +817,7 @@ export function AppointmentForm() {
                       }
                       onClick={() => {
                         if (
-                          isSlotAvailable(
+                          isTimeAllowed(
                             selectedHour,
                             selectedMinute,
                             selectedPeriod,
