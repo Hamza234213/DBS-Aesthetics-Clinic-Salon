@@ -14,10 +14,6 @@ export function AppointmentForm() {
   // Session selection state
   const [sessionOption, setSessionOption] = useState<string>("Full Package");
 
-  // Selected clinic state
-  const [clinic, setClinic] = useState<string>("");
-  const [clinicOpen, setClinicOpen] = useState(false);
-
   // Preferred date state
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [calendarOpen, setCalendarOpen] = useState(false);
@@ -47,7 +43,6 @@ export function AppointmentForm() {
   const [submitError, setSubmitError] = useState("");
 
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const clinicContainerRef = useRef<HTMLDivElement | null>(null);
   const calendarContainerRef = useRef<HTMLDivElement | null>(null);
   const timeContainerRef = useRef<HTMLDivElement | null>(null);
 
@@ -90,13 +85,6 @@ export function AppointmentForm() {
 
       if (containerRef.current && !containerRef.current.contains(target)) {
         setOpen(false);
-      }
-
-      if (
-        clinicContainerRef.current &&
-        !clinicContainerRef.current.contains(target)
-      ) {
-        setClinicOpen(false);
       }
 
       if (
@@ -200,7 +188,6 @@ export function AppointmentForm() {
       setCalendarOpen(true);
       setTimeOpen(false);
       setOpen(false);
-      setClinicOpen(false);
       return;
     }
 
@@ -209,23 +196,12 @@ export function AppointmentForm() {
       setTimeOpen(true);
       setCalendarOpen(false);
       setOpen(false);
-      setClinicOpen(false);
       return;
     }
 
     if (!preferred) {
       setValidationMessage("Please select a preferred service.");
       setOpen(true);
-      setCalendarOpen(false);
-      setTimeOpen(false);
-      setClinicOpen(false);
-      return;
-    }
-
-    if (!clinic) {
-      setValidationMessage("Please select a clinic.");
-      setClinicOpen(true);
-      setOpen(false);
       setCalendarOpen(false);
       setTimeOpen(false);
       return;
@@ -238,19 +214,14 @@ export function AppointmentForm() {
     // Format date: YYYY-MM-DD
     const formattedDate = formatDateForForm(selectedDate);
 
-    // Slugify service and branch
+    // Slugify service
     const serviceId = preferred
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)/g, "");
 
-    // Map selected clinic to the correct database branch ID
-    let branchId = "BR-001";
-    if (clinic.includes("Saadi")) {
-      branchId = "BR-001";
-    } else if (clinic.includes("Badar")) {
-      branchId = "BR-002";
-    }
+    // Only one clinic remains
+    const branchId = "BR-001";
 
     try {
       const result = await submitAppointment({
@@ -472,7 +443,6 @@ export function AppointmentForm() {
                     setCalendarOpen((s) => !s);
                     setTimeOpen(false);
                     setOpen(false);
-                    setClinicOpen(false);
                     setValidationMessage("");
                   }}
                   className="w-full text-left rounded-full border border-[#c9ac6a]/20 bg-transparent px-4 py-3 text-[#c9ac6a] outline-none focus:border-[#c9ac6a] transition-all duration-300 flex items-center justify-between"
@@ -628,7 +598,6 @@ export function AppointmentForm() {
                     setTimeOpen((s) => !s);
                     setCalendarOpen(false);
                     setOpen(false);
-                    setClinicOpen(false);
                     setValidationMessage("");
                   }}
                   className="w-full text-left rounded-full border border-[#c9ac6a]/20 bg-transparent px-4 py-3 text-[#c9ac6a] outline-none focus:border-[#c9ac6a] transition-all duration-300 flex items-center justify-between"
@@ -888,7 +857,6 @@ export function AppointmentForm() {
                   setOpen((s) => !s);
                   setCalendarOpen(false);
                   setTimeOpen(false);
-                  setClinicOpen(false);
                   setValidationMessage("");
                 }}
                 className="w-full text-left rounded-full border border-[#c9ac6a]/20 bg-transparent px-4 py-3 text-[#c9ac6a] outline-none focus:border-[#c9ac6a] transition-all duration-300 flex items-center justify-between"
@@ -1051,46 +1019,46 @@ export function AppointmentForm() {
             </div>
           </div>
 
-{/* Session Preference Option */}
-<div className="block text-sm text-[#f7f2e9]/70">
-  <span className="mb-2 block font-medium text-[#f7f2e9]">
-    Session Preference
-  </span>
-  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-    {[
-      {
-        id: "Single Session",
-        label: "Book a Session",
-        desc: "Individual session",
-      },
-      {
-        id: "Consultation Only",
-        label: "Consultation Only",
-        desc: "Doctor evaluation",
-      },
-    ].map((opt) => (
-      <button
-        key={opt.id}
-        type="button"
-        onClick={() => {
-          setSessionOption(opt.id);
-          setValidationMessage("");
-        }}
-        className={`flex flex-col items-start rounded-2xl border p-3.5 text-left transition-all duration-300 ${
-          sessionOption === opt.id
-            ? "border-[#c9ac6a] bg-[#c9ac6a]/15 text-[#c9ac6a] shadow-[0_0_15px_rgba(201,172,106,0.15)]"
-            : "border-[#c9ac6a]/20 bg-transparent text-[#f7f2e9]/70 hover:border-[#c9ac6a]/50 hover:bg-[#c9ac6a]/5"
-        }`}
-      >
-        <span className="font-semibold text-sm">{opt.label}</span>
-        <span className="text-[11px] mt-0.5 text-[#c9ac6a]">
-          {opt.desc}
-        </span>
-      </button>
-    ))}
-  </div>
-  <input type="hidden" name="sessionType" value={sessionOption} />
-</div>
+          {/* Session Preference Option */}
+          <div className="block text-sm text-[#f7f2e9]/70">
+            <span className="mb-2 block font-medium text-[#f7f2e9]">
+              Session Preference
+            </span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {[
+                {
+                  id: "Single Session",
+                  label: "Book a Session",
+                  desc: "Individual session",
+                },
+                {
+                  id: "Consultation Only",
+                  label: "Consultation Only",
+                  desc: "Doctor evaluation",
+                },
+              ].map((opt) => (
+                <button
+                  key={opt.id}
+                  type="button"
+                  onClick={() => {
+                    setSessionOption(opt.id);
+                    setValidationMessage("");
+                  }}
+                  className={`flex flex-col items-start rounded-2xl border p-3.5 text-left transition-all duration-300 ${
+                    sessionOption === opt.id
+                      ? "border-[#c9ac6a] bg-[#c9ac6a]/15 text-[#c9ac6a] shadow-[0_0_15px_rgba(201,172,106,0.15)]"
+                      : "border-[#c9ac6a]/20 bg-transparent text-[#f7f2e9]/70 hover:border-[#c9ac6a]/50 hover:bg-[#c9ac6a]/5"
+                  }`}
+                >
+                  <span className="font-semibold text-sm">{opt.label}</span>
+                  <span className="text-[11px] mt-0.5 text-[#c9ac6a]">
+                    {opt.desc}
+                  </span>
+                </button>
+              ))}
+            </div>
+            <input type="hidden" name="sessionType" value={sessionOption} />
+          </div>
 
           {/* Hidden input so server/form can pick it up if needed */}
           <input type="hidden" name="preferredTreatment" value={preferred} />
